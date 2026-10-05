@@ -1,0 +1,37 @@
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+secrets/
+*.secret
+*.credentials
+
+# macOS and Windows
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build output, caches, and coverage
+.cache/
+coverage/
+dist/
+build/
+out/
+
+# Dependencies and Python artifacts
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
