@@ -1,10 +1,13 @@
 # Backlog
 
-1. Create repository structure and base docs
-2. Add GitHub Pages placeholder site
-3. Enable GitHub Pages deployment
-4. Document concept and product scope
-5. Define specification and implementation plan
-6. Prioritize actual feature work
-7. Build the first working version
-8. Add tests and deployment validation
+## Now
+1. Review and approve the current project documents, interactive map, and research claims before publishing.
+2. Put the approved local changes on a review branch and open a pull request.
+3. Merge the approved changes, then verify that GitHub Pages deploys the map successfully.
+4. Test keyboard interactions and check the live page on desktop and mobile.
+
+## Later
+- Choose a product or brand if a product-specific supplier trace is needed; the current map is representative and industry-level.
+- Add sourced links from vape products to named suppliers, facilities, and material origins where public evidence allows.
+- Agree on a more detailed evidence and confidence standard as the research grows.
+- Consider structured data or an editor only if manual updates become difficult.

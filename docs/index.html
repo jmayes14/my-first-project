@@ -5,60 +5,849 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Placeholder page for my-first-project. Coming soon."
+      content="Explore vape supply-chain stages, what public sources show, and where product-specific traceability is still unknown."
     />
-    <title>my-first-project</title>
+    <meta name="theme-color" content="#f4f2ec" />
+    <title>Vape Supply Chain | Trace the unknowns</title>
     <style>
       :root {
         color-scheme: light;
-        --bg: #f5f7fb;
-        --card: #ffffff;
-        --text: #111827;
-        --muted: #4b5563;
-        --border: #dbe3ef;
+        --ink: #202b29;
+        --muted: #596a64;
+        --page: #f4f2ec;
+        --panel: #ffffff;
+        --panel-raised: #edf3ee;
+        --line: #d6dfd9;
+        --lime: #216653;
+        --lime-ink: #ffffff;
+        --orange: #a34f20;
+        --blue: #247984;
+        --unknown-bg: #fff1e7;
+        --shadow: 0 1.5rem 4rem rgb(34 52 45 / 10%);
+        --radius: 1.15rem;
       }
 
       * {
         box-sizing: border-box;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background: var(--bg);
-        color: var(--text);
-        font-family: Arial, Helvetica, sans-serif;
-        line-height: 1.5;
+        background:
+          radial-gradient(ellipse at 82% 4%, rgb(33 102 83 / 8%), transparent 30rem),
+          var(--page);
+        color: var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.55;
+      }
+
+      button,
+      a {
+        font: inherit;
+      }
+
+      a {
+        color: var(--lime);
+        text-underline-offset: 0.18em;
+      }
+
+      a:hover {
+        color: #174c3f;
+      }
+
+      button:focus-visible,
+      a:focus-visible {
+        outline: 3px solid #c06a35;
+        outline-offset: 4px;
       }
 
       main {
-        width: min(92vw, 42rem);
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 1rem;
-        padding: 2rem 1.5rem;
-        box-shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
+        width: min(100% - 2rem, 76rem);
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      .topline,
+      .eyebrow,
+      .step-kicker {
+        color: var(--lime);
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .topline {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.5rem 0 2.75rem;
+      }
+
+      .topline a {
+        color: var(--muted);
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0;
+        text-transform: none;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.65fr);
+        align-items: end;
+        gap: 3rem;
+        padding-bottom: 3.5rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
       }
 
       h1 {
-        margin: 0 0 0.75rem;
-        font-size: clamp(2rem, 6vw, 3rem);
+        max-width: 13ch;
+        margin: 0.7rem 0 1rem;
+        font-size: clamp(3.2rem, 8vw, 7rem);
+        font-weight: 850;
+        letter-spacing: -0.075em;
+        line-height: 0.92;
+      }
+
+      h1 span {
+        color: var(--lime);
+      }
+
+      .hero-copy {
+        max-width: 43rem;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.25rem);
+      }
+
+      .hero-note {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+        padding: 1.3rem;
+        box-shadow: 0 0.8rem 2rem rgb(34 52 45 / 5%);
+      }
+
+      .hero-note strong {
+        display: block;
+        margin-bottom: 0.3rem;
+        color: #8d481f;
+        font-size: 0.82rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .hero-note p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.96rem;
+      }
+
+      .map-shell {
+        border: 1px solid var(--line);
+        border-radius: 1.5rem;
+        background: linear-gradient(145deg, #ffffff, #f8faf7);
+        padding: clamp(1rem, 3vw, 2rem);
+        box-shadow: var(--shadow);
+      }
+
+      .map-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .map-heading h2 {
+        margin: 0.3rem 0 0;
+        font-size: clamp(1.45rem, 3vw, 2rem);
+        letter-spacing: -0.045em;
+      }
+
+      .map-heading p {
+        max-width: 24rem;
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-align: right;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        margin: 0 0 1.5rem;
+      }
+
+      .filter {
+        min-height: 2.6rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        padding: 0.55rem 0.95rem;
+        transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+      }
+
+      .filter:hover {
+        border-color: var(--lime);
+        color: var(--ink);
+      }
+
+      .filter[aria-pressed="true"] {
+        border-color: var(--lime);
+        background: var(--lime);
+        color: var(--lime-ink);
+        font-weight: 750;
+      }
+
+      .chain {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.8rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .chain-item {
+        position: relative;
+        min-width: 0;
+      }
+
+      .chain-item:not(:last-child)::after {
+        position: absolute;
+        top: 2.15rem;
+        right: -0.83rem;
+        z-index: 2;
+        color: var(--lime);
+        content: "→";
+        font-size: 1.2rem;
+        font-weight: 800;
+      }
+
+      .stage-button {
+        display: flex;
+        width: 100%;
+        min-height: 11.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        background: #f6f8f5;
+        color: var(--ink);
+        cursor: pointer;
+        padding: 1rem;
+        text-align: left;
+        transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease, opacity 160ms ease;
+      }
+
+      .stage-button:hover {
+        transform: translateY(-3px);
+        border-color: var(--blue);
+      }
+
+      .stage-button[aria-pressed="true"] {
+        border-color: var(--lime);
+        background: #e8f2ec;
+        box-shadow: inset 0 0 0 1px var(--lime);
+      }
+
+      .stage-button.is-muted {
+        opacity: 0.42;
+      }
+
+      .stage-number {
+        display: grid;
+        width: 2rem;
+        height: 2rem;
+        place-items: center;
+        margin-bottom: auto;
+        border-radius: 50%;
+        background: var(--lime);
+        color: var(--lime-ink);
+        font-size: 0.83rem;
+        font-weight: 850;
+      }
+
+      .stage-name {
+        display: block;
+        margin-top: 1.2rem;
+        font-size: 1rem;
+        font-weight: 750;
         line-height: 1.2;
       }
 
-      p {
-        margin: 0;
+      .stage-state {
+        display: block;
+        margin-top: 0.5rem;
+        color: #8d481f;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .detail {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: 2rem;
+        margin-top: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 1rem;
+        background: var(--panel);
+        padding: clamp(1.25rem, 3vw, 2rem);
+        box-shadow: 0 0.8rem 2rem rgb(34 52 45 / 5%);
+      }
+
+      .detail h3 {
+        margin: 0.45rem 0 0.65rem;
+        font-size: clamp(1.5rem, 3vw, 2.1rem);
+        letter-spacing: -0.05em;
+        line-height: 1.05;
+      }
+
+      .detail-summary,
+      .detail-evidence,
+      .detail-unknown {
         color: var(--muted);
-        font-size: 1rem;
+      }
+
+      .detail-summary {
+        margin-bottom: 1rem;
+      }
+
+      .detail-evidence,
+      .detail-unknown {
+        margin-bottom: 0.75rem;
+        border-left: 4px solid var(--blue);
+        border-radius: 0 0.7rem 0.7rem 0;
+        background: #eaf4f3;
+        padding: 0.85rem 1rem;
+      }
+
+      .detail-evidence::before,
+      .detail-unknown::before {
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--blue);
+        content: "What the evidence says";
+        font-size: 0.73rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .detail-unknown {
+        border-color: var(--orange);
+        background: var(--unknown-bg);
+      }
+
+      .detail-unknown::before {
+        color: #8d481f;
+        content: "Still unknown";
+      }
+
+      .detail strong {
+        color: var(--ink);
+      }
+
+      .detail-sources {
+        padding-left: 1.15rem;
+      }
+
+      .detail-sources li + li {
+        margin-top: 0.45rem;
+      }
+
+      .detail-sources a {
+        font-size: 0.93rem;
+        font-weight: 650;
+      }
+
+      .detail-sources small {
+        display: block;
+        color: var(--muted);
+        font-size: 0.83rem;
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem 1.5rem;
+        margin-top: 1.3rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .legend span::before {
+        display: inline-block;
+        width: 0.65rem;
+        height: 0.65rem;
+        margin-right: 0.45rem;
+        border-radius: 50%;
+        background: var(--blue);
+        content: "";
+      }
+
+      .legend span:last-child::before {
+        background: var(--orange);
+      }
+
+      .lower {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .note-card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+        padding: 1.3rem;
+        box-shadow: 0 0.8rem 2rem rgb(34 52 45 / 4%);
+      }
+
+      .note-card h2 {
+        margin-bottom: 0.6rem;
+        font-size: 1.05rem;
+      }
+
+      .note-card p,
+      .note-card ul {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .note-card:first-child {
+        border-top: 3px solid var(--lime);
+      }
+
+      .note-card:last-child {
+        border-top: 3px solid var(--orange);
+      }
+
+      .eyebrow,
+      .step-kicker {
+        color: var(--lime);
+      }
+
+      .note-card ul {
+        padding-left: 1.1rem;
+      }
+
+      .note-card li + li {
+        margin-top: 0.35rem;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 2rem;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        clip-path: inset(50%);
+      }
+
+      @media (max-width: 760px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+          padding-bottom: 2rem;
+        }
+
+        .hero-note {
+          max-width: 36rem;
+        }
+
+        .chain {
+          grid-template-columns: 1fr;
+          gap: 0.65rem;
+        }
+
+        .chain-item:not(:last-child)::after {
+          top: auto;
+          right: 1.4rem;
+          bottom: -0.82rem;
+          content: "↓";
+        }
+
+        .stage-button {
+          min-height: 6.2rem;
+          flex-direction: row;
+          align-items: center;
+          gap: 0.9rem;
+        }
+
+        .stage-number {
+          flex: 0 0 auto;
+          margin: 0;
+        }
+
+        .stage-labels {
+          flex: 1;
+        }
+
+        .stage-name {
+          margin: 0;
+        }
+
+        .stage-state {
+          margin-top: 0.25rem;
+        }
+
+        .detail {
+          grid-template-columns: 1fr;
+          gap: 1.3rem;
+        }
+
+        .map-heading {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .map-heading p {
+          text-align: left;
+        }
+      }
+
+      @media (max-width: 520px) {
+        main {
+          width: min(100% - 1.2rem, 76rem);
+          padding-top: 1rem;
+        }
+
+        .topline {
+          padding-bottom: 2rem;
+        }
+
+        .topline a {
+          max-width: 9rem;
+          text-align: right;
+        }
+
+        h1 {
+          font-size: clamp(3.2rem, 17vw, 5rem);
+        }
+
+        .map-shell {
+          border-radius: 1rem;
+          padding: 0.9rem;
+        }
+
+        .filters {
+          gap: 0.4rem;
+        }
+
+        .filter {
+          min-height: 2.35rem;
+          padding: 0.45rem 0.72rem;
+          font-size: 0.85rem;
+        }
+
+        .lower {
+          grid-template-columns: 1fr;
+        }
+
+        footer {
+          flex-direction: column;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
       }
     </style>
   </head>
   <body>
     <main>
-      <h1>my-first-project</h1>
-      <p>Coming soon.</p>
+      <nav class="topline" aria-label="Project navigation">
+        <span>Field notes / 01</span>
+        <a href="#sources">Jump to sources and limits ↓</a>
+      </nav>
+
+      <header class="hero">
+        <div>
+          <p class="eyebrow">A supply chain, under the surface</p>
+          <h1>Trace the <span>unknowns.</span></h1>
+          <p class="hero-copy">
+            Follow the parts and ingredients that make a vape. Explore what
+            public evidence tells us—and where the trail currently stops.
+          </p>
+        </div>
+        <aside class="hero-note">
+          <strong>Research snapshot · October 2026</strong>
+          <p>
+            This is a representative map, not a verified trace of one brand.
+            Select a stage or topic below to explore the evidence.
+          </p>
+        </aside>
+      </header>
+
+      <section class="map-shell" aria-labelledby="map-title">
+        <div class="map-heading">
+          <div>
+            <p class="eyebrow">Interactive map</p>
+            <h2 id="map-title">From material to market</h2>
+          </div>
+          <p>Choose a topic to highlight the route, then select a stage for its evidence.</p>
+        </div>
+
+        <div class="filters" role="group" aria-label="Filter supply-chain map">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">All stages</button>
+          <button class="filter" type="button" data-filter="hardware" aria-pressed="false">Device &amp; battery</button>
+          <button class="filter" type="button" data-filter="liquid" aria-pressed="false">E-liquid</button>
+          <button class="filter" type="button" data-filter="labor" aria-pressed="false">Labor &amp; sourcing</button>
+        </div>
+
+        <ol class="chain" aria-label="Vape supply-chain stages">
+          <li class="chain-item">
+            <button class="stage-button" type="button" data-stage="materials" data-tags="hardware liquid labor" aria-pressed="true">
+              <span class="stage-number">01</span>
+              <span class="stage-labels">
+                <span class="stage-name">Materials</span>
+                <span class="stage-state">Industry context</span>
+              </span>
+            </button>
+          </li>
+          <li class="chain-item">
+            <button class="stage-button" type="button" data-stage="components" data-tags="hardware labor" aria-pressed="false">
+              <span class="stage-number">02</span>
+              <span class="stage-labels">
+                <span class="stage-name">Components</span>
+                <span class="stage-state">Supplier unknown</span>
+              </span>
+            </button>
+          </li>
+          <li class="chain-item">
+            <button class="stage-button" type="button" data-stage="assembly" data-tags="hardware liquid labor" aria-pressed="false">
+              <span class="stage-number">03</span>
+              <span class="stage-labels">
+                <span class="stage-name">Liquid &amp; assembly</span>
+                <span class="stage-state">Facility unknown</span>
+              </span>
+            </button>
+          </li>
+          <li class="chain-item">
+            <button class="stage-button" type="button" data-stage="distribution" data-tags="hardware liquid" aria-pressed="false">
+              <span class="stage-number">04</span>
+              <span class="stage-labels">
+                <span class="stage-name">Distribution</span>
+                <span class="stage-state">Route unknown</span>
+              </span>
+            </button>
+          </li>
+        </ol>
+
+        <section class="detail" id="stage-detail" aria-live="polite" aria-atomic="true" aria-labelledby="detail-title">
+          <div>
+            <p class="step-kicker" id="detail-kicker">Stage 01 / industry context</p>
+            <h3 id="detail-title">Materials</h3>
+            <p class="detail-summary" id="detail-summary"></p>
+          </div>
+          <div>
+            <p class="detail-evidence" id="detail-evidence"></p>
+            <p class="detail-unknown" id="detail-unknown"></p>
+            <h4>Sources</h4>
+            <ul class="detail-sources" id="detail-sources"></ul>
+          </div>
+        </section>
+
+        <div class="legend" aria-label="Map legend">
+          <span>Public source gives general context</span>
+          <span>Product-specific link not established</span>
+        </div>
+      </section>
+
+      <section class="lower" id="sources" aria-label="Research notes">
+        <article class="note-card">
+          <h2>What this map can—and can’t—say</h2>
+          <p>
+            The cited sources describe device parts, global mineral markets,
+            and labor concerns in a farming sector. They do not identify a
+            mine, farm, component maker, or factory supplying a named vape.
+            Industry risk is not proof about an individual product.
+          </p>
+        </article>
+        <article class="note-card">
+          <h2>How to read the trail</h2>
+          <ul>
+            <li>“Unknown” means this project has not established the link.</li>
+            <li>A country-level risk is a research lead, not a product finding.</li>
+            <li>Open the sources to check what each one actually supports.</li>
+          </ul>
+        </article>
+      </section>
+
+      <footer>
+        <span>Research snapshot: October 2026</span>
+        <span>Built to show uncertainty, not hide it.</span>
+      </footer>
     </main>
+
+    <script>
+      const sources = {
+        cdc: {
+          label: "CDC · E-cigarettes (vapes)",
+          url: "https://www.cdc.gov/tobacco/e-cigarettes/about.html",
+          note: "Common device parts and product types",
+        },
+        usgs: {
+          label: "USGS · Mineral Commodity Summaries 2025: Cobalt",
+          url: "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-cobalt.pdf",
+          note: "Global cobalt mining and use context",
+        },
+        dol: {
+          label: "U.S. Department of Labor · Malawi child-labor report",
+          url: "https://www.dol.gov/agencies/ilab/resources/reports/child-labor/malawi",
+          note: "Reports forced labor in tobacco farming in Malawi",
+        },
+      };
+
+      const stages = {
+        materials: {
+          number: "01",
+          title: "Materials",
+          state: "Industry context",
+          summary:
+            "A vape typically has a battery, heating element, and a place to hold liquid. Exact materials vary by device; this map does not assume every battery uses the same chemistry.",
+          evidence:
+            "USGS reports that cobalt is mainly used globally in rechargeable battery electrodes and estimates the DRC produced 76% of mined cobalt in 2024. This is mineral-market context—not evidence that vape batteries contain DRC cobalt.",
+          unknown:
+            "Unknown: the material composition and mine-to-battery path for any named vape product.",
+          sources: ["cdc", "usgs"],
+        },
+        components: {
+          number: "02",
+          title: "Components",
+          state: "Supplier unknown",
+          summary:
+            "Battery cells, heating elements, electronics, and housings are made into device components. Product-specific supplier and factory records have not yet been established here.",
+          evidence:
+            "CDC describes batteries and heating elements as common e-cigarette parts. That confirms the component categories, not where or by whom they are manufactured.",
+          unknown:
+            "Unknown: named component manufacturers, production locations, and their upstream material suppliers.",
+          sources: ["cdc"],
+        },
+        assembly: {
+          number: "03",
+          title: "Liquid & assembly",
+          state: "Facility unknown",
+          summary:
+            "Devices may be disposable, refillable, or use prefilled pods. E-liquid preparation, device assembly, filling, and packaging locations depend on the product.",
+          evidence:
+            "The U.S. Department of Labor reports forced labor in tobacco farming in Malawi. This is relevant context for investigating tobacco-derived nicotine, but no source here links Malawi tobacco to a vape product.",
+          unknown:
+            "Unknown: a product's ingredient origins, nicotine source, assembly facility, and working conditions.",
+          sources: ["cdc", "dol"],
+        },
+        distribution: {
+          number: "04",
+          title: "Distribution",
+          state: "Route unknown",
+          summary:
+            "Finished devices move through importers, distributors, and retailers. The route is specific to the product and market.",
+          evidence:
+            "The current sources do not establish a product-specific distribution path or identify upstream suppliers from sales information.",
+          unknown:
+            "Unknown: named importers, distributors, retail route, and the records connecting them to production sites.",
+          sources: [],
+        },
+      };
+
+      const stageButtons = [...document.querySelectorAll(".stage-button")];
+      const filterButtons = [...document.querySelectorAll(".filter")];
+      const detail = {
+        kicker: document.querySelector("#detail-kicker"),
+        title: document.querySelector("#detail-title"),
+        summary: document.querySelector("#detail-summary"),
+        evidence: document.querySelector("#detail-evidence"),
+        unknown: document.querySelector("#detail-unknown"),
+        sources: document.querySelector("#detail-sources"),
+      };
+
+      function renderStage(key) {
+        const stage = stages[key];
+        stageButtons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.stage === key));
+        });
+        detail.kicker.textContent = `Stage ${stage.number} / ${stage.state.toLowerCase()}`;
+        detail.title.textContent = stage.title;
+        detail.summary.textContent = stage.summary;
+        detail.evidence.textContent = stage.evidence;
+        detail.unknown.textContent = stage.unknown;
+        detail.sources.replaceChildren();
+
+        stage.sources.forEach((sourceKey) => {
+          const source = sources[sourceKey];
+          const item = document.createElement("li");
+          const link = document.createElement("a");
+          const note = document.createElement("small");
+          link.href = source.url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = source.label;
+          note.textContent = source.note;
+          item.append(link, note);
+          detail.sources.append(item);
+        });
+
+        if (stage.sources.length === 0) {
+          const item = document.createElement("li");
+          item.textContent = "No product-specific source has been identified yet.";
+          detail.sources.append(item);
+        }
+      }
+
+      function applyFilter(filter) {
+        filterButtons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.filter === filter));
+        });
+        stageButtons.forEach((button) => {
+          const matches = filter === "all" || button.dataset.tags.split(" ").includes(filter);
+          button.classList.toggle("is-muted", !matches);
+        });
+      }
+
+      stageButtons.forEach((button) => {
+        button.addEventListener("click", () => renderStage(button.dataset.stage));
+      });
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => applyFilter(button.dataset.filter));
+      });
+
+      renderStage("materials");
+    </script>
   </body>
 </html>
