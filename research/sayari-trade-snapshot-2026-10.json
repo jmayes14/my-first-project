@@ -1,0 +1,104 @@
+{
+  "title": "Sayari trade-record snapshot: vape imports into the United States",
+  "retrieved": "2026-10-26",
+  "source": {
+    "name": "Sayari Graph (via the Sayari MCP server)",
+    "access": "Subscription. Entity links require a Sayari login.",
+    "underlying_datasets": [
+      "USA Imports (2021 - Present)",
+      "Indonesia Imports & Exports (January 2019 - Present)",
+      "UK Imports & Exports (January 2023 - Present)",
+      "South Korea Imports & Exports (January 2023 - Present)"
+    ]
+  },
+  "caveats": [
+    "Trade records name the shipper and receiver declared on customs paperwork. They do not prove which factory physically made a product.",
+    "Sayari resolves names across datasets. A record's shipper can be a related or mis-matched entity; check identifiers and addresses before relying on a match.",
+    "Sayari risk flags are screening signals derived from product, country, and network data. They are not findings of labor abuse by the named company.",
+    "Searching by HS code 854340 alone returned many unrelated companies (fencing, bamboo, metal products) with 2020-dated records. Product-description searches were more reliable."
+  ],
+  "corridor_overview": {
+    "query": "Shipments described as 'electronic cigarette' under HS 854340, 2024-01-01 onward",
+    "note": "Facet counts over Sayari's indexed records, not total world trade.",
+    "top_departure_countries": [
+      { "country": "CHN", "records": 21024 },
+      { "country": "MYS", "records": 9947 },
+      { "country": "IDN", "records": 8966 },
+      { "country": "USA", "records": 6398 },
+      { "country": "VNM", "records": 4684 }
+    ],
+    "top_product_origins": [
+      { "country": "CHN", "records": 19971 },
+      { "country": "USA", "records": 3564 },
+      { "country": "ZAF", "records": 3402 },
+      { "country": "VNM", "records": 2919 }
+    ]
+  },
+  "product_traces": [
+    {
+      "product": "Vuse Alto pods and all-in-one devices",
+      "brand_owner_note": "Vuse is marketed in the U.S. by R.J. Reynolds Vapor Company.",
+      "records": 17,
+      "arrival_window": "2026-08-25 to 2026-09-22",
+      "departure_countries": ["CHN", "MYS"],
+      "arrival_country": "USA",
+      "example_description": "VAPOR FOR E-CIGARETTES (NON, DG) ... VUSE ALTO POD MENTHOL 5.0 ESG",
+      "shipper": {
+        "name": "PT Smoore Technology Indonesia",
+        "entity_id": "Z-wSPHSzIdQEeXcfElj_OA",
+        "url": "https://graph.sayari.com/resource/entity/Z-wSPHSzIdQEeXcfElj_OA",
+        "country": "IDN",
+        "address": "Jl. Perusahaan No. 46, Banjararum, Singosari, Kabupaten Malang, Jawa Timur, Indonesia",
+        "identifiers": { "idn_tax_id": "0427456801657000" },
+        "sayari_risk_flags": [
+          "exports_ilab_forced_labor",
+          "exports_ilab_child_labor",
+          "forced_labor_xinjiang_origin_subtier",
+          "forced_labor_xinjiang_origin_subtier_product_blueprint"
+        ]
+      },
+      "receiver": {
+        "name": "R.J. Reynolds Vapor Company",
+        "entity_id": "5r0hXWEDgABJkVPRhpHbPg",
+        "url": "https://graph.sayari.com/resource/entity/5r0hXWEDgABJkVPRhpHbPg",
+        "country": "USA",
+        "address": "200 Forum Parkway, Rural Hall, NC 27045",
+        "sayari_risk_flags": ["forced_labor_xinjiang_origin_subtier"]
+      },
+      "open_questions": [
+        "The shipper is registered in Indonesia, but these records depart from China and Malaysia. Which facility made the goods?",
+        "Who supplies the battery cells, coils, and e-liquid used in these devices?"
+      ]
+    },
+    {
+      "product": "Vuse One disposable vapes",
+      "records": 1,
+      "arrival_date": "2025-10-17",
+      "departure_country": "CHN",
+      "arrival_country": "USA",
+      "example_description": "DISPOSABLE VAPES ... VUSE ONE DSP RASPBERRY CHILL",
+      "shipper": {
+        "name": "Dongguan Hongyi Manufacturing Co.",
+        "entity_id": "uZJsDvxo7d8FC5-jhK4WFA",
+        "url": "https://graph.sayari.com/resource/entity/uZJsDvxo7d8FC5-jhK4WFA",
+        "country": "CHN",
+        "address": "Unit 401, Building 8, No. 129 Jinghai West Rd, Chang'an Town, Dongguan, Guangdong",
+        "sayari_risk_flags": ["exports_ilab_forced_labor", "exports_ilab_child_labor"]
+      },
+      "receiver": {
+        "name": "Reynolds Asia-Pacific Limited",
+        "entity_id": "qivo8GuIDTIwl8oWftnr5w",
+        "url": "https://graph.sayari.com/resource/entity/qivo8GuIDTIwl8oWftnr5w",
+        "countries": ["HKG", "USA"],
+        "address": "2901 Shorefair Dr., Bldg. 631, Winston-Salem, NC 27105",
+        "sayari_risk_flags": ["forced_labor_xinjiang_origin_subtier_product_blueprint"]
+      }
+    }
+  ],
+  "risk_flag_definitions": {
+    "exports_ilab_forced_labor": "Exported a shipment whose HS code and country of origin appear on the U.S. Department of Labor List of Goods Produced by Child Labor or Forced Labor.",
+    "exports_ilab_child_labor": "Same as above, for the child-labor list.",
+    "forced_labor_xinjiang_origin_subtier": "Shipment records suggest a third party possibly based in Xinjiang appears in tier 2 or 3 of the entity's supplier network (last 730 days).",
+    "forced_labor_xinjiang_origin_subtier_product_blueprint": "As above, limited to goods Sayari's Product Blueprint method judges relevant to the entity's products (tiers 2-4)."
+  }
+}

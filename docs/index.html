@@ -609,8 +609,8 @@
         <aside class="hero-note">
           <strong>Research snapshot · October 2026</strong>
           <p>
-            This is a representative map, not a verified trace of one brand.
-            Select a stage or topic below to explore the evidence.
+            A representative map, now with trade records that follow one brand,
+            Vuse, from named shippers to a U.S. importer. Select a stage below.
           </p>
         </aside>
       </header>
@@ -655,7 +655,7 @@
               <span class="stage-number">03</span>
               <span class="stage-labels">
                 <span class="stage-name">Liquid &amp; assembly</span>
-                <span class="stage-state">Facility unknown</span>
+                <span class="stage-state">Shipper named</span>
               </span>
             </button>
           </li>
@@ -664,7 +664,7 @@
               <span class="stage-number">04</span>
               <span class="stage-labels">
                 <span class="stage-name">Distribution</span>
-                <span class="stage-state">Route unknown</span>
+                <span class="stage-state">Importer named</span>
               </span>
             </button>
           </li>
@@ -694,9 +694,10 @@
         <article class="note-card">
           <h2>What this map can—and can’t—say</h2>
           <p>
-            The cited sources describe device parts, global mineral markets,
-            and labor concerns in a farming sector. They do not identify a
-            mine, farm, component maker, or factory supplying a named vape.
+            The public sources describe device parts, mineral markets, and
+            farm labor. Sayari trade records name who shipped and received
+            Vuse products, but customs paperwork does not prove which factory
+            made them, and Sayari risk flags are screening leads, not findings.
             Industry risk is not proof about an individual product.
           </p>
         </article>
@@ -733,6 +734,26 @@
           url: "https://www.dol.gov/agencies/ilab/resources/reports/child-labor/malawi",
           note: "Reports forced labor in tobacco farming in Malawi",
         },
+        sayariSmoore: {
+          label: "Sayari · PT Smoore Technology Indonesia",
+          url: "https://graph.sayari.com/resource/entity/Z-wSPHSzIdQEeXcfElj_OA",
+          note: "Trade records and risk flags · Sayari login required · retrieved Oct 2026",
+        },
+        sayariRjr: {
+          label: "Sayari · R.J. Reynolds Vapor Company",
+          url: "https://graph.sayari.com/resource/entity/5r0hXWEDgABJkVPRhpHbPg",
+          note: "U.S. import records · Sayari login required · retrieved Oct 2026",
+        },
+        sayariHongyi: {
+          label: "Sayari · Dongguan Hongyi Manufacturing Co.",
+          url: "https://graph.sayari.com/resource/entity/uZJsDvxo7d8FC5-jhK4WFA",
+          note: "U.S. import record for Vuse One disposables · Sayari login required",
+        },
+        snapshot: {
+          label: "Project data · Sayari trade-record snapshot (JSON)",
+          url: "https://github.com/jmayes14/my-first-project/blob/main/research/sayari-trade-snapshot-2026-10.json",
+          note: "Records, identifiers, risk-flag definitions, and caveats",
+        },
       };
 
       const stages = {
@@ -755,34 +776,34 @@
           summary:
             "Battery cells, heating elements, electronics, and housings are made into device components. Product-specific supplier and factory records have not yet been established here.",
           evidence:
-            "CDC describes batteries and heating elements as common e-cigarette parts. That confirms the component categories, not where or by whom they are manufactured.",
+            "CDC describes batteries and heating elements as common e-cigarette parts. In Sayari, the Vuse Alto shipper PT Smoore Technology Indonesia carries a screening flag: shipment records suggest a possibly Xinjiang-based company sits two or three tiers back in its supplier network. That is a research lead, not a finding about any component.",
           unknown:
-            "Unknown: named component manufacturers, production locations, and their upstream material suppliers.",
-          sources: ["cdc"],
+            "Unknown: who makes the battery cells, coils, and housings in Vuse devices, what that sub-tier company supplied, and whether it reached these products.",
+          sources: ["cdc", "sayariSmoore", "snapshot"],
         },
         assembly: {
           number: "03",
           title: "Liquid & assembly",
-          state: "Facility unknown",
+          state: "Shipper named",
           summary:
             "Devices may be disposable, refillable, or use prefilled pods. E-liquid preparation, device assembly, filling, and packaging locations depend on the product.",
           evidence:
-            "The U.S. Department of Labor reports forced labor in tobacco farming in Malawi. This is relevant context for investigating tobacco-derived nicotine, but no source here links Malawi tobacco to a vape product.",
+            "U.S. import records in Sayari name PT Smoore Technology Indonesia as the shipper of 17 Vuse Alto pod and device shipments (Aug–Sep 2026), and Dongguan Hongyi Manufacturing in China as the shipper of Vuse One disposables (Oct 2025). Separately, the U.S. Department of Labor reports forced labor in Malawi tobacco farming; no source here links that tobacco to these products.",
           unknown:
-            "Unknown: a product's ingredient origins, nicotine source, assembly facility, and working conditions.",
-          sources: ["cdc", "dol"],
+            "Unknown: the factory that physically assembled the goods (the Smoore shipments departed China and Malaysia, not Indonesia), the nicotine source, and working conditions.",
+          sources: ["sayariSmoore", "sayariHongyi", "dol", "snapshot"],
         },
         distribution: {
           number: "04",
           title: "Distribution",
-          state: "Route unknown",
+          state: "Importer named",
           summary:
             "Finished devices move through importers, distributors, and retailers. The route is specific to the product and market.",
           evidence:
-            "The current sources do not establish a product-specific distribution path or identify upstream suppliers from sales information.",
+            "The Vuse Alto shipments arrived in the U.S. consigned to R.J. Reynolds Vapor Company (Rural Hall, NC). Across Sayari’s 2024–2026 e-cigarette shipment records, China is the most common departure country, followed by Malaysia and Indonesia.",
           unknown:
-            "Unknown: named importers, distributors, retail route, and the records connecting them to production sites.",
-          sources: [],
+            "Unknown: the U.S. distributors and retailers after import, and how the records for other brands compare.",
+          sources: ["sayariRjr", "snapshot"],
         },
       };
 

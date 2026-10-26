@@ -8,6 +8,7 @@
 
 ## Later
 - Choose a product or brand if a product-specific supplier trace is needed; the current map is representative and industry-level.
-- Add sourced links from vape products to named suppliers, facilities, and material origins where public evidence allows.
+- Extend the Vuse trace upstream: identify battery-cell, coil, and e-liquid suppliers, and which facility made the goods shipped by PT Smoore Technology Indonesia from China and Malaysia.
+- Add sourced links from other vape products to named suppliers, facilities, and material origins where evidence allows.
 - Agree on a more detailed evidence and confidence standard as the research grows.
 - Consider structured data or an editor only if manual updates become difficult.

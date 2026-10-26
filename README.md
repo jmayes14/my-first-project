@@ -8,9 +8,16 @@ stage to inspect public evidence, source links, and unknowns.
 ## Current status
 
 The map includes sourced industry-level context on vape device components,
-cobalt mining, and tobacco-farming labor risks. It does not yet trace any of
-those materials or risks to a specific vape product or supplier. An
-information gap must not be read as evidence that a risk is absent.
+cobalt mining, and tobacco-farming labor risks. It also includes a first
+product-level trace from Sayari trade records: U.S. import records that name
+the shippers of Vuse products (PT Smoore Technology Indonesia and Dongguan
+Hongyi Manufacturing) and the U.S. importer (R.J. Reynolds Vapor Company).
+Shipping records do not prove which factory made a product, and Sayari risk
+flags are screening leads, not findings. An information gap must not be read
+as evidence that a risk is absent.
+
+The underlying records, identifiers, and caveats are in
+[research/sayari-trade-snapshot-2026-10.json](./research/sayari-trade-snapshot-2026-10.json).
 
 ## Project files
 
