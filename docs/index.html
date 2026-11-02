@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="A spinning globe that helps inventors find suppliers near them and trace those suppliers back to the mine.">
+<meta name="description" content="A spinning globe that helps inventors find lithium-ion battery suppliers and trace them back toward the mine, with sources and known gaps.">
 <title>Inventor Sourcing Map</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
@@ -116,11 +116,9 @@
   .facts { grid-column: 2; display: grid; grid-template-columns: repeat(3, auto) minmax(0, 1fr); gap: 2px 12px; margin-top: 3px; font: 13px var(--mono); font-variant-numeric: tabular-nums; }
   .facts span { white-space: nowrap; }
   .facts small { display: block; font: 11px var(--sans); color: var(--muted); }
-  .blocked { grid-column: 2; font-size: 13px; color: var(--unknown); margin-top: 3px; }
-  .row.dim .name, .row.dim .facts { opacity: 0.6; }
   .trace { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px; min-width: 0; }
   .trace > p { margin: 3px 0 0; color: var(--muted); font-size: 14px; max-width: 80ch; }
-  .steps { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(165px, 1fr); gap: 10px; overflow-x: auto; margin-top: 12px; padding-bottom: 4px; }
+  .steps { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(200px, 1fr); gap: 10px; overflow-x: auto; margin-top: 12px; padding-bottom: 4px; }
   .step h3 { font-size: 12px; margin: 0 0 6px; padding-bottom: 4px; border-bottom: 3px solid var(--line); letter-spacing: 0.02em; }
   .step { display: grid; align-content: start; gap: 6px; }
   .node { font-size: 13px; padding: 7px 8px; background: var(--bg); border-radius: 5px; }
@@ -129,6 +127,15 @@
   .ev { display: block; margin-top: 4px; font: 500 12px var(--sans); }
   .ev.confirmed { color: var(--confirmed); } .ev.likely { color: var(--likely); } .ev.unknown { color: var(--unknown); }
   .linkbtn { display: inline; font: inherit; color: var(--accent); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+  .srcs { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); }
+  .srcs a, .notes a { color: var(--accent); }
+  .evnote { display: block; margin-top: 3px; color: var(--muted); }
+  .trace > .trail { color: var(--ink); margin-top: 10px; }
+  .notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .notes article { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px; min-width: 0; font-size: 14px; }
+  .notes p { margin: 8px 0 0; }
+  .notes ul { margin: 8px 0 0; padding-left: 18px; }
+  .source-list { font-size: 13px; }
   .buyers { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 8px; }
   .key { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 8px; font-size: 13px; color: var(--muted); }
   footer { color: var(--muted); font-size: 13px; max-width: 90ch; }
@@ -136,6 +143,7 @@
   @media (max-width: 960px) {
     .workspace { grid-template-columns: minmax(0, 1fr); }
     .list { max-height: none; }
+    .notes { grid-template-columns: minmax(0, 1fr); }
     .steps { grid-auto-flow: row; grid-auto-columns: auto; overflow-x: visible; }
   }
 </style>
@@ -145,22 +153,20 @@
 <div class="wrap">
   <div>
     <h1>Inventor Sourcing Map</h1>
-    <p class="lede">Tell it where you are and how many you need. It shows who can supply you, then traces that supplier back to the mine.</p>
+    <p class="lede">Tell it where you are and what matters most. It shows who you could approach, then traces each supplier back toward the mine.</p>
   </div>
-  <div class="sample"><strong>Prototype with made-up suppliers.</strong> Every company name, price, time, and supply link here is an example. Don't use them for real sourcing. The places are real regions.</div>
+  <div class="sample"><strong>Research snapshot, November 2026.</strong> These are real companies from public sources and trade records, starting with lithium-ion batteries. Being listed is not an endorsement. Confirm prices, minimum orders, and shipping with each company.</div>
 
   <div class="controls">
     <div class="field"><label for="country">I'm in</label><select id="country"></select></div>
-    <div class="field"><label for="qty">How many I need</label>
-      <select id="qty"><option value="1">1 (prototype)</option><option value="10">10</option><option value="100" selected>100</option><option value="1000">1,000</option></select></div>
     <div class="field"><label for="sort">What matters most</label>
-      <select id="sort"><option value="balanced">Best overall</option><option value="cost">Lowest cost</option><option value="days">Fastest delivery</option><option value="trace">Best traceability</option></select></div>
+      <select id="sort"><option value="trace">Best traceability</option><option value="small">Small orders</option><option value="closest">Closest to me</option></select></div>
   </div>
 
   <div class="workspace">
     <div>
       <div class="mapbox">
-        <svg id="map" viewBox="0 0 880 620" role="img" aria-label="Spinning globe of sample mines, refiners, cell makers, pack assemblers, and distributors"></svg>
+        <svg id="map" viewBox="0 0 880 620" role="img" aria-label="Spinning globe of mines, refiners, cell makers, pack assemblers, and distributors"></svg>
         <div class="searchbox">
           <input id="search" type="search" list="search-ideas" placeholder="Search, like cobalt or battery pack" aria-label="Search for a material, part, company, or place" autocomplete="off">
           <datalist id="search-ideas"><option value="Battery pack"></option><option value="Battery cells"></option><option value="Lithium"></option><option value="Cobalt"></option></datalist>
@@ -170,7 +176,7 @@
       </div>
       <div class="below">
         <div class="legend" id="legend" aria-label="The five supply chain steps, in order"></div>
-        <div class="key"><span><b>➤ Moving arrow:</b> confirmed link</span><span><b>Flashing line:</b> likely link</span><span><b>Dotted line, ➤ then ✓:</b> delivery to you</span></div>
+        <div class="key"><span><b>➤ Moving arrow:</b> confirmed link</span><span><b>Flashing line:</b> likely link</span><span><b>Dotted line, ➤ then ✓:</b> possible route to you</span></div>
         <div class="hint">Click a supplier to see its supply chain. Scroll or pinch over the globe to zoom in on any spot. Click a country to set your location.</div>
       </div>
     </div>
@@ -181,7 +187,27 @@
   </div>
 
   <section class="trace" id="trace" aria-live="polite"></section>
-  <footer>Delivered cost and delivery time use a simple distance estimate. Import taxes and battery shipping rules aren't included yet.</footer>
+  <section class="notes" id="sources" aria-label="Research notes">
+    <article>
+      <h2>What this map can and can't say</h2>
+      <p>A link shows evidence that two organizations are connected. It does not prove what is inside a particular battery, and a shipping record does not prove which factory made a product.</p>
+      <p>The trail usually stops early. Companies rarely publish who supplies them, and no chain here yet runs from a mine all the way to a supplier that clearly serves small orders.</p>
+    </article>
+    <article>
+      <h2>How to read the trail</h2>
+      <ul>
+        <li><b>Confirmed:</b> a named source states this link.</li>
+        <li><b>Likely:</b> evidence points to it, but does not establish this exact step.</li>
+        <li><b>Unknown:</b> not established here. A gap doesn't mean a chain is clean or risky.</li>
+      </ul>
+      <p>USGS estimates lithium mine output at 290,000 tons in 2025, led by Australia, China, and Chile, and estimates Congo (Kinshasa) mined 73% of the world's cobalt.</p>
+    </article>
+    <article>
+      <h2>Sources</h2>
+      <ul class="source-list" id="source-list"></ul>
+    </article>
+  </section>
+  <footer>Distance is measured from the center of your country and is not a delivery estimate. Prices, minimums, and shipping are shown only when a source states them.</footer>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
@@ -198,44 +224,57 @@ const STAGES = [
 ];
 const STAGE = Object.fromEntries(STAGES.map(s => [s.id, s]));
 
-// All companies and numbers below are invented examples placed in real regions.
+// Research snapshot, November 2026. research/battery-supply-chain-snapshot-2026-11.json holds the same records with their caveats.
+const SOURCES = {
+  usgsLi: { label: 'USGS · Mineral Commodity Summaries 2026: Lithium', url: 'https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf' },
+  usgsCo: { label: 'USGS · Mineral Commodity Summaries 2026: Cobalt', url: 'https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cobalt.pdf' },
+  sqm20f: { label: 'SQM · Form 20-F for 2025 (SEC filing)', url: 'https://www.sec.gov/Archives/edgar/data/0000909037/000090903726000023/sqm-20251231.htm' },
+  lgDeal: { label: 'Korea JoongAng Daily · LG Energy inks massive lithium supply deal', url: 'https://www.koreajoongangdaily.com/business/lg-energy-inks-massive-lithium-supply-deal/10428812' },
+  sayariLg: { label: 'Sayari · LG Energy Solution (login required)', url: 'https://graph.sayari.com/resource/entity/Jt71Tb2z1whIR0iQZpP-fw' },
+  sayariAbs: { label: 'Sayari · American Battery Solutions (login required)', url: 'https://graph.sayari.com/resource/entity/lpxxufsKuHQFHejgEmSp4Q' },
+  sayariGrepow: { label: 'Sayari · Shenzhen Grepow Battery (login required)', url: 'https://graph.sayari.com/resource/entity/MTOrJf7GE-xv_Z8c3cHKPg' },
+  sayariCps: { label: 'Sayari · Cell Pack Solutions (login required)', url: 'https://graph.sayari.com/resource/entity/PjGe3FJGcXLnxUa2l3OFug' },
+  sayariAkku: { label: 'Sayari · Akku Power GmbH Batterien (login required)', url: 'https://graph.sayari.com/resource/entity/e1WCqwnYjPwJbuKAZSWVAA' },
+  abs: { label: 'American Battery Solutions · Company site', url: 'https://www.americanbatterysolutions.com/advantage' },
+  cps: { label: 'Cell Pack Solutions · Company site', url: 'https://cellpacksolutions.co.uk/?p=7768' },
+  grepow: { label: 'Grepow · Company site', url: 'https://www.grepow.com/' },
+  epec: { label: 'Epec · Battery pack services', url: 'https://epectec.com/batteries' },
+  epecOffice: { label: 'Epec · Office locations', url: 'https://epectec.com/contact/office-locations.html' },
+  akku: { label: 'Wirtschaftsforum · Akku Power GmbH profile', url: 'https://www.wirtschaftsforum.de/akku-power-gmbh' },
+  adafruit: { label: 'Adafruit · Lithium Ion Polymer Battery 3.7V 350mAh', url: 'https://www.adafruit.com/products/2750' },
+  adafruitAbout: { label: 'Adafruit · About', url: 'https://www.adafruit.com/about' },
+  digikey: { label: 'DigiKey · Rechargeable battery listings', url: 'https://www.digikey.com/en/products/filter/batteries-rechargeable-secondary/91' },
+  digikeyLoc: { label: 'DigiKey · Location', url: 'https://www.digikey.com/en/help-support/delivery-information/digikey-location' },
+};
+
+// `small` appears only on companies an inventor can approach, and records what the sources say about small orders.
 const NODES = [
-  { id: 'm1', stage: 'mine', name: 'Example Lithium Mine A', what: 'Hard-rock lithium', place: 'Pilbara, Australia', at: [118.8, -21.5] },
-  { id: 'm2', stage: 'mine', name: 'Example Lithium Brine B', what: 'Lithium brine', place: 'Atacama, Chile', at: [-68.2, -23.5] },
-  { id: 'm3', stage: 'mine', name: 'Example Cobalt Mine C', what: 'Cobalt', place: 'Katanga, DR Congo', at: [26.5, -10.7] },
-  { id: 'm4', stage: 'mine', name: 'Example Lithium Mine D', what: 'Lithium clay', place: 'Nevada, USA', at: [-117.8, 41.7] },
-  { id: 'r1', stage: 'refiner', name: 'Example Refiner A', what: 'Lithium and cobalt', place: 'Jiangxi, China', at: [115.9, 28.7] },
-  { id: 'r2', stage: 'refiner', name: 'Example Refiner B', what: 'Lithium', place: 'Kwinana, Australia', at: [115.8, -32.2] },
-  { id: 'r3', stage: 'refiner', name: 'Example Refiner C', what: 'Cobalt', place: 'Kokkola, Finland', at: [23.1, 63.8] },
-  { id: 'r4', stage: 'refiner', name: 'Example Refiner D', what: 'Lithium', place: 'Antofagasta, Chile', at: [-70.4, -23.6] },
-  { id: 'c1', stage: 'cell', name: 'Example Cell Maker A', place: 'Jiangsu, China', at: [119.8, 32.0] },
-  { id: 'c2', stage: 'cell', name: 'Example Cell Maker B', place: 'Chungcheong, South Korea', at: [127.4, 36.6] },
-  { id: 'c3', stage: 'cell', name: 'Example Cell Maker C', place: 'Reno, USA', at: [-119.4, 39.5] },
-  { id: 'c4', stage: 'cell', name: 'Example Cell Maker D', place: 'Lower Silesia, Poland', at: [16.2, 51.2] },
-  { id: 'p1', stage: 'pack', name: 'Example Pack Co. Shenzhen', place: 'Shenzhen, China', at: [114.06, 22.54], moq: 50, price: 38, lead: 18, reach: 20000 },
-  { id: 'p2', stage: 'pack', name: 'Example Pack Co. Penang', place: 'Penang, Malaysia', at: [100.3, 5.4], moq: 100, price: 44, lead: 21, reach: 20000 },
-  { id: 'p3', stage: 'pack', name: 'Example Pack Co. Ohio', place: 'Ohio, USA', at: [-83.0, 40.0], moq: 25, price: 72, lead: 14, reach: 9000 },
-  { id: 'p4', stage: 'pack', name: 'Example Pack Co. Pune', place: 'Pune, India', at: [73.86, 18.52], moq: 100, price: 41, lead: 20, reach: 12000 },
-  { id: 'p5', stage: 'pack', name: 'Example Pack Co. Wroclaw', place: 'Wroclaw, Poland', at: [17.04, 51.1], moq: 25, price: 66, lead: 16, reach: 8000 },
-  { id: 'd1', stage: 'distributor', name: 'Example Parts Rotterdam', place: 'Rotterdam, Netherlands', at: [4.48, 51.92], moq: 1, price: 89, lead: 3, reach: 9000 },
-  { id: 'd2', stage: 'distributor', name: 'Example Parts Austin', place: 'Austin, USA', at: [-97.7, 30.3], moq: 1, price: 92, lead: 2, reach: 8000 },
-  { id: 'd3', stage: 'distributor', name: 'Example Parts Sao Paulo', place: 'Sao Paulo, Brazil', at: [-46.6, -23.5], moq: 5, price: 96, lead: 4, reach: 8000 },
-  { id: 'd4', stage: 'distributor', name: 'Example Parts Nairobi', place: 'Nairobi, Kenya', at: [36.8, -1.3], moq: 5, price: 99, lead: 5, reach: 6500 },
-  { id: 'd5', stage: 'distributor', name: 'Example Parts Singapore', place: 'Singapore', at: [103.8, 1.35], moq: 1, price: 85, lead: 3, reach: 12000 },
+  { id: 'atacama', stage: 'mine', name: 'Salar de Atacama (SQM)', what: 'Lithium brine', place: 'Salar de Atacama, Chile', at: [-68.25, -23.5], about: 'SQM extracts lithium-rich brine here under a lease from the Chilean agency Corfo.', sources: ['sqm20f'] },
+  { id: 'carmen', stage: 'refiner', name: 'SQM Carmen Lithium plant', what: 'Lithium carbonate and hydroxide', place: 'Antofagasta, Chile', at: [-70.2, -23.6], about: 'SQM filings place this plant about 20 km east of Antofagasta.', sources: ['sqm20f'] },
+  { id: 'lges', stage: 'cell', name: 'LG Energy Solution', what: 'Lithium-ion cells', place: 'Seoul, South Korea', at: [126.93, 37.52], about: 'A large battery maker that signed a long-term lithium supply deal with SQM in 2023.', sources: ['lgDeal', 'sayariLg'] },
+  { id: 'abs', stage: 'pack', name: 'American Battery Solutions', what: 'Lithium-ion packs for industrial and commercial vehicles', place: 'Lake Orion, USA', at: [-83.24, 42.78], about: 'Builds packs for industrial and commercial mobility, so it may not suit an early prototype.', small: { level: 'unknown', short: 'Ask', text: 'Small orders are not mentioned in the sources checked.' }, sources: ['abs', 'sayariAbs'] },
+  { id: 'grepow', stage: 'pack', name: 'Grepow', what: 'Custom LiPo and LiFePO4 cells and packs', place: 'Shenzhen, China', at: [114.03, 22.65], about: 'Offers custom cells, battery management boards, and pack structures, with support in Asia, North America, and Europe.', small: { level: 'proto', short: 'Samples', text: 'Its process includes a sample stage, but no minimum order is published.' }, sources: ['grepow', 'sayariGrepow'] },
+  { id: 'cps', stage: 'pack', name: 'Cell Pack Solutions', what: 'Custom battery packs', place: 'South Shields, United Kingdom', at: [-1.43, 54.99], about: 'A UK pack maker registered in 2001 that says it offers rapid prototyping.', small: { level: 'proto', short: 'Small runs', text: 'The company describes small batch production. No minimum order is published.' }, sources: ['cps', 'sayariCps'] },
+  { id: 'epec', stage: 'pack', name: 'Epec', what: 'Custom battery packs', place: 'New Bedford, USA', at: [-70.93, 41.64], about: 'Says it builds packs at facilities in the U.S. and China, from design through prototyping to manufacturing.', small: { level: 'proto', short: 'Prototypes', text: 'Prototyping is offered. No minimum order is published.' }, sources: ['epec', 'epecOffice'] },
+  { id: 'akku', stage: 'pack', name: 'Akku Power', what: 'Battery packs for industry and tools', place: 'Schorndorf, Germany', at: [9.53, 48.8], about: 'A German battery maker registered in 1989. Secondary sources describe it as a pack system maker.', small: { level: 'unknown', short: 'Ask', text: 'Small orders are not mentioned in the sources checked.' }, sources: ['akku', 'sayariAkku'] },
+  { id: 'adafruit', stage: 'distributor', name: 'Adafruit', what: 'Small lithium-ion polymer batteries', place: 'Brooklyn, USA', at: [-74.01, 40.66], about: 'Sells batteries for makers and prototypes, one at a time.', small: { level: 'one', short: 'From 1', text: 'A 3.7V 350mAh battery was listed at $6.95 for one, in stock, in November 2026.' }, sources: ['adafruit', 'adafruitAbout'] },
+  { id: 'digikey', stage: 'distributor', name: 'DigiKey', what: 'Electronic parts, including small batteries', place: 'Thief River Falls, USA', at: [-96.18, 48.12], about: 'A large electronic parts distributor. Its listings include Adafruit lithium-ion batteries.', small: { level: 'one', short: 'From 1', text: 'Listed prices start at a quantity of one.' }, sources: ['digikey', 'digikeyLoc'] },
 ];
 const NODE = Object.fromEntries(NODES.map(n => [n.id, n]));
-const canBuy = n => n.price !== undefined;
+const canBuy = n => n.small !== undefined;
 
-// Each link says who supplies whom. `from: null` is a gap: nobody has identified the supplier.
+// Each link says who supplies whom. `from: null` is a gap: this project has not identified the supplier.
 const LINKS = [
-  { to: 'd1', from: 'p5', ev: 'confirmed' }, { to: 'd2', from: 'p3', ev: 'confirmed' }, { to: 'd3', from: 'p1', ev: 'likely' },
-  { to: 'd4', from: 'p4', ev: 'likely' }, { to: 'd5', from: 'p2', ev: 'confirmed' },
-  { to: 'p1', from: 'c1', ev: 'confirmed' }, { to: 'p2', from: 'c2', ev: 'likely' }, { to: 'p3', from: 'c3', ev: 'confirmed' },
-  { to: 'p4', from: 'c1', ev: 'likely' }, { to: 'p5', from: 'c4', ev: 'confirmed' },
-  { to: 'c1', from: 'r1', ev: 'likely' }, { to: 'c2', from: 'r2', ev: 'likely' }, { to: 'c3', from: 'r4', ev: 'likely' },
-  { to: 'c3', from: 'm4', ev: 'likely' }, { to: 'c4', from: 'r3', ev: 'confirmed' }, { to: 'c4', from: 'r2', ev: 'likely' },
-  { to: 'r1', from: 'm1', ev: 'likely' }, { to: 'r1', from: null, ev: 'unknown', gap: 'Cobalt source not disclosed', stage: 'mine' },
-  { to: 'r2', from: 'm1', ev: 'confirmed' }, { to: 'r3', from: 'm3', ev: 'confirmed' }, { to: 'r4', from: 'm2', ev: 'confirmed' },
+  { to: 'carmen', from: 'atacama', ev: 'confirmed', note: 'SQM filings say Atacama lithium solutions go to its Carmen Lithium facility.', sources: ['sqm20f'] },
+  { to: 'lges', from: 'carmen', ev: 'likely', note: 'SQM and LG Energy Solution have a supply deal, but reporting says SQM lithium comes from both Chile and Australia. No source shows this plant supplied a given order.', sources: ['lgDeal', 'sqm20f'] },
+  { to: 'lges', from: null, ev: 'unknown', gap: 'Cobalt and nickel sources not established', stage: 'mine' },
+  { to: 'abs', from: 'lges', ev: 'likely', note: 'Sayari trade data links the two companies. The goods in those shipments were not verified here.', sources: ['sayariLg', 'sayariAbs'] },
+  { to: 'grepow', from: null, ev: 'unknown', gap: 'Cell materials suppliers not established', stage: 'refiner' },
+  { to: 'cps', from: null, ev: 'unknown', gap: 'Cell brands not named in the sources checked', stage: 'cell' },
+  { to: 'epec', from: null, ev: 'unknown', gap: 'Cell brands not named in the sources checked', stage: 'cell' },
+  { to: 'akku', from: null, ev: 'unknown', gap: 'Cell suppliers not established', stage: 'cell' },
+  { to: 'adafruit', from: null, ev: 'unknown', gap: 'Cell maker not named on the product page', stage: 'cell' },
+  { to: 'digikey', from: 'adafruit', ev: 'confirmed', note: 'DigiKey lists Adafruit lithium-ion batteries for sale.', sources: ['digikey'] },
 ];
 const EV_LABEL = { confirmed: 'Confirmed link', likely: 'Likely link', unknown: 'Unknown' };
 
@@ -272,10 +311,11 @@ const places = topojson.feature(detail, detail.objects.countries).features.filte
 const CENTER_FIX = { 'United States of America': [-98, 39], 'France': [2.5, 46.5], 'Russia': [90, 60], 'Norway': [9, 61], 'Canada': [-100, 56] };
 const centerOf = f => CENTER_FIX[f.properties.name] || d3.geoCentroid(f);
 
-const state = { country: 'United States of America', qty: 100, sort: 'balanced', selected: null, picked: new Set(), inspect: null, multi: false, search: '' };
+const state = { country: 'United States of America', sort: 'trace', selected: null, picked: new Set(), inspect: null, multi: false, search: '' };
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+const SMALL_ORDER = { one: 0, proto: 1, unknown: 2 };
 function rankSuppliers() {
   const home = centerOf(places.find(c => c.properties.name === state.country));
   const rows = NODES.filter(canBuy).map(n => {
@@ -283,26 +323,11 @@ function rankSuppliers() {
     const links = chainLinks(n.id);
     const confirmed = links.filter(l => l.ev === 'confirmed').length;
     const likely = links.filter(l => l.ev === 'likely').length;
-    return {
-      n, km, links, confirmed,
-      cost: n.price + 1.5 + km / 2000,
-      days: Math.round(n.lead + 2 + km / 1500),
-      trace: (confirmed + likely / 2) / links.length,
-      ships: km <= n.reach,
-      minOk: n.moq <= state.qty,
-    };
+    return { n, km, links, confirmed, trace: confirmed + likely / 2 };
   });
-  const found = rows.filter(r => supplierMatches(r.n));
-  const ok = found.filter(r => r.ships && r.minOk);
-  const unit = (v, key, flip) => {
-    const vals = ok.map(r => r[key]); const lo = Math.min(...vals), hi = Math.max(...vals);
-    const u = hi === lo ? 0 : (v - lo) / (hi - lo);
-    return flip ? 1 - u : u;
-  };
-  ok.forEach(r => { r.balanced = (unit(r.cost, 'cost') + unit(r.days, 'days') + unit(r.trace, 'trace', true)) / 3; });
-  const by = { balanced: r => r.balanced, cost: r => r.cost, days: r => r.days, trace: r => -r.trace };
-  const open = ok.sort((a, b) => by[state.sort](a) - by[state.sort](b));
-  return { home, rows, open, blocked: found.filter(r => !(r.ships && r.minOk)).sort((a, b) => a.km - b.km) };
+  const by = { trace: r => -r.trace, closest: r => r.km, small: r => SMALL_ORDER[r.n.small.level] };
+  const open = rows.filter(r => supplierMatches(r.n)).sort((a, b) => by[state.sort](a) - by[state.sort](b) || a.km - b.km);
+  return { home, rows, open };
 }
 
 // Globe
@@ -445,7 +470,7 @@ function buildJourney(home) {
   const sel = NODE[state.selected];
   if (!sel || !canBuy(sel)) return null;
   const stops = longestPath(sel.id).map(id => NODE[id]);
-  if (state.rows.find(r => r.n.id === sel.id).ships) stops.push({ you: true, at: home });
+  stops.push({ you: true, at: home });
   const legs = stops.slice(1).map((to, i) => {
     const from = stops[i];
     const link = LINKS.find(l => l.from === from.id && l.to === to.id);
@@ -455,11 +480,11 @@ function buildJourney(home) {
 }
 function legCaption(leg) {
   const s = STAGE[leg.from.stage];
-  const cargo = { mine: leg.from.what, refiner: 'Refined material', cell: 'Battery cells', pack: 'Finished packs', distributor: 'Packs' }[s.id];
-  const leaves = s.id === 'mine' ? 'leaves the mine in' : s.id === 'refiner' ? 'leaves the refiner in' : 'leave';
-  const dest = leg.to.you ? `on the way to you in ${state.country}` : `heading to the ${STAGE[leg.to.stage].one.toLowerCase()} in ${leg.to.place}`;
+  const cargo = { mine: leg.from.what, refiner: 'Refined lithium', cell: 'Battery cells', pack: 'Finished packs', distributor: 'Batteries' }[s.id];
+  const leaves = s.id === 'mine' ? 'leaves' : s.id === 'refiner' ? 'leaves the refiner in' : 'leave';
+  const dest = leg.to.you ? `on a possible route to you in ${state.country}` : `heading to the ${STAGE[leg.to.stage].one.toLowerCase()} in ${leg.to.place}`;
   const sure = leg.ev === 'likely' ? ' This link is likely, not confirmed.' : '';
-  return { step: `Step ${s.num} to ${leg.to.you ? 'you' : STAGE[leg.to.stage].num}`, text: `${cargo} ${leaves} ${leg.from.place}, ${dest}.${sure}` };
+  return { step: leg.to.stage === s.id ? `Step ${s.num}` : `Step ${s.num} to ${leg.to.you ? 'you' : STAGE[leg.to.stage].num}`, text: `${cargo} ${leaves} ${leg.from.place}, ${dest}.${sure}` };
 }
 function setCaption(step, text) {
   if (captionFor === text) return;
@@ -483,7 +508,7 @@ function advance(dt) {
     }
     const leg = journey.legs[journey.i];
     journey.pos = leg.go(d3.easeCubicInOut(journey.t));
-    if (journey.arrived && leg.to.you) setCaption('Delivered', `The packs reached you in ${state.country}.`);
+    if (journey.arrived && leg.to.you) setCaption('End of the trail', `This route ends with you in ${state.country}. Ask the supplier to confirm it ships there.`);
     else { const { step, text } = legCaption(leg); setCaption(step, text); }
     cam.target = aim(journey.pos);
   } else if (!journey && !paused && !cam.target) cam.r[0] += dt * 6;
@@ -571,7 +596,7 @@ function drawMap(home) {
     const line = { stage: NODE[l.from].stage, a: NODE[l.from].at, b: NODE[l.to].at };
     return { ...line, cls: `${l.ev === 'confirmed' ? 'track' : 'flash'}${other ? ' other' : ''}`, kind: l.ev, other };
   });
-  state.rows.filter(r => state.picked.has(r.n.id) && r.ships).forEach(r => {
+  state.rows.filter(r => state.picked.has(r.n.id)).forEach(r => {
     const other = r.n.id !== state.selected;
     lines.push({ cls: `dots${other ? ' other' : ''}`, kind: 'delivery', other, lead: !other, stage: r.n.stage, a: r.n.at, b: home });
   });
@@ -614,34 +639,32 @@ function drawMap(home) {
 }
 
 // Panels
+const sourceLinks = ids => (ids && ids.length ? `<span class="srcs">${ids.map(id => `<a href="${SOURCES[id].url}" target="_blank" rel="noopener">${esc(SOURCES[id].label)}</a>`).join(' · ')}</span>` : '');
 function factsHtml(r) {
   return `<div class="facts">
-    <span>$${r.cost.toFixed(0)}<small>each, delivered</small></span>
-    <span>${r.days} days<small>to you</small></span>
-    <span>${r.n.moq.toLocaleString()}<small>minimum</small></span>
+    <span>${Math.round(r.km / 100) * 100 < 100 ? 'Under 100' : (Math.round(r.km / 100) * 100).toLocaleString()} km<small>from your country's center</small></span>
+    <span>${esc(r.n.small.short)}<small>small orders</small></span>
     <span>${r.confirmed} of ${r.links.length}<small>links confirmed</small></span></div>`;
 }
 function rowHtml(r, i) {
-  const why = !r.ships ? `Doesn't ship to ${esc(state.country)}` : !r.minOk ? `Minimum order is ${r.n.moq.toLocaleString()}, more than you need` : '';
   const on = state.picked.has(r.n.id);
-  const mark = state.multi ? `<span class="tick ${on ? 'on' : ''}" aria-hidden="true">${on ? '✓' : ''}</span>` : i === null ? '–' : i + 1;
-  return `<li><button class="row ${why ? 'dim' : ''} ${r.n.id === state.selected ? 'lead' : ''}" data-id="${r.n.id}" aria-pressed="${on}">
+  const mark = state.multi ? `<span class="tick ${on ? 'on' : ''}" aria-hidden="true">${on ? '✓' : ''}</span>` : i + 1;
+  return `<li><button class="row ${r.n.id === state.selected ? 'lead' : ''}" data-id="${r.n.id}" aria-pressed="${on}">
     <span class="rank">${mark}</span>
     <span><span class="name">${esc(r.n.name)}</span><br><span class="place">${STAGE[r.n.stage].one}, ${esc(r.n.place)}</span></span>
-    ${factsHtml(r)}${why ? `<span class="blocked">${why}</span>` : ''}</button></li>`;
+    ${factsHtml(r)}</button></li>`;
 }
 function drawList() {
-  const { open, blocked } = state.ranked;
-  const total = open.length + blocked.length;
+  const { open } = state.ranked;
   const term = state.search.trim();
-  $('restitle').textContent = total ? `${open.length} of ${total} suppliers fit your order` : `No results for "${term}"`;
-  $('ressub').textContent = `${term ? `Matching "${term}". ` : ''}Prices are for a 12V battery pack. Shipping to ${state.country}, ${state.qty.toLocaleString()} ${state.qty === 1 ? 'unit' : 'units'}.`;
-  $('list').innerHTML = total ? open.map(rowHtml).join('') + blocked.map(r => rowHtml(r, null)).join('')
-    : '<li class="empty">This prototype only covers lithium-ion batteries so far. Try battery pack, lithium, or cobalt.</li>';
+  $('restitle').textContent = open.length ? `${open.length} ${open.length === 1 ? 'supplier' : 'suppliers'} to look at` : `No results for "${term}"`;
+  $('ressub').textContent = `${term ? `Matching "${term}". ` : ''}Lithium-ion batteries, seen from ${state.country}.`;
+  $('list').innerHTML = open.length ? open.map(rowHtml).join('')
+    : '<li class="empty">This map only covers lithium-ion batteries so far. Try battery pack, lithium, or cobalt.</li>';
 }
-function nodeHtml(n, ev, isBuy) {
+function nodeHtml(n, link, isBuy) {
   return `<div class="node ${isBuy ? 'buy' : ''}"><b>${esc(n.name)}</b>${esc(n.place)}${n.what ? `<br>${esc(n.what)}` : ''}
-    ${isBuy ? '<span class="ev">You buy here</span>' : `<span class="ev ${ev}">${EV_LABEL[ev]}</span>`}</div>`;
+    ${isBuy ? '<span class="ev">The supplier you picked</span>' : `<span class="ev ${link.ev}">${EV_LABEL[link.ev]}</span><span class="evnote">${esc(link.note)}</span>${sourceLinks(link.sources)}`}</div>`;
 }
 function drawTrace() {
   const sel = NODE[state.inspect || state.selected], el = $('trace');
@@ -649,28 +672,33 @@ function drawTrace() {
   if (!canBuy(sel)) {
     const buyers = NODES.filter(canBuy).filter(n => chainLinks(n.id).some(l => l.from === sel.id));
     el.innerHTML = `<h2>${esc(sel.name)}</h2>
-      <p>${STAGE[sel.stage].one} in ${esc(sel.place)}. Inventors usually can't buy from this stage directly, so go through a supplier that traces back here.</p>
-      <div class="buyers">${buyers.map(b => `<button class="linkbtn" data-id="${b.id}">${esc(b.name)}</button>`).join('') || 'No sample supplier traces back here.'}</div>`;
+      <p>${esc(sel.about)} Inventors usually can't buy from this step directly, so go through a supplier that traces back here.</p>
+      ${sourceLinks(sel.sources)}
+      <div class="buyers">${buyers.map(b => `<button class="linkbtn" data-id="${b.id}">${esc(b.name)}</button>`).join('') || 'No listed supplier traces back here.'}</div>`;
     return;
   }
   const links = chainLinks(sel.id);
   const cols = STAGES.map(s => {
     const items = links.filter(l => (l.from ? NODE[l.from].stage : l.stage) === s.id)
-      .map(l => l.from ? nodeHtml(NODE[l.from], l.ev) : `<div class="node"><b>${esc(l.gap)}</b><span class="ev unknown">${EV_LABEL.unknown}</span></div>`);
+      .map(l => l.from ? nodeHtml(NODE[l.from], l) : `<div class="node"><b>${esc(l.gap)}</b><span class="ev unknown">${EV_LABEL.unknown}</span></div>`);
     const seen = [...new Set(items)];
     if (sel.stage === s.id) seen.push(nodeHtml(sel, null, true));
     return seen.length ? `<div class="step"><h3 style="border-bottom-color:var(--${s.id})">${s.num}. ${s.label}</h3>${seen.join('')}</div>` : '';
   }).join('');
   const r = state.rows.find(x => x.n.id === sel.id);
-  el.innerHTML = `<h2>Where ${esc(sel.name)} gets its materials</h2>
-    <p>${r.confirmed} of ${r.links.length} links in this chain are confirmed. Each link shows how sure we are, and gaps stay visible so a missing record isn't read as a clean chain.</p>
+  el.innerHTML = `<h2>${esc(sel.name)}</h2>
+    <p>${esc(sel.about)} ${esc(sel.small.text)} Confirm prices, minimums, and shipping directly with the company.</p>
+    ${sourceLinks(sel.sources)}
+    <p class="trail">${r.confirmed} of ${r.links.length} links in this chain are confirmed. A link describes companies, not what is inside a particular battery.</p>
     <div class="steps" tabindex="0" aria-label="Supply chain from mine to supplier">${cols}</div>`;
 }
+$('source-list').innerHTML = Object.values(SOURCES).map(s => `<li><a href="${s.url}" target="_blank" rel="noopener">${esc(s.label)}</a></li>`).join('');
+
 // `fresh` means the question changed, so one chain resets to the top match and ticked chains keep only those still listed.
 function render(fresh) {
   state.ranked = rankSuppliers();
   state.rows = state.ranked.rows;
-  const listed = [...state.ranked.open, ...state.ranked.blocked].map(r => r.n.id);
+  const listed = state.ranked.open.map(r => r.n.id);
   if (fresh) {
     state.inspect = null;
     state.picked = new Set(state.multi ? [...state.picked].filter(id => listed.includes(id)) : []);
@@ -700,7 +728,6 @@ $('country').value = state.country;
 $('country').onchange = e => setCountry(e.target.value);
 $('search').oninput = e => { state.search = e.target.value; render(true); };
 $('multi').onchange = e => { state.multi = e.target.checked; if (!state.multi) state.picked = new Set([state.selected]); render(); };
-$('qty').onchange = e => { state.qty = +e.target.value; render(true); };
 $('sort').onchange = e => { state.sort = e.target.value; render(true); };
 document.addEventListener('click', e => {
   const b = e.target.closest('[data-id]');

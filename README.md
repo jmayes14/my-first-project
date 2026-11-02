@@ -4,16 +4,24 @@ An interactive globe that helps inventors and early startups answer two
 questions: who can supply what I need from where I am, and where do that
 supplier's materials come from?
 
-Visitors choose their country, order size, and priority. The site ranks
-suppliers for them and follows the selected supply chain from the mine to the
-inventor.
+Visitors choose their country and priority. The site ranks suppliers for them
+and follows each selected supply chain as far back as the evidence goes.
 
 ## Current status
 
-This is a prototype for lithium-ion battery packs. **Every company, price,
-delivery time, and supply link on the site is made up** to show how the tool
-works, and the site says so. The regions are real. Do not use it for real
-sourcing yet.
+The site covers lithium-ion batteries with a November 2026 research snapshot of
+real companies. It lists seven suppliers and one traced chain: from the Salar de
+Atacama in Chile, through SQM's Carmen plant and LG Energy Solution, to American
+Battery Solutions in Michigan. Those links show evidence between organizations;
+they do not prove what is inside a particular battery.
+
+No chain yet runs from a mine to a supplier that clearly serves small orders.
+Prices, minimum orders, and shipping are shown only when a source states them,
+so inventors should confirm them with each company. A gap must not be read as
+evidence that a chain is clean or risky.
+
+The records, identifiers, and caveats are in
+[research/battery-supply-chain-snapshot-2026-11.json](./research/battery-supply-chain-snapshot-2026-11.json).
 
 ## How to read the map
 
@@ -26,8 +34,8 @@ sourcing yet.
 | Star (5) | Distributor, where inventors can buy |
 
 A moving arrow marks a confirmed link, and a flashing line marks a likely one.
-A dotted line with an arrow and a check mark shows delivery to the inventor.
-Unknown links have no line and appear in the panel below the map.
+A dotted line with an arrow and a check mark shows a possible route to the
+inventor. Unknown links have no line and appear in the panel below the map.
 
 ## Project files
 
@@ -57,5 +65,5 @@ only the Python standard library and is not part of the published site.
 2. Run `python3 scripts/check_sayari.py`.
 
 It requests a token and reads the account's usage summary. It does not run
-searches or add any data to the map. Check that your Sayari license allows
-publication before adding its records to the public site.
+searches or add any data to the map. The site links to a few Sayari records;
+check that your Sayari license allows this.
