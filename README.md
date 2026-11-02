@@ -11,11 +11,13 @@ follows each selected supply chain as far back as the evidence goes.
 
 ## Current status
 
-The site covers lithium-ion batteries with a November 2026 research snapshot of
-real companies. It lists seven suppliers and one traced chain: from the Salar de
-Atacama in Chile, through SQM's Carmen plant and LG Energy Solution, to American
-Battery Solutions in Michigan. Those links show evidence between organizations;
-they do not prove what is inside a particular battery.
+The site lists 28 real suppliers from a November 2026 research snapshot, covering
+batteries, electronic parts, circuit boards, 3D printing and machining, metals,
+and motors. Batteries have the deepest research, including one traced chain from
+the Salar de Atacama in Chile, through SQM's Carmen plant and LG Energy Solution,
+to American Battery Solutions in Michigan. Most other suppliers do not yet trace
+back to raw materials. Links show evidence between organizations; they do not
+prove what is inside a particular product.
 
 No chain yet runs from a mine to a supplier that clearly serves small orders.
 Prices, minimum orders, and shipping are shown only when a source states them,

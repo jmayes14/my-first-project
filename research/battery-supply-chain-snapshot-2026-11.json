@@ -1,5 +1,5 @@
 {
-  "title": "Research snapshot: lithium-ion battery supply chain for inventors",
+  "title": "Research snapshot: supply chains for inventors",
   "retrieved": "2026-11-02",
   "sources": {
     "public": "USGS Mineral Commodity Summaries 2026, SEC filings, news reports, and company websites. URLs are in docs/index.html.",
@@ -17,13 +17,21 @@
     "Distance is measured from the center of the visitor's country and is not a delivery estimate.",
     "Sayari company-name filters on shipment searches returned unrelated records and were not used as evidence. Entity relationships were used instead.",
     "Sayari screening flags were not published. Many battery exporters carry product-level flags based on HS code and country, which are leads rather than findings about a company.",
-    "Whether the Sayari license allows these references on a public site has not been checked."
+    "Whether the Sayari license allows these references on a public site has not been checked.",
+    "Small-order labels reflect what a source says. \"Shop\" means an online shop sells individual products, not that every item ships everywhere.",
+    "Marketplaces such as Xometry and Craftcloud may have parts made elsewhere, so the place shown is the company, not the factory."
   ],
   "industry_context": {
     "lithium_2025": {
       "source": "USGS Mineral Commodity Summaries 2026",
       "world_mine_production_excluding_us_tons": 290000,
-      "mine_production_tons": { "Australia": 92000, "China": 62000, "Chile": 56000, "Zimbabwe": 28000, "Argentina": 23000 },
+      "mine_production_tons": {
+        "Australia": 92000,
+        "China": 62000,
+        "Chile": 56000,
+        "Zimbabwe": 28000,
+        "Argentina": 23000
+      },
       "battery_share_of_end_use_percent": 88
     },
     "cobalt_2025": {
@@ -36,8 +44,18 @@
     "sayari_trade_facets": {
       "query": "'lithium ion cells' under HS 850760, 2025-01-01 onward",
       "note": "Counts of Sayari's indexed records, not total world trade.",
-      "top_departure_countries": { "CHN": 89669, "VNM": 10307, "TWN": 7924, "HKG": 5918 },
-      "top_arrival_countries": { "IND": 91053, "VNM": 29593, "IDN": 5120, "USA": 4673 }
+      "top_departure_countries": {
+        "CHN": 89669,
+        "VNM": 10307,
+        "TWN": 7924,
+        "HKG": 5918
+      },
+      "top_arrival_countries": {
+        "IND": 91053,
+        "VNM": 29593,
+        "IDN": 5120,
+        "USA": 4673
+      }
     }
   },
   "chain": [
@@ -68,16 +86,78 @@
       "to": "DigiKey",
       "evidence": "confirmed",
       "basis": "DigiKey lists Adafruit lithium-ion batteries for sale."
+    },
+    {
+      "from": "Adafruit",
+      "to": "Mouser Electronics",
+      "evidence": "confirmed",
+      "basis": "Mouser lists Adafruit battery packs."
+    },
+    {
+      "from": "maxon",
+      "to": "RS Components",
+      "evidence": "confirmed",
+      "basis": "RS lists maxon motors for sale."
+    },
+    {
+      "from": "Cytron Technologies",
+      "to": "DigiKey",
+      "evidence": "confirmed",
+      "basis": "DigiKey has a Cytron supplier center."
+    },
+    {
+      "from": "Cytron Technologies",
+      "to": "Robu.in",
+      "evidence": "confirmed",
+      "basis": "Robu.in says it has been Cytron's exclusive partner in India since 2014."
+    },
+    {
+      "from": "Cytron Technologies",
+      "to": "Core Electronics",
+      "evidence": "confirmed",
+      "basis": "Core Electronics sells Cytron products in Australia."
     }
   ],
   "suppliers": [
-    { "name": "American Battery Solutions", "place": "Lake Orion, Michigan, USA", "small_orders": "Not mentioned", "sayari_entity": "lpxxufsKuHQFHejgEmSp4Q" },
-    { "name": "Grepow (Shenzhen Grepow Battery Co., Ltd.)", "place": "Shenzhen, China", "small_orders": "Sample stage described; no minimum published", "sayari_entity": "MTOrJf7GE-xv_Z8c3cHKPg" },
-    { "name": "Cell Pack Solutions Limited", "place": "South Shields, United Kingdom", "small_orders": "Small batch production described; no minimum published", "sayari_entity": "PjGe3FJGcXLnxUa2l3OFug" },
-    { "name": "Epec", "place": "New Bedford, Massachusetts, USA", "small_orders": "Prototyping described; no minimum published" },
-    { "name": "Akku Power GmbH Batterien", "place": "Schorndorf, Germany", "small_orders": "Not mentioned", "sayari_entity": "e1WCqwnYjPwJbuKAZSWVAA" },
-    { "name": "Adafruit", "place": "Brooklyn, New York, USA", "small_orders": "Single units; $6.95 for a 3.7V 350mAh battery on 2026-11-02" },
-    { "name": "DigiKey", "place": "Thief River Falls, Minnesota, USA", "small_orders": "Listed prices start at a quantity of one" }
+    {
+      "name": "American Battery Solutions",
+      "place": "Lake Orion, Michigan, USA",
+      "small_orders": "Not mentioned",
+      "sayari_entity": "lpxxufsKuHQFHejgEmSp4Q"
+    },
+    {
+      "name": "Grepow (Shenzhen Grepow Battery Co., Ltd.)",
+      "place": "Shenzhen, China",
+      "small_orders": "Sample stage described; no minimum published",
+      "sayari_entity": "MTOrJf7GE-xv_Z8c3cHKPg"
+    },
+    {
+      "name": "Cell Pack Solutions Limited",
+      "place": "South Shields, United Kingdom",
+      "small_orders": "Small batch production described; no minimum published",
+      "sayari_entity": "PjGe3FJGcXLnxUa2l3OFug"
+    },
+    {
+      "name": "Epec",
+      "place": "New Bedford, Massachusetts, USA",
+      "small_orders": "Prototyping described; no minimum published"
+    },
+    {
+      "name": "Akku Power GmbH Batterien",
+      "place": "Schorndorf, Germany",
+      "small_orders": "Not mentioned",
+      "sayari_entity": "e1WCqwnYjPwJbuKAZSWVAA"
+    },
+    {
+      "name": "Adafruit",
+      "place": "Brooklyn, New York, USA",
+      "small_orders": "Single units; $6.95 for a 3.7V 350mAh battery on 2026-11-02"
+    },
+    {
+      "name": "DigiKey",
+      "place": "Thief River Falls, Minnesota, USA",
+      "small_orders": "Listed prices start at a quantity of one"
+    }
   ],
   "unconnected_leads": [
     {
@@ -92,6 +172,140 @@
   "open_questions": [
     "Which cell makers supply Cell Pack Solutions, Epec, Akku Power, and Adafruit?",
     "Which companies supply cobalt and nickel to LG Energy Solution, and in which cells?",
-    "Which pack makers will actually quote an inventor for 1 to 100 units, and in which countries?"
+    "Which pack makers will actually quote an inventor for 1 to 100 units, and in which countries?",
+    "Where do the metals in circuit boards, motors, and machined parts come from for each supplier?"
+  ],
+  "coverage_note": "Batteries have the deepest research. Other categories list real suppliers, mostly with raw material sources not established.",
+  "additional_suppliers": [
+    {
+      "name": "Mouser Electronics",
+      "category": "Electronic parts, batteries",
+      "place": "Mansfield, Texas, USA",
+      "small_orders": "Minimum order policy not confirmed"
+    },
+    {
+      "name": "RS Components",
+      "category": "Electronic parts, motors",
+      "place": "Corby, United Kingdom",
+      "small_orders": "Maxon motor listings priced per unit; stock varies"
+    },
+    {
+      "name": "Pimoroni",
+      "category": "Electronic parts",
+      "place": "Sheffield, United Kingdom",
+      "small_orders": "Online shop"
+    },
+    {
+      "name": "Core Electronics",
+      "category": "Electronic parts, batteries",
+      "place": "Newcastle, Australia",
+      "small_orders": "Online shop"
+    },
+    {
+      "name": "Robu.in (Macfos Limited)",
+      "category": "Electronic parts",
+      "place": "Pune, India",
+      "small_orders": "Online shop"
+    },
+    {
+      "name": "Cytron Technologies",
+      "category": "Electronic parts",
+      "place": "Bukit Mertajam, Malaysia",
+      "small_orders": "Online shop"
+    },
+    {
+      "name": "MakerHero",
+      "category": "Electronic parts",
+      "place": "Florianopolis, Brazil",
+      "small_orders": "Online shop"
+    },
+    {
+      "name": "Micro Robotics",
+      "category": "Electronic parts",
+      "place": "Centurion, South Africa",
+      "small_orders": "Online shop"
+    },
+    {
+      "name": "JLCPCB",
+      "category": "Circuit boards",
+      "place": "Shenzhen, China (third-party sources)",
+      "small_orders": "Assembly page states a minimum of 2 boards"
+    },
+    {
+      "name": "OSH Park",
+      "category": "Circuit boards",
+      "place": "Lake Oswego, Oregon, USA",
+      "small_orders": "Three copies per order, $5 per square inch for 2-layer boards"
+    },
+    {
+      "name": "GbE Circuits",
+      "category": "Circuit boards",
+      "place": "Nairobi, Kenya",
+      "small_orders": "Co-founder says it supports a single prototype or a full batch"
+    },
+    {
+      "name": "Xometry",
+      "category": "3D printing and machining",
+      "place": "North Bethesda, Maryland, USA",
+      "small_orders": "Promotes low-volume runs; no minimums listed for metal 3D printing"
+    },
+    {
+      "name": "Protolabs",
+      "category": "3D printing and machining",
+      "place": "Maple Plain, Minnesota, USA",
+      "small_orders": "Focuses on prototypes and low volumes; no minimum confirmed"
+    },
+    {
+      "name": "SendCutSend",
+      "category": "3D printing and machining, metals",
+      "place": "Reno, Nevada, USA",
+      "small_orders": "Pricing examples start at a quantity of one"
+    },
+    {
+      "name": "Craftcloud",
+      "category": "3D printing and machining",
+      "place": "Munich, Germany",
+      "small_orders": "Serves consumers and businesses; no minimum confirmed"
+    },
+    {
+      "name": "OnlineMetals",
+      "category": "Metals and materials",
+      "place": "Seattle, Washington, USA",
+      "small_orders": "A third-party profile says no minimum order"
+    },
+    {
+      "name": "McMaster-Carr",
+      "category": "Metals and materials",
+      "place": "Elmhurst, Illinois, USA",
+      "small_orders": "Official minimum not confirmed"
+    },
+    {
+      "name": "Goodfellow",
+      "category": "Metals and materials",
+      "place": "Huntingdon, United Kingdom",
+      "small_orders": "A company profile says most products have no minimum"
+    },
+    {
+      "name": "Metal Supermarkets",
+      "category": "Metals and materials",
+      "place": "Mississauga, Canada (sources differ on head office)",
+      "small_orders": "Canadian quote page lists no minimum order"
+    },
+    {
+      "name": "Pololu",
+      "category": "Motors, electronic parts",
+      "place": "Las Vegas, Nevada, USA",
+      "small_orders": "Online shop"
+    },
+    {
+      "name": "maxon",
+      "category": "Motors",
+      "place": "Sachseln, Switzerland",
+      "small_orders": "Online configurator; minimum not stated"
+    }
+  ],
+  "leads_not_listed": [
+    "Aisler (circuit boards): base city could not be confirmed.",
+    "Gearbox (Nairobi): reported closed in 2023; GbE Circuits is listed instead."
   ]
 }
