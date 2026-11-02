@@ -65,14 +65,15 @@ suppliers, then each chain appears, the latest is followed, and the rest are
 faded.
 
 **FR-9: Moving trip (US-3)**
-Given a selected supplier, when the page is idle, then a numbered shape travels
-along the chain, an arrow leads it on confirmed links, the globe follows and
-zooms in at stops, and a caption explains each step.
+Given a selected supplier, then a numbered shape travels slowly along the chain
+once, an arrow leads it on confirmed links, the globe turns gently to follow, and
+a caption explains each step. The trip does not zoom on its own. Afterward, the
+globe drifts slowly and offers Play again.
 
 **FR-10: Link styles (US-4)**
-Given a chain on the globe, then confirmed links show a moving arrow, likely
-links flash, the route to the visitor is dotted and ends in a check mark, and
-unknown links have no line and appear in the panel below the globe.
+Given a chain on the globe, then confirmed links show an arrow, likely links
+pulse slowly, the route to the visitor is dotted and ends in a check mark after
+the trip, and unknown links have no line and appear in the panel below the globe.
 
 **FR-11: Zoom (US-6)**
 Given the globe, when a visitor pinches, holds Ctrl or Cmd and scrolls, or uses
