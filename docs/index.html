@@ -623,7 +623,7 @@
   .route { --o: 1; fill: none; pointer-events: none; vector-effect: non-scaling-stroke; }
   .route.other { --o: 0.45; }
   .route.track { stroke-width: 2.5px; opacity: calc(0.6 * var(--o)); }
-  .route.flash { stroke-width: 3px; animation: flash 4.5s ease-in-out infinite; }
+  .route.flash { stroke-width: 3px; animation: flash var(--pulse, 4.5s) ease-in-out infinite; }
   .route.dots { stroke-width: 3px; stroke-dasharray: 0.1 9; stroke-linecap: round; opacity: calc(0.85 * var(--o)); }
   @keyframes flash { 0%, 100% { opacity: var(--o); } 50% { opacity: calc(0.4 * var(--o)); } }
   .arrow-mark { stroke: var(--surface); stroke-width: 1.5px; pointer-events: none; }
@@ -697,6 +697,13 @@
     .steps { grid-auto-flow: row; grid-auto-columns: auto; overflow-x: visible; }
   }
   .finder { margin-top: 1rem; }
+  .journey { flex-wrap: wrap; }
+  .journey p { flex: 1 1 14rem; }
+  .speed { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+  .speed span { margin-right: 4px; color: var(--muted); font-size: 0.8rem; font-weight: 700; }
+  .speed button { border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; padding: 4px 11px; font-size: 0.82rem; }
+  .speed button:hover { border-color: var(--lime); color: var(--ink); }
+  .speed button[aria-pressed="true"] { border-color: var(--lime); background: var(--lime); color: var(--lime-ink); font-weight: 700; }
   html, body { overflow-x: clip; }
   body { position: relative; }
   :root { --rock-1: #e7ece4; --rock-2: #dde5dc; --rock-3: #cfdad1; }
@@ -851,7 +858,7 @@
         </div>
         <div class="mapbtns"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zreset" aria-label="Reset view">⟲</button></div>
         <div class="zoomhint" id="zoomhint" hidden>Pinch, or hold Ctrl and scroll, to zoom</div>
-        <div class="journey"><button id="play">Pause trip</button><p id="caption"></p></div>
+        <div class="journey"><button id="play">Pause trip</button><p id="caption"></p><div class="speed" id="speed" role="group" aria-label="Globe speed"><span>Speed</span><button type="button" data-speed-choice="slow">Slow</button><button type="button" data-speed-choice="medium">Medium</button><button type="button" data-speed-choice="fast">Fast</button></div></div>
       </div>
       <div class="below">
         <div class="legend" id="legend" aria-label="The five supply chain steps, in order"></div>
@@ -1083,7 +1090,7 @@ const places = topojson.feature(detail, detail.objects.countries).features.filte
 const CENTER_FIX = { 'United States of America': [-98, 39], 'France': [2.5, 46.5], 'Russia': [90, 60], 'Norway': [9, 61], 'Canada': [-100, 56] };
 const centerOf = f => CENTER_FIX[f.properties.name] || d3.geoCentroid(f);
 
-const state = { country: 'United States of America', sort: 'trace', selected: null, picked: new Set(), inspect: null, multi: false, showAll: false, category: 'all', search: '' };
+const state = { country: 'United States of America', sort: 'trace', selected: null, picked: new Set(), inspect: null, multi: false, speed: 'slow', showAll: false, category: 'all', search: '' };
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -1147,6 +1154,8 @@ deliveredMark.append('text').text('✓');
 const ARROW = 'M-11,-8 L11,0 L-11,8 L-5,0 Z';
 
 const cam = { r: [0, -15], k: 1, zoom: 1, target: null };
+// Speed scales the trip, the camera, and the slow drift, and sets how fast likely links pulse.
+const SPEEDS = { slow: { pace: 1, pulse: '4.5s' }, medium: { pace: 1.8, pulse: '3s' }, fast: { pace: 3, pulse: '1.8s' } };
 let drifting = false, markScale = 1, viewL = 0, viewR = W, arrowData = [], clock = 0, shownPins = new Set(), marks = [], journey = null, journeyKey = null, paused = calm, dirty = true, captionFor = null;
 
 const wrap = d => ((d % 360) + 540) % 360 - 180;
@@ -1271,12 +1280,13 @@ function setPaused(on) { paused = on; $('play').textContent = !on ? 'Pause trip'
 
 function advance(dt) {
   clock += dt;
+  const pace = SPEEDS[state.speed].pace;
   if (journey && !paused) {
     if (journey.hold > 0) {
-      journey.hold -= dt;
+      journey.hold -= dt * pace;
       if (journey.hold <= 0 && journey.arrived) { journey.resting = true; drifting = true; setPaused(true); return true; }
     } else {
-      journey.t += dt / journey.legs[journey.i].secs;
+      journey.t += dt * pace / journey.legs[journey.i].secs;
       if (journey.t >= 1) {
         if (journey.i < journey.legs.length - 1) { journey.t = 0; journey.hold = 2.2; journey.i += 1; }
         else { journey.t = 1; journey.arrived = true; journey.hold = 3; }
@@ -1288,11 +1298,11 @@ function advance(dt) {
     if (journey.arrived && leg.to.you) setCaption('End of the trail', `This route ends with you in ${state.country}. Ask the supplier to confirm it ships there.`);
     else { const { step, text } = legCaption(leg); setCaption(step, text); }
     cam.target = aim(journey.pos);
-  } else if (!journey && !paused && !cam.target) cam.r[0] += dt * 2;
-  if (drifting && !cam.target) cam.r[0] += dt * 1.5;
+  } else if (!journey && !paused && !cam.target) cam.r[0] += dt * 2 * pace;
+  if (drifting && !cam.target) cam.r[0] += dt * 1.5 * pace;
 
   if (cam.target) {
-    const ease = 1 - Math.exp(-dt * 1.6);
+    const ease = 1 - Math.exp(-dt * 1.6 * pace);
     cam.r[0] += wrap(cam.target[0] - cam.r[0]) * ease;
     cam.r[1] += (cam.target[1] - cam.r[1]) * ease;
     if (paused && Math.abs(wrap(cam.target[0] - cam.r[0])) < 0.1) cam.target = null;
@@ -1373,6 +1383,16 @@ svg.call(d3.drag()
 svg.style('touch-action', 'pan-y');
 $('zin').onclick = () => { cam.zoom = clampZoom(cam.zoom * 1.8); stopFollowing(); };
 $('zout').onclick = () => { cam.zoom = clampZoom(cam.zoom / 1.8); stopFollowing(); };
+function setSpeed(id) {
+  state.speed = id;
+  $('map').style.setProperty('--pulse', SPEEDS[id].pulse);
+  document.querySelectorAll('[data-speed-choice]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.speedChoice === id)));
+  try { localStorage.setItem('globe-speed', id); } catch (e) { /* The choice just won't be remembered. */ }
+}
+$('speed').addEventListener('click', e => { const b = e.target.closest('[data-speed-choice]'); if (b) setSpeed(b.dataset.speedChoice); });
+let savedSpeed = null;
+try { savedSpeed = localStorage.getItem('globe-speed'); } catch (e) { /* Storage can be blocked. */ }
+setSpeed(SPEEDS[savedSpeed] ? savedSpeed : 'slow');
 $('zreset').onclick = () => { cam.zoom = 1; if (journey && !journey.resting) setPaused(calm); };
 $('play').onclick = () => {
   drifting = false;
