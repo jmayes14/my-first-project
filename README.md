@@ -19,6 +19,11 @@ to American Battery Solutions in Michigan. Most other suppliers do not yet trace
 back to raw materials. Links show evidence between organizations; they do not
 prove what is inside a particular product.
 
+The goal is to help inventors see whether parts were ethically sourced. The site
+cannot prove that for any part. It shows where typical materials are mined, where
+the U.S. Department of Labor documents labor problems, and what each supplier has
+published. It never rates a company as ethical or unethical.
+
 No chain yet runs from a mine to a supplier that clearly serves small orders.
 Prices, minimum orders, and shipping are shown only when a source states them,
 so inventors should confirm them with each company. A gap must not be read as
