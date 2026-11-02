@@ -697,6 +697,15 @@
     .steps { grid-auto-flow: row; grid-auto-columns: auto; overflow-x: visible; }
   }
   .finder { margin-top: 1rem; }
+  .picker { margin-bottom: 1rem; }
+  .picker-label { margin: 0 0 0.4rem; font-weight: 750; }
+  .cats { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .cat { min-height: 2.4rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; padding: 0.4rem 0.8rem; }
+  .cat:hover { border-color: var(--lime); color: var(--ink); }
+  .cat span { font-size: 0.78rem; opacity: 0.75; }
+  .cat[aria-pressed="true"] { border-color: var(--lime); background: var(--lime); color: var(--lime-ink); font-weight: 750; }
+  .tip { margin: 0.6rem 0 0; color: var(--muted); font-size: 0.92rem; }
+  .tip b { color: #8d481f; }
   .map-heading .eyebrow { max-width: none; margin-bottom: 0; text-align: left; }
   h1 { max-width: 9ch; }
   .results h2, .trace h2 { margin: 0; font-size: 1rem; }
@@ -744,11 +753,11 @@
     <div>
       <p class="eyebrow">A supply chain, for people building things</p>
       <h1>Trace the <span>source.</span></h1>
-      <p class="hero-copy">Find who can supply your battery, then follow it back toward the mine. See what public evidence shows, and where the trail currently stops.</p>
+      <p class="hero-copy">Find who can supply what you’re building, then follow it back toward the mine. See what public evidence shows, and where the trail currently stops.</p>
     </div>
     <aside class="hero-note">
       <strong>Research snapshot · November 2026</strong>
-      <p>Real lithium-ion battery companies, with one chain traced from a lithium site in Chile to a pack maker in Michigan. Select a stage below, or use the globe.</p>
+      <p>Real suppliers on six continents for batteries, circuit boards, metals, motors, and more. Select a stage below, or use the globe.</p>
     </aside>
   </header>
 
@@ -758,7 +767,7 @@
         <p class="eyebrow">Interactive map</p>
         <h2 id="map-title">From mine to inventor</h2>
       </div>
-      <p>Choose a topic to highlight the route, then select a stage for its evidence.</p>
+      <p>Using lithium-ion batteries as the example. Choose a topic, then select a stage for its evidence.</p>
     </div>
     <div class="filters" role="group" aria-label="Filter supply-chain stages">
       <button class="filter" type="button" data-filter="all" aria-pressed="true">All stages</button>
@@ -800,12 +809,18 @@
       <select id="sort"><option value="trace">Best traceability</option><option value="small">Small orders</option><option value="closest">Closest to me</option></select></div>
   </div>
 
+  <div class="picker">
+    <p class="picker-label">What are you building?</p>
+    <div class="cats" id="cats" role="group" aria-label="Choose a category"></div>
+    <p class="tip"><b>Starting tip:</b> <span id="tip"></span></p>
+  </div>
+
   <div class="workspace">
     <div>
       <div class="mapbox">
         <svg id="map" viewBox="0 0 880 620" role="img" aria-label="Spinning globe of mines, refiners, cell makers, pack assemblers, and distributors"></svg>
         <div class="searchbox">
-          <input id="search" type="search" list="search-ideas" placeholder="Search, like cobalt" aria-label="Search for a material, part, company, or place" autocomplete="off">
+          <input id="search" type="search" list="search-ideas" placeholder="Search, like motors" aria-label="Search for a material, part, company, or place" autocomplete="off">
           <datalist id="search-ideas"><option value="Battery pack"></option><option value="Battery cells"></option><option value="Lithium"></option><option value="Cobalt"></option></datalist>
         </div>
         <div class="mapbtns"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zreset" aria-label="Reset view">⟲</button></div>
@@ -818,7 +833,7 @@
       </div>
     </div>
     <section class="results" aria-labelledby="restitle">
-      <header><h2 id="restitle"></h2><p id="ressub"></p><label class="multi" for="multi"><input type="checkbox" id="multi">Show more than one supply chain</label></header>
+      <header><h2 id="restitle"></h2><p id="ressub"></p><label class="multi" for="multi"><input type="checkbox" id="multi">Show more than one supply chain</label><label class="multi" for="showall"><input type="checkbox" id="showall">Show every supplier on the globe</label></header>
       <ul class="list" id="list"></ul>
     </section>
   </div>
@@ -862,8 +877,8 @@ const STAGES = [
   { id: 'mine', num: 1, label: 'Mines', one: 'Mine', sym: d3.symbolTriangle, size: 280, numY: 2 },
   { id: 'refiner', num: 2, label: 'Refiners', one: 'Refiner', sym: d3.symbolDiamond, size: 260, numY: 0 },
   { id: 'cell', num: 3, label: 'Cell makers', one: 'Cell maker', sym: d3.symbolSquare, size: 210, numY: 0 },
-  { id: 'pack', num: 4, label: 'Pack assemblers', one: 'Pack assembler', sym: d3.symbolCircle, size: 250, numY: 0 },
-  { id: 'distributor', num: 5, label: 'Distributors', one: 'Distributor', sym: d3.symbolStar, size: 400, numY: 0 },
+  { id: 'pack', num: 4, globe: 'Makers and assemblers', label: 'Pack assemblers', one: 'Pack assembler', sym: d3.symbolCircle, size: 250, numY: 0 },
+  { id: 'distributor', num: 5, globe: 'Shops and distributors', label: 'Distributors', one: 'Distributor', sym: d3.symbolStar, size: 400, numY: 0 },
 ];
 const STAGE = Object.fromEntries(STAGES.map(s => [s.id, s]));
 
@@ -921,6 +936,93 @@ const LINKS = [
 ];
 const EV_LABEL = { confirmed: 'Confirmed link', likely: 'Likely link', unknown: 'Unknown' };
 
+// Categories drive the "What are you building?" picker. Tips are starting advice, not sourced facts.
+const CATEGORIES = [
+  { id: 'all', label: 'Everything', tip: 'Pick what you are building to narrow the list.', words: '' },
+  { id: 'battery', label: 'Batteries', tip: 'Prototype with an off-the-shelf battery, then ask a pack maker about a custom pack.', words: 'battery batteries pack packs lithium-ion li-ion' },
+  { id: 'parts', label: 'Electronic parts', tip: 'Try a shop near you first, so shipping and returns stay simple.', words: 'electronics components sensors boards arduino raspberry pi' },
+  { id: 'pcb', label: 'Circuit boards', tip: 'Order a small batch and test it before paying for assembly.', words: 'pcb circuit board boards printed assembly' },
+  { id: 'fab', label: '3D printing and machining', tip: 'Get two quotes for the same design, material, and finish.', words: '3d printing cnc machining sheet metal laser cutting manufacturing injection molding custom parts' },
+  { id: 'metal', label: 'Metals and materials', tip: 'Buy a small piece to test before ordering a full run.', words: 'metal metals aluminum steel copper plastic materials raw' },
+  { id: 'motor', label: 'Motors', tip: 'Test with a stock motor before asking for a custom one.', words: 'motor motors dc gearmotor motion robotics' },
+];
+const CATEGORY = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
+
+Object.assign(SOURCES, {
+  mouser: { label: 'Mouser · About', url: 'https://www.mouser.com/en/aboutus/' },
+  mouserAdafruit: { label: 'Mouser · Adafruit battery packs', url: 'https://www.mouser.fi/en/c/power/batteries/battery-packs/?b=Adafruit' },
+  pimoroni: { label: 'Pimoroni · About', url: 'https://shop.pimoroni.com/pages/about-us' },
+  coreBrand: { label: 'Core Electronics · Cytron products', url: 'https://core-electronics.com.au/brands/cytron-australia' },
+  robuCytron: { label: 'Robu.in · Cytron brand page', url: 'https://robu.in/brand/cytron/' },
+  robuCompany: { label: 'Macfos Limited (Robu.in) · Company record', url: 'https://www.instafinancials.com/company/macfos-limited/L29309PN2017PLC172718' },
+  cytronPenang: { label: 'Invest Penang · Local insights', url: 'https://investpenang.gov.my/local-insights/?sf_paged=4' },
+  digikeyCytron: { label: 'DigiKey · Cytron supplier center', url: 'https://www.digikey.com/en/supplier-centers/cytron' },
+  makerhero: { label: 'TecMundo · MakerHero, the new FilipeFlop brand', url: 'https://www.tecmundo.com.br/mercado/260253-makerhero-nova-marca-representante-oficial-da-raspberry-pi-brasil.htm' },
+  microRobotics: { label: 'Crunchbase · Micro Robotics', url: 'https://www.crunchbase.com/organization/micro-robotics' },
+  microRoboticsPlace: { label: 'Magicpin · Micro Robotics, Centurion', url: 'https://magicpin.com/south-africa/Centurion/Samrand/Electronics/Micro-Robotics-(Pty)ltd/store/2339499' },
+  jlcpcb: { label: 'JLCPCB · Prototype assembly', url: 'https://jlcpcb.com/solutions/pcb-prototype-assembly' },
+  oshpark: { label: 'OSH Park · 2 layer service', url: 'https://docs.oshpark.com/services/two-layer/' },
+  oshparkPlace: { label: 'OSH Park · Privacy policy with address', url: 'https://docs.oshpark.com/privacy' },
+  gbe: { label: 'Mwananchi · GbE Circuits reboots Kenya’s electronics hardware dream', url: 'https://www.mwanaspoti.co.tz/bd/corporate/enterprise/gbe-circuits-reboots-kenya-electronics-hardware-dream-5112042' },
+  xometry: { label: 'Xometry · Hardware startups', url: 'https://www.xometry.com/hardware-startups' },
+  xometry10k: { label: 'Xometry · Form 10-K (SEC filing)', url: 'https://www.sec.gov/Archives/edgar/data/1657573/000095017024023214/xmtr-20231231.htm' },
+  protolabs: { label: 'Proto Labs · Form 10-K for 2025 (SEC filing)', url: 'https://www.sec.gov/Archives/edgar/data/1443669/000144366926000010/prlb-20251231.htm' },
+  protolabsLow: { label: 'AMT · Protolabs: Innovation in Low Volume Manufacturing', url: 'https://www.amtonline.org/article/protolabs-innovation-in-low-volume-manufacturing' },
+  sendcutsend: { label: 'SendCutSend · Company site', url: 'https://sendcutsend.com/' },
+  craftcloud: { label: 'Craftcloud · About', url: 'https://craftcloud3d.com/about' },
+  onlinemetals: { label: 'OnlineMetals · Cut to size', url: 'https://www.onlinemetals.com/en/cut-to-size' },
+  onlinemetalsProfile: { label: 'Ampliz · Online Metals profile', url: 'https://www.ampliz.com/company/online-metals/82134457' },
+  mcmaster: { label: 'Wikipedia · McMaster-Carr', url: 'https://en.wikipedia.org/wiki/McMaster-Carr' },
+  goodfellow: { label: 'Semiconductor Today · Goodfellow profile', url: 'https://semiconductor-today.com/features/COMPRO_GOODFELLOW.htm' },
+  metalSuper: { label: 'Metal Supermarkets · Canada quotes', url: 'https://buynow.metalsupermarkets.com/canada' },
+  metalSuperAbout: { label: 'Metal Supermarkets · About', url: 'https://metalsupermarkets.com/about' },
+  metalSuperFranchise: { label: 'Canadian Franchise Association · Metal Supermarkets', url: 'https://cfa.ca/lookforafranchise/listing/metal-supermarkets' },
+  pololu: { label: 'Pololu · About', url: 'https://www.pololu.com/about' },
+  rs: { label: 'Companies House · RS Components Limited', url: 'https://find-and-update.company-information.service.gov.uk/company/01002091' },
+  rsMaxon: { label: 'RS · maxon brushless DC motor listing', url: 'https://my.rs-online.com/web/p/dc-motors/8332825' },
+  maxon: { label: 'maxon · Company site', url: 'https://www.maxongroup.com/maxon/view/content/index' },
+});
+
+const SHOP = { level: 'proto', short: 'Shop', text: 'Sells individual products through an online shop. Check each listing for quantities and shipping.' };
+const NO_STOCK_INFO = { level: 'unknown', short: 'Ask' };
+NODES.push(
+  { id: 'mouser', stage: 'distributor', kind: 'Electronics distributor', cats: ['parts', 'battery'], cargo: 'Parts', name: 'Mouser Electronics', what: 'Electronic parts', place: 'Mansfield, USA', at: [-97.14, 32.56], about: 'A global electronics distributor with its headquarters and distribution center in Texas.', small: { ...NO_STOCK_INFO, text: 'A minimum order policy was not confirmed in the sources checked.' }, sources: ['mouser'] },
+  { id: 'pimoroni', stage: 'distributor', kind: 'Maker shop', cats: ['parts'], cargo: 'Parts', name: 'Pimoroni', what: 'Maker electronics and kits', place: 'Sheffield, United Kingdom', at: [-1.47, 53.38], about: 'Sells its own products plus a curated selection from others.', small: SHOP, sources: ['pimoroni'] },
+  { id: 'core', stage: 'distributor', kind: 'Maker shop', cats: ['parts', 'battery'], cargo: 'Parts', name: 'Core Electronics', what: 'Maker electronics', place: 'Newcastle, Australia', at: [151.78, -32.93], about: 'An Australian maker-electronics retailer and manufacturer.', small: SHOP, sources: ['coreBrand'] },
+  { id: 'robu', stage: 'distributor', kind: 'Maker shop', cats: ['parts'], cargo: 'Parts', name: 'Robu.in', what: 'Robotics, drone, and electronics parts', place: 'Pune, India', at: [73.86, 18.52], about: 'An Indian online store for robotics and electronics parts, run by Macfos Limited.', small: SHOP, sources: ['robuCompany', 'robuCytron'] },
+  { id: 'cytron', stage: 'pack', kind: 'Electronics maker and shop', cats: ['parts'], cargo: 'Electronics', name: 'Cytron Technologies', what: 'Robotics and maker electronics', place: 'Bukit Mertajam, Malaysia', at: [100.46, 5.36], about: 'A Malaysian company supplying electronics, robotics, and maker products.', small: SHOP, sources: ['cytronPenang', 'digikeyCytron'] },
+  { id: 'makerhero', stage: 'distributor', kind: 'Maker shop', cats: ['parts'], cargo: 'Parts', name: 'MakerHero', what: 'Electronic components and maker products', place: 'Florianópolis, Brazil', at: [-48.55, -27.6], about: 'A Brazilian electronics store, formerly FilipeFlop, and an official Raspberry Pi representative in Brazil.', small: SHOP, sources: ['makerhero'] },
+  { id: 'microrobotics', stage: 'distributor', kind: 'Maker shop', cats: ['parts'], cargo: 'Parts', name: 'Micro Robotics', what: 'Electronic components and robotics kits', place: 'Centurion, South Africa', at: [28.19, -25.86], about: 'Imports and distributes electronic components and robotics kits, including Arduino and Raspberry Pi products.', small: SHOP, sources: ['microRobotics', 'microRoboticsPlace'] },
+  { id: 'jlcpcb', stage: 'pack', kind: 'Circuit board maker', cats: ['pcb'], cargo: 'Circuit boards', name: 'JLCPCB', what: 'Circuit boards and assembly', place: 'Shenzhen, China', at: [114.06, 22.54], about: 'Makes circuit boards and offers assembly. Its location comes from third-party sources.', small: { level: 'one', short: 'From 2', text: 'Its assembly page states a minimum of 2 boards.' }, sources: ['jlcpcb'] },
+  { id: 'oshpark', stage: 'pack', kind: 'Circuit board maker', cats: ['pcb'], cargo: 'Circuit boards', name: 'OSH Park', what: 'Prototype circuit boards', place: 'Lake Oswego, USA', at: [-122.67, 45.42], about: 'A prototype circuit board service with boards manufactured in the United States.', small: { level: 'one', short: 'From 3', text: 'Each order includes three copies, at $5 per square inch for 2-layer boards.' }, sources: ['oshpark', 'oshparkPlace'] },
+  { id: 'gbe', stage: 'pack', kind: 'Circuit board maker', cats: ['pcb'], cargo: 'Circuit boards', name: 'GbE Circuits', what: 'Circuit boards and surface-mount assembly', place: 'Nairobi, Kenya', at: [36.85, -1.31], about: 'An electronics micro-factory in Nairobi’s Industrial Area, reported in July 2025.', small: { level: 'proto', short: 'Prototypes', text: 'A co-founder says it supports a single prototype or a full batch. No minimum is published.' }, sources: ['gbe'] },
+  { id: 'xometry', stage: 'pack', kind: 'Manufacturing marketplace', cats: ['fab'], cargo: 'Custom parts', name: 'Xometry', what: 'CNC, 3D printing, sheet metal, and molding', place: 'North Bethesda, USA', at: [-77.12, 39.05], about: 'A marketplace that connects orders to a network of over 5,000 manufacturers. Parts may be made elsewhere.', small: { level: 'proto', short: 'Low volume', text: 'It promotes low-volume runs and lists no minimums for metal 3D printing.' }, sources: ['xometry', 'xometry10k'] },
+  { id: 'protolabs', stage: 'pack', kind: 'Prototype manufacturer', cats: ['fab'], cargo: 'Custom parts', name: 'Protolabs', what: 'Custom prototypes and low-volume parts', place: 'Maple Plain, USA', at: [-93.65, 45.0], about: 'A digital manufacturer of custom prototypes and low-volume production parts.', small: { level: 'proto', short: 'Low volume', text: 'It focuses on prototypes and low volumes. No minimum was confirmed.' }, sources: ['protolabs', 'protolabsLow'] },
+  { id: 'sendcutsend', stage: 'pack', kind: 'Sheet and CNC service', cats: ['fab', 'metal'], cargo: 'Custom parts', name: 'SendCutSend', what: 'Sheet cutting, bending, and CNC machining', place: 'Reno, USA', at: [-119.81, 39.53], about: 'Lists facilities in Nevada, Kentucky, and Texas, and 175+ materials in stock.', small: { level: 'one', short: 'From 1', text: 'Its pricing examples start at a quantity of one.' }, sources: ['sendcutsend'] },
+  { id: 'craftcloud', stage: 'pack', kind: '3D printing marketplace', cats: ['fab'], cargo: 'Custom parts', name: 'Craftcloud', what: '3D printing price comparison', place: 'Munich, Germany', at: [11.58, 48.14], about: 'Compares prices from an international network of 3D printing manufacturers. Parts may be made elsewhere.', small: { level: 'proto', short: 'Quotes', text: 'It serves consumers as well as businesses. No minimum was confirmed.' }, sources: ['craftcloud'] },
+  { id: 'onlinemetals', stage: 'distributor', kind: 'Metal supplier', cats: ['metal'], cargo: 'Metal', name: 'OnlineMetals', what: 'Small-quantity, cut-to-size metal', place: 'Seattle, USA', at: [-122.33, 47.61], about: 'An online metal retailer offering custom cuts. A third-party profile places its origins in Seattle.', small: { level: 'one', short: 'No minimum', text: 'A third-party profile says there is no minimum order.' }, sources: ['onlinemetals', 'onlinemetalsProfile'] },
+  { id: 'mcmaster', stage: 'distributor', kind: 'Industrial supplier', cats: ['metal'], cargo: 'Materials', name: 'McMaster-Carr', what: 'Hardware, tools, and raw materials', place: 'Elmhurst, USA', at: [-87.94, 41.9], about: 'A large industrial supplier founded in 1901.', small: { ...NO_STOCK_INFO, text: 'An official minimum order policy was not confirmed.' }, sources: ['mcmaster'] },
+  { id: 'goodfellow', stage: 'distributor', kind: 'Materials supplier', cats: ['metal'], cargo: 'Materials', name: 'Goodfellow', what: 'Metals and materials for research and prototypes', place: 'Huntingdon, United Kingdom', at: [-0.18, 52.33], about: 'Specializes in small quantities of metals and materials for research and prototyping.', small: { level: 'one', short: 'No minimum', text: 'A company profile says most products have no minimum order quantity.' }, sources: ['goodfellow'] },
+  { id: 'metalsuper', stage: 'distributor', kind: 'Metal supplier', cats: ['metal'], cargo: 'Metal', name: 'Metal Supermarkets', what: 'Small-quantity metal, cut to size', place: 'Mississauga, Canada', at: [-79.64, 43.59], about: 'Lists over 130 stores across the US, Canada, and the UK. Sources differ on whether its head office is in Mississauga or Toronto.', small: { level: 'one', short: 'No minimum', text: 'Its Canadian quote page lists no minimum order requirements.' }, sources: ['metalSuper', 'metalSuperAbout', 'metalSuperFranchise'] },
+  { id: 'pololu', stage: 'pack', kind: 'Motor and electronics maker', cats: ['motor', 'parts'], cargo: 'Motors', name: 'Pololu', what: 'Motors, wheels, sensors, and motion control', place: 'Las Vegas, USA', at: [-115.17, 36.07], about: 'An electronics manufacturer and online retailer that says it makes most of what it sells.', small: SHOP, sources: ['pololu'] },
+  { id: 'rs', stage: 'distributor', kind: 'Electronics and industrial distributor', cats: ['parts', 'motor'], cargo: 'Parts', name: 'RS Components', what: 'Electronic and industrial parts, including motors', place: 'Corby, United Kingdom', at: [-0.68, 52.49], about: 'The UK trading arm of RS Group, with storefronts in many countries.', small: { level: 'one', short: 'From 1', text: 'Its maxon motor listings show a price for a single unit, though stock varies.' }, sources: ['rs', 'rsMaxon'] },
+  { id: 'maxon', stage: 'pack', kind: 'Motor maker', cats: ['motor'], cargo: 'Motors', name: 'maxon', what: 'Precision drive systems', place: 'Sachseln, Switzerland', at: [8.23, 46.87], about: 'A Swiss drive maker with an online shop for choosing and configuring products.', small: { level: 'proto', short: 'Configure', text: 'Its online shop lets you configure products. It does not state a minimum.' }, sources: ['maxon'] },
+);
+const CATS_BY_ID = { abs: ['battery'], grepow: ['battery'], cps: ['battery'], epec: ['battery'], akku: ['battery'], adafruit: ['battery', 'parts'], digikey: ['battery', 'parts'] };
+Object.entries(CATS_BY_ID).forEach(([id, cats]) => { NODE[id] = NODES.find(n => n.id === id); NODE[id].cats = cats; });
+NODES.forEach(n => { NODE[n.id] = n; });
+
+const NO_TRAIL = 'Raw material sources not established';
+['mouser', 'pimoroni', 'core', 'robu', 'cytron', 'makerhero', 'microrobotics', 'jlcpcb', 'oshpark', 'gbe', 'xometry', 'protolabs', 'sendcutsend', 'craftcloud', 'onlinemetals', 'mcmaster', 'goodfellow', 'metalsuper', 'pololu', 'maxon']
+  .forEach(id => LINKS.push({ to: id, from: null, ev: 'unknown', gap: NO_TRAIL, stage: 'mine' }));
+LINKS.push(
+  { to: 'mouser', from: 'adafruit', ev: 'confirmed', note: 'Mouser lists Adafruit battery packs.', sources: ['mouserAdafruit'] },
+  { to: 'rs', from: 'maxon', ev: 'confirmed', note: 'RS lists maxon motors for sale.', sources: ['rsMaxon'] },
+  { to: 'digikey', from: 'cytron', ev: 'confirmed', note: 'DigiKey has a supplier center for Cytron.', sources: ['digikeyCytron'] },
+  { to: 'robu', from: 'cytron', ev: 'confirmed', note: 'Robu.in says it has been Cytron’s exclusive partner in India since 2014.', sources: ['robuCytron'] },
+  { to: 'core', from: 'cytron', ev: 'confirmed', note: 'Core Electronics sells Cytron products in Australia.', sources: ['coreBrand'] },
+);
+
 function chainLinks(id, seen = new Set(), out = []) {
   for (const l of LINKS.filter(l => l.to === id)) {
     const key = `${l.to}>${l.from}`;
@@ -936,11 +1038,11 @@ const SEARCH_WORDS = {
   mine: 'mine mines mining raw materials minerals extraction',
   refiner: 'refiner refiners refinery refining processing',
   cell: 'battery batteries cell cells lithium-ion li-ion manufacturer manufacturing',
-  pack: 'battery batteries pack packs lithium-ion li-ion assembler assembly manufacturer manufacturing',
-  distributor: 'battery batteries pack packs lithium-ion li-ion distributor parts',
+  pack: 'assembler assembly manufacturer manufacturing maker',
+  distributor: 'distributor shop store supplier',
 };
 const searchTerms = () => state.search.toLowerCase().split(/\s+/).filter(Boolean);
-const nodeText = n => [n.name, n.place, n.what, STAGE[n.stage].one, SEARCH_WORDS[n.stage]].join(' ').toLowerCase();
+const nodeText = n => [n.name, n.place, n.what, n.kind, STAGE[n.stage].one, SEARCH_WORDS[n.stage], ...(n.cats || []).map(c => CATEGORY[c].words)].join(' ').toLowerCase();
 function supplierMatches(n) {
   const upstream = chainLinks(n.id).map(l => l.from ? nodeText(NODE[l.from]) : l.gap.toLowerCase());
   const text = [nodeText(n), ...upstream].join(' ');
@@ -954,7 +1056,7 @@ const places = topojson.feature(detail, detail.objects.countries).features.filte
 const CENTER_FIX = { 'United States of America': [-98, 39], 'France': [2.5, 46.5], 'Russia': [90, 60], 'Norway': [9, 61], 'Canada': [-100, 56] };
 const centerOf = f => CENTER_FIX[f.properties.name] || d3.geoCentroid(f);
 
-const state = { country: 'United States of America', sort: 'trace', selected: null, picked: new Set(), inspect: null, multi: false, search: '' };
+const state = { country: 'United States of America', sort: 'trace', selected: null, picked: new Set(), inspect: null, multi: false, showAll: false, category: 'all', search: '' };
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -966,10 +1068,11 @@ function rankSuppliers() {
     const links = chainLinks(n.id);
     const confirmed = links.filter(l => l.ev === 'confirmed').length;
     const likely = links.filter(l => l.ev === 'likely').length;
-    return { n, km, links, confirmed, trace: confirmed + likely / 2 };
+    return { n, km, links, confirmed, reach: longestPath(n.id).length, trace: confirmed + likely / 2 };
   });
-  const by = { trace: r => -r.trace, closest: r => r.km, small: r => SMALL_ORDER[r.n.small.level] };
-  const open = rows.filter(r => supplierMatches(r.n)).sort((a, b) => by[state.sort](a) - by[state.sort](b) || a.km - b.km);
+  const by = { trace: r => -(r.reach * 10 + r.trace), closest: r => r.km, small: r => SMALL_ORDER[r.n.small.level] };
+  const inCategory = r => state.category === 'all' || r.n.cats.includes(state.category);
+  const open = rows.filter(r => inCategory(r) && supplierMatches(r.n)).sort((a, b) => by[state.sort](a) - by[state.sort](b) || a.km - b.km);
   return { home, rows, open };
 }
 
@@ -1126,7 +1229,7 @@ function buildJourney(home) {
 }
 function legCaption(leg) {
   const s = STAGE[leg.from.stage];
-  const cargo = { mine: leg.from.what, refiner: 'Refined lithium', cell: 'Battery cells', pack: 'Finished packs', distributor: 'Batteries' }[s.id];
+  const cargo = leg.from.cargo || { mine: leg.from.what, refiner: 'Refined lithium', cell: 'Battery cells', pack: 'Finished packs', distributor: 'Batteries' }[s.id];
   const leaves = s.id === 'mine' ? 'leaves' : s.id === 'refiner' ? 'leaves the refiner in' : 'leave';
   const dest = leg.to.you ? `on a possible route to you in ${state.country}` : `heading to the ${STAGE[leg.to.stage].one.toLowerCase()} in ${leg.to.place}`;
   const sure = leg.ev === 'likely' ? ' This link is likely, not confirmed.' : '';
@@ -1266,6 +1369,7 @@ function drawMap(home) {
   arrows.selectAll('path').data(arrowData).join('path').attr('d', ARROW)
     .attr('class', d => `arrow-mark${d.other ? ' other' : ''}`).style('fill', d => `var(--${d.stage})`);
   routes.selectAll('path').data(lines).join('path').attr('class', d => `route ${d.cls}`).style('stroke', d => `var(--${d.stage})`);
+  if (state.showAll) state.ranked.open.forEach(r => shown.add(r.n.id));
   shownPins = shown;
   pins.classed('inchain', n => lead.has(n.id)).classed('selected', n => n.id === state.selected);
   marks = [{ at: home, you: true, text: `You, ${state.country}` }];
@@ -1310,16 +1414,21 @@ function rowHtml(r, i) {
   const mark = state.multi ? `<span class="tick ${on ? 'on' : ''}" aria-hidden="true">${on ? '✓' : ''}</span>` : i + 1;
   return `<li><button class="row ${r.n.id === state.selected ? 'lead' : ''}" data-id="${r.n.id}" aria-pressed="${on}">
     <span class="rank">${mark}</span>
-    <span><span class="name">${esc(r.n.name)}</span><br><span class="place">${STAGE[r.n.stage].one}, ${esc(r.n.place)}</span></span>
+    <span><span class="name">${esc(r.n.name)}</span><br><span class="place">${esc(r.n.kind || STAGE[r.n.stage].one)}, ${esc(r.n.place)}</span></span>
     ${factsHtml(r)}</button></li>`;
 }
 function drawList() {
   const { open } = state.ranked;
   const term = state.search.trim();
   $('restitle').textContent = open.length ? `${open.length} ${open.length === 1 ? 'supplier' : 'suppliers'} to look at` : `No results for "${term}"`;
-  $('ressub').textContent = `${term ? `Matching "${term}". ` : ''}Lithium-ion batteries, seen from ${state.country}.`;
+  $('ressub').textContent = `${term ? `Matching "${term}". ` : ''}${state.category === 'all' ? 'All categories' : CATEGORY[state.category].label}, seen from ${state.country}.`;
+  $('cats').innerHTML = CATEGORIES.map(c => {
+    const count = state.ranked.rows.filter(r => c.id === 'all' || r.n.cats.includes(c.id)).length;
+    return `<button class="cat" type="button" data-cat="${c.id}" aria-pressed="${state.category === c.id}">${esc(c.label)} <span>${count}</span></button>`;
+  }).join('');
+  $('tip').textContent = CATEGORY[state.category].tip;
   $('list').innerHTML = open.length ? open.map(rowHtml).join('')
-    : '<li class="empty">This map only covers lithium-ion batteries so far. Try battery pack, lithium, or cobalt.</li>';
+    : '<li class="empty">Nothing matches yet. Try battery, motor, circuit board, or metal, or choose Everything.</li>';
 }
 function nodeHtml(n, link, isBuy) {
   return `<div class="node ${isBuy ? 'buy' : ''}"><b>${esc(n.name)}</b>${esc(n.place)}${n.what ? `<br>${esc(n.what)}` : ''}
@@ -1337,12 +1446,13 @@ function drawTrace() {
     return;
   }
   const links = chainLinks(sel.id);
+  const stageTitle = s => (s.id === sel.stage && sel.kind) || (sel.cats && !sel.cats.includes('battery') && s.globe) || s.label;
   const cols = STAGES.map(s => {
     const items = links.filter(l => (l.from ? NODE[l.from].stage : l.stage) === s.id)
       .map(l => l.from ? nodeHtml(NODE[l.from], l) : `<div class="node"><b>${esc(l.gap)}</b><span class="ev unknown">${EV_LABEL.unknown}</span></div>`);
     const seen = [...new Set(items)];
     if (sel.stage === s.id) seen.push(nodeHtml(sel, null, true));
-    return seen.length ? `<div class="step"><h3 style="border-bottom-color:var(--${s.id})">${s.num}. ${s.label}</h3>${seen.join('')}</div>` : '';
+    return seen.length ? `<div class="step"><h3 style="border-bottom-color:var(--${s.id})">${s.num}. ${esc(stageTitle(s))}</h3>${seen.join('')}</div>` : '';
   }).join('');
   const r = state.rows.find(x => x.n.id === sel.id);
   el.innerHTML = `<h2>${esc(sel.name)}</h2>
@@ -1448,6 +1558,8 @@ $('country').innerHTML = names.map(n => `<option>${esc(n)}</option>`).join('');
 $('country').value = state.country;
 $('country').onchange = e => setCountry(e.target.value);
 $('search').oninput = e => { state.search = e.target.value; render(true); };
+$('cats').addEventListener('click', e => { const b = e.target.closest('[data-cat]'); if (b) { state.category = b.dataset.cat; render(true); } });
+$('showall').onchange = e => { state.showAll = e.target.checked; render(); };
 $('multi').onchange = e => { state.multi = e.target.checked; if (!state.multi) state.picked = new Set([state.selected]); render(); };
 $('sort').onchange = e => { state.sort = e.target.value; render(true); };
 document.addEventListener('click', e => {
@@ -1455,7 +1567,7 @@ document.addEventListener('click', e => {
   if (b) b.classList.contains('row') ? pick(b.dataset.id, true) : select(b.dataset.id);
 });
 $('legend').innerHTML = STAGES.map(s => `<span class="chip">
-  <svg width="30" height="30" viewBox="-15 -15 30 30" aria-hidden="true"><path d="${d3.symbol(s.sym, s.size)()}" fill="var(--${s.id})"></path><text class="pinnum" y="${s.numY}">${s.num}</text></svg>${s.label}</span>`).join('<span class="arrow" aria-hidden="true">→</span>');
+  <svg width="30" height="30" viewBox="-15 -15 30 30" aria-hidden="true"><path d="${d3.symbol(s.sym, s.size)()}" fill="var(--${s.id})"></path><text class="pinnum" y="${s.numY}">${s.num}</text></svg>${s.globe || s.label}</span>`).join('<span class="arrow" aria-hidden="true">→</span>');
 render();
 requestAnimationFrame(frame);
 </script>
