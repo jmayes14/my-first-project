@@ -1,5 +1,5 @@
 {
-  "title": "Research snapshot: supply chains for inventors",
+  "title": "Research snapshot: supply chains and ethical sourcing for inventors",
   "retrieved": "2026-11-02",
   "sources": {
     "public": "USGS Mineral Commodity Summaries 2026, SEC filings, news reports, and company websites. URLs are in docs/index.html.",
@@ -307,5 +307,43 @@
   "leads_not_listed": [
     "Aisler (circuit boards): base city could not be confirmed.",
     "Gearbox (Nairobi): reported closed in 2023; GbE Circuits is listed instead."
-  ]
+  ],
+  "ethics_method": {
+    "limits": "This research cannot prove that any part was ethically sourced, and it does not rate companies as ethical or unethical.",
+    "materials": "Mine production comes from USGS Mineral Commodity Summaries 2026 (2025 estimates). Materials per category are typical and vary by product.",
+    "labor_evidence": "Entries come from U.S. Department of Labor publications. The 2024 list was read through search results and official pages, not row by row, so entries are examples and the list of flagged countries is not complete. A listing does not mean all production in a country is affected or that a listed supplier uses that material.",
+    "supplier_levels": {
+      "audit": "An independent audit of a site",
+      "report": "A published report on due diligence",
+      "policy": "A published policy or code",
+      "parent": "Policy found only from a parent company",
+      "listed": "A document is listed but was not read",
+      "none": "Nothing found in a web search in November 2026; this is not evidence of poor sourcing"
+    }
+  },
+  "supplier_disclosures": {
+    "SQM Salar de Atacama": "audit",
+    "LG Energy Solution": "report",
+    "Proto Labs": "report",
+    "Epec": "policy",
+    "RS Components": "policy",
+    "maxon": "policy",
+    "Xometry": "policy",
+    "Goodfellow": "policy",
+    "American Battery Solutions": "parent (Komatsu)",
+    "Mouser Electronics": "listed",
+    "Craftcloud": "listed",
+    "All other suppliers": "none"
+  },
+  "labor_entries": {
+    "Cobalt": "Congo (Kinshasa): child labor since 2009; forced labor reported",
+    "Copper": "Congo (Kinshasa): child labor since 2009",
+    "Lithium": "Zimbabwe: child labor",
+    "Tin": "Congo (Kinshasa): listed in 2024; Indonesia: child labor in earlier editions, 2024 status not confirmed",
+    "Tantalum": "Congo (Kinshasa): child and forced labor in the 2018 edition; forced mining reported in 2024",
+    "Gold": "Many countries, including Congo (Kinshasa) and Zimbabwe",
+    "Aluminum": "China: forced labor, added 2024",
+    "Lithium-ion batteries": "China: downstream listing based on mineral inputs",
+    "Not confirmed": "Manganese and iron appear on the list, but country entries were not confirmed. No entry was seen for nickel, graphite, or rare earths; that is not evidence of no risk."
+  }
 }

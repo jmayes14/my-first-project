@@ -26,6 +26,12 @@ two separate questions:
 1. Who can I actually work with?
 2. Where does it trace back to?
 
+## Ethical sourcing
+The deeper purpose is to help inventors see whether the parts they use were
+ethically sourced, including where each material comes from and whether child or
+forced labor is documented there. Most supply chains are not public, so the site
+shows evidence and gaps. It does not certify parts or rate companies.
+
 ## What success would look like
 Inventors use the map to find a real supplier they would contact, and they can
 see how much of that supplier's chain is confirmed, likely, or unknown.
