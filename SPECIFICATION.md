@@ -111,6 +111,15 @@ Given the globe, when a visitor picks Slow, Medium, or Fast, then the trip, the
 globe's turning, and the likely-link pulse change speed. Slow is the default, and
 the choice is remembered on that device.
 
+**FR-19: Where materials come from (US-3)**
+Given a material, when a visitor selects it, then the page shows top mining
+countries and Department of Labor evidence, and the globe shades those countries
+and outlines any with confirmed labor entries.
+
+**FR-20: Ethical sourcing check (US-4)**
+Given a supplier, then the panel shows what it has published about ethical
+sourcing, from an independent audit to nothing found, with sources.
+
 ## Screens
 - **Hero:** title, purpose, and research date.
 - **Stage map:** filters, five stage cards, and the evidence panel.
@@ -141,6 +150,9 @@ Records live in `docs/index.html` and match
 - **BR-7:** Distance is measured from the center of the visitor's country and is not a delivery estimate.
 - **BR-8:** Sayari screening flags are not published.
 - **BR-9:** Being listed is not an endorsement.
+- **BR-12:** The site never rates a company as ethical or unethical, and it does not claim to prove ethical sourcing.
+- **BR-13:** Nothing found means no public statement was found. It is not evidence of poor sourcing.
+- **BR-14:** A labor listing applies to a good and country, not to all production there or to a listed supplier.
 - **BR-10:** Starting tips are advice and are not presented as sourced facts.
 - **BR-11:** A marketplace's place is the company's location, not where parts are made.
 
