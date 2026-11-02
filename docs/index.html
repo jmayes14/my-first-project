@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Find lithium-ion battery suppliers and trace them back toward the mine, with sources and known gaps.">
+<meta name="description" content="Find real suppliers for batteries, circuit boards, metals, motors, and more, and trace them back toward the mine, with sources and known gaps.">
 <meta name="theme-color" content="#f4f2ec">
 <link rel="icon" href="data:,">
 <title>Inventor Sourcing Map</title>
@@ -797,10 +797,10 @@
   <section class="map-shell" aria-labelledby="map-title">
     <div class="map-heading">
       <div>
-        <p class="eyebrow">Interactive map</p>
+        <p class="eyebrow">Worked example: batteries</p>
         <h2 id="map-title">From mine to inventor</h2>
       </div>
-      <p>Using lithium-ion batteries as the example. Choose a topic, then select a stage for its evidence.</p>
+      <p>Batteries are the only product traced this far. Choose a topic, then select a stage for its evidence.</p>
     </div>
     <div class="filters" role="group" aria-label="Filter supply-chain stages">
       <button class="filter" type="button" data-filter="all" aria-pressed="true">All stages</button>
@@ -824,7 +824,7 @@
     </section>
     <div class="stage-legend" aria-label="Map legend">
       <span>Public source gives context or names a company</span>
-      <span>Link to a specific battery not established</span>
+      <span>Link to a specific product not established</span>
     </div>
   </section>
 
@@ -853,8 +853,8 @@
       <div class="mapbox">
         <svg id="map" viewBox="0 0 880 620" role="img" aria-label="Spinning globe of mines, refiners, cell makers, pack assemblers, and distributors"></svg>
         <div class="searchbox">
-          <input id="search" type="search" list="search-ideas" placeholder="Search, like motors" aria-label="Search for a material, part, company, or place" autocomplete="off">
-          <datalist id="search-ideas"><option value="Battery pack"></option><option value="Battery cells"></option><option value="Lithium"></option><option value="Cobalt"></option></datalist>
+          <input id="search" type="search" list="search-ideas" placeholder="Search parts, places, or companies" aria-label="Search for a material, part, company, or country" autocomplete="off">
+          <datalist id="search-ideas"></datalist>
         </div>
         <div class="mapbtns"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zreset" aria-label="Reset view">⟲</button></div>
         <div class="zoomhint" id="zoomhint" hidden>Pinch, or hold Ctrl and scroll, to zoom</div>
@@ -878,7 +878,7 @@
   <section class="lower" id="sources" aria-label="Research notes">
     <article class="note-card">
       <h2>What this map can and can’t say</h2>
-      <p>A link shows evidence that two organizations are connected. It does not prove what is inside a particular battery, and a shipping record does not prove which factory made a product.</p>
+      <p>A link shows evidence that two organizations are connected. It does not prove what is inside a particular product, and a shipping record does not prove which factory made a product.</p>
       <p>The trail usually stops early. Companies rarely publish who supplies them, and no chain here yet runs from a mine all the way to a supplier that clearly serves small orders.</p>
     </article>
     <article class="note-card">
@@ -977,7 +977,7 @@ const CATEGORIES = [
   { id: 'parts', label: 'Electronic parts', tip: 'Try a shop near you first, so shipping and returns stay simple.', words: 'electronics components sensors boards arduino raspberry pi' },
   { id: 'pcb', label: 'Circuit boards', tip: 'Order a small batch and test it before paying for assembly.', words: 'pcb circuit board boards printed assembly' },
   { id: 'fab', label: '3D printing and machining', tip: 'Get two quotes for the same design, material, and finish.', words: '3d printing cnc machining sheet metal laser cutting manufacturing injection molding custom parts' },
-  { id: 'metal', label: 'Metals and materials', tip: 'Buy a small piece to test before ordering a full run.', words: 'metal metals aluminum steel copper plastic materials raw' },
+  { id: 'metal', label: 'Metals and materials', tip: 'Buy a small piece to test before ordering a full run.', words: 'metal metals materials raw' },
   { id: 'motor', label: 'Motors', tip: 'Test with a stock motor before asking for a custom one.', words: 'motor motors dc gearmotor motion robotics' },
 ];
 const CATEGORY = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
@@ -1075,7 +1075,7 @@ const SEARCH_WORDS = {
   pack: 'assembler assembly manufacturer manufacturing maker',
   distributor: 'distributor shop store supplier',
 };
-const searchTerms = () => state.search.toLowerCase().split(/\s+/).filter(Boolean);
+const searchTerms = () => state.search.toLowerCase().split(/\s+/).filter(t => t && t !== 'and');
 const nodeText = n => [n.name, n.place, n.what, n.kind, STAGE[n.stage].one, SEARCH_WORDS[n.stage], ...(n.cats || []).map(c => CATEGORY[c].words)].join(' ').toLowerCase();
 function supplierMatches(n) {
   const upstream = chainLinks(n.id).map(l => l.from ? nodeText(NODE[l.from]) : l.gap.toLowerCase());
@@ -1106,7 +1106,8 @@ function rankSuppliers() {
   });
   const by = { trace: r => -(r.reach * 10 + r.trace), closest: r => r.km, small: r => SMALL_ORDER[r.n.small.level] };
   const inCategory = r => state.category === 'all' || r.n.cats.includes(state.category);
-  const open = rows.filter(r => inCategory(r) && supplierMatches(r.n)).sort((a, b) => by[state.sort](a) - by[state.sort](b) || a.km - b.km);
+  const named = rows.filter(r => r.n.name.toLowerCase() === state.search.trim().toLowerCase());
+  const open = (named.length ? named : rows.filter(r => inCategory(r) && supplierMatches(r.n))).sort((a, b) => by[state.sort](a) - by[state.sort](b) || a.km - b.km);
   return { home, rows, open };
 }
 
@@ -1522,7 +1523,7 @@ function drawTrace() {
   el.innerHTML = `<h2>${esc(sel.name)}</h2>
     <p>${esc(sel.about)} ${esc(sel.small.text)} Confirm prices, minimums, and shipping directly with the company.</p>
     ${sourceLinks(sel.sources)}
-    <p class="trail">${r.confirmed} of ${r.links.length} links in this chain are confirmed. A link describes companies, not what is inside a particular battery.</p>
+    <p class="trail">${r.confirmed} of ${r.links.length} links in this chain are confirmed. A link describes companies, not what is inside a particular product.</p>
     <div class="steps" tabindex="0" aria-label="Supply chain from mine to supplier">${cols}</div>`;
 }
 $('source-list').innerHTML = Object.values(SOURCES).map(s => `<li><a href="${s.url}" target="_blank" rel="noopener">${esc(s.label)}</a></li>`).join('');
@@ -1623,6 +1624,12 @@ $('country').value = state.country;
 $('country').onchange = e => setCountry(e.target.value);
 $('search').oninput = e => { state.search = e.target.value; render(true); };
 $('cats').addEventListener('click', e => { const b = e.target.closest('[data-cat]'); if (b) { state.category = b.dataset.cat; render(true); } });
+// Suggestions come from the data, so new suppliers and places appear on their own.
+// Category names are safe suggestions. Narrower terms would imply a capability that was not checked for every supplier.
+const SEARCH_IDEAS = [...CATEGORIES.filter(c => c.id !== 'all').map(c => c.label), 'Battery cells', 'Lithium', 'Cobalt'];
+const suppliers = NODES.filter(canBuy);
+const countriesListed = [...new Set(suppliers.map(n => n.place.split(', ').pop()))].sort();
+$('search-ideas').innerHTML = [...SEARCH_IDEAS, ...countriesListed, ...suppliers.map(n => n.name).sort()].map(v => `<option value="${esc(v)}"></option>`).join('');
 $('showall').onchange = e => { state.showAll = e.target.checked; render(); };
 $('multi').onchange = e => { state.multi = e.target.checked; if (!state.multi) state.picked = new Set([state.selected]); render(); };
 $('sort').onchange = e => { state.sort = e.target.value; render(true); };
