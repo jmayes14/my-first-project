@@ -91,6 +91,14 @@ Given a mine, refiner, or cell maker on the globe, when a visitor selects it,
 then the panel explains that inventors usually cannot buy there and lists the
 suppliers that trace back to it.
 
+**FR-15: Category picker (US-1)**
+Given the globe section, when a visitor picks what they are building, then the
+list shows suppliers in that category and a starting tip appears.
+
+**FR-16: Every supplier on the globe (US-1)**
+Given the option to show every supplier is on, then all listed suppliers appear
+on the globe, and selecting one follows its chain.
+
 ## Screens
 - **Hero:** title, purpose, and research date.
 - **Stage map:** filters, five stage cards, and the evidence panel.
@@ -117,10 +125,12 @@ Records live in `docs/index.html` and match
 - **BR-3:** Unknown means not established here. A gap is never shown as clean or risky.
 - **BR-4:** A link describes organizations, not what is inside a particular battery.
 - **BR-5:** Prices, minimums, and shipping appear only when a source states them.
-- **BR-6:** Traceability scores a confirmed link as 1 and a likely link as 0.5.
+- **BR-6:** Best traceability ranks the longest known chain first, then scores a confirmed link as 1 and a likely link as 0.5.
 - **BR-7:** Distance is measured from the center of the visitor's country and is not a delivery estimate.
 - **BR-8:** Sayari screening flags are not published.
 - **BR-9:** Being listed is not an endorsement.
+- **BR-10:** Starting tips are advice and are not presented as sourced facts.
+- **BR-11:** A marketplace's place is the company's location, not where parts are made.
 
 ## Non-functional requirements
 - **Performance:** one static page of about 1 MB, with no build step.
