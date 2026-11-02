@@ -66,7 +66,8 @@ faded.
 
 **FR-9: Moving trip (US-3)**
 Given a selected supplier, when the page is idle, then a numbered shape travels
-along the chain, the globe turns to follow it, and a caption explains each step.
+along the chain, an arrow leads it on confirmed links, the globe follows and
+zooms in at stops, and a caption explains each step.
 
 **FR-10: Link styles (US-4)**
 Given a chain on the globe, then confirmed links show a moving arrow, likely
@@ -74,9 +75,10 @@ links flash, the route to the visitor is dotted and ends in a check mark, and
 unknown links have no line and appear in the panel below the globe.
 
 **FR-11: Zoom (US-6)**
-Given the globe, when a visitor scrolls, pinches, or uses the zoom buttons, then
-the view zooms up to 40x around that spot, flattens, and switches to detailed
-outlines. Scrolling over the globe does not scroll the page.
+Given the globe, when a visitor pinches, holds Ctrl or Cmd and scrolls, or uses
+the zoom buttons, then the view zooms up to 40x around that spot, flattens, and
+switches to detailed outlines. Plain scrolling moves the page and shows a short
+hint.
 
 **FR-12: Pause and reset (US-6)**
 Given a moving trip, when a visitor drags or zooms, then the trip pauses. When
@@ -98,6 +100,10 @@ list shows suppliers in that category and a starting tip appears.
 **FR-16: Every supplier on the globe (US-1)**
 Given the option to show every supplier is on, then all listed suppliers appear
 on the globe, and selecting one follows its chain.
+
+**FR-17: Parallax (US-1)**
+Given the hero, when a visitor scrolls, then background layers and shapes move
+at different speeds while evidence and supplier content stays steady.
 
 ## Screens
 - **Hero:** title, purpose, and research date.
@@ -135,7 +141,7 @@ Records live in `docs/index.html` and match
 ## Non-functional requirements
 - **Performance:** one static page of about 1 MB, with no build step.
 - **Accessibility:** cards, list items, and map markers work with a keyboard, and
-  visitors who ask for reduced motion see still lines.
+  visitors who ask for reduced motion get no parallax, trip, or moving lines.
 - **Devices:** works at 390x844 and on desktop with no sideways scrolling.
 - **Privacy:** no accounts, cookies, or analytics.
 - **Cost:** free hosting on GitHub Pages.
