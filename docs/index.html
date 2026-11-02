@@ -697,6 +697,21 @@
     .steps { grid-auto-flow: row; grid-auto-columns: auto; overflow-x: visible; }
   }
   .finder { margin-top: 1rem; }
+  html, body { overflow-x: clip; }
+  body { position: relative; }
+  :root { --rock-1: #e7ece4; --rock-2: #dde5dc; --rock-3: #cfdad1; }
+  .scene { position: absolute; inset: 0 0 auto; z-index: 0; height: 52rem; overflow: hidden; pointer-events: none; -webkit-mask-image: linear-gradient(#000 62%, transparent); mask-image: linear-gradient(#000 62%, transparent); }
+  .stratum { position: absolute; left: 0; bottom: 0; width: 100%; height: 34rem; will-change: transform; }
+  .float { position: absolute; width: 3rem; height: 3rem; opacity: 0.8; will-change: transform; }
+  .float svg { display: block; width: 100%; height: 100%; }
+  .f1 { top: 9rem; right: 7%; } .f2 { top: 17rem; right: 27%; } .f3 { top: 5rem; right: 34%; width: 2.2rem; height: 2.2rem; }
+  .f4 { top: 7rem; right: 18%; width: 2.4rem; height: 2.4rem; } .f5 { top: 11rem; left: 42%; width: 2.6rem; height: 2.6rem; }
+  main { position: relative; z-index: 1; }
+  .hero > div, .hero-note { position: relative; z-index: 1; will-change: transform; }
+  .map-shell, .lower, footer { position: relative; z-index: 2; }
+  .zoomhint { position: absolute; left: 50%; bottom: 76px; z-index: 3; transform: translateX(-50%); max-width: calc(100% - 24px); border-radius: 999px; background: var(--ink); color: var(--surface); padding: 6px 14px; font-size: 13px; text-align: center; pointer-events: none; }
+  @media (prefers-reduced-motion: reduce) { .float, .stratum, .hero > div, .hero-note { will-change: auto; } }
+  @media (max-width: 760px) { .float { display: none; } }
   .picker { margin-bottom: 1rem; }
   .picker-label { margin: 0 0 0.4rem; font-weight: 750; }
   .cats { display: flex; flex-wrap: wrap; gap: 0.45rem; }
@@ -743,6 +758,17 @@
 </head>
 <body>
 
+<div class="scene" aria-hidden="true">
+  <svg class="stratum" data-speed="0.32" viewBox="0 0 1440 420" preserveAspectRatio="none"><path fill="var(--rock-1)" d="M0 150 C240 90 420 190 720 140 S1200 80 1440 150 V420 H0 Z"></path></svg>
+  <svg class="stratum" data-speed="0.2" viewBox="0 0 1440 420" preserveAspectRatio="none"><path fill="var(--rock-2)" d="M0 230 C300 170 520 280 800 220 S1240 170 1440 240 V420 H0 Z"></path></svg>
+  <svg class="stratum" data-speed="0.08" viewBox="0 0 1440 420" preserveAspectRatio="none"><path fill="var(--rock-3)" d="M0 310 C260 270 560 350 860 300 S1260 270 1440 320 V420 H0 Z"></path></svg>
+  <div class="float f1" data-speed="0.42"><svg viewBox="-20 -20 40 40"><path d="M0-17 18 14H-18Z" fill="var(--mine)"></path></svg></div>
+  <div class="float f2" data-speed="0.26"><svg viewBox="-20 -20 40 40"><path d="M0-19 14 0 0 19-14 0Z" fill="var(--refiner)"></path></svg></div>
+  <div class="float f3" data-speed="0.55"><svg viewBox="-20 -20 40 40"><path d="M-14-14H14V14H-14Z" fill="var(--cell)"></path></svg></div>
+  <div class="float f4" data-speed="0.34"><svg viewBox="-20 -20 40 40"><circle r="16" fill="var(--pack)"></circle></svg></div>
+  <div class="float f5" data-speed="0.18"><svg viewBox="-20 -20 40 40"><path d="M0-19 5-6 19-6 8 3 12 17 0 8-12 17-8 3-19-6-5-6Z" fill="var(--distributor)"></path></svg></div>
+</div>
+
 <main>
   <nav class="topline" aria-label="Project navigation">
     <span>Field notes / 02</span>
@@ -750,12 +776,12 @@
   </nav>
 
   <header class="hero">
-    <div>
+    <div data-speed="0.14">
       <p class="eyebrow">A supply chain, for people building things</p>
       <h1>Trace the <span>source.</span></h1>
       <p class="hero-copy">Find who can supply what you’re building, then follow it back toward the mine. See what public evidence shows, and where the trail currently stops.</p>
     </div>
-    <aside class="hero-note">
+    <aside class="hero-note" data-speed="0.07">
       <strong>Research snapshot · November 2026</strong>
       <p>Real suppliers on six continents for batteries, circuit boards, metals, motors, and more. Select a stage below, or use the globe.</p>
     </aside>
@@ -824,12 +850,13 @@
           <datalist id="search-ideas"><option value="Battery pack"></option><option value="Battery cells"></option><option value="Lithium"></option><option value="Cobalt"></option></datalist>
         </div>
         <div class="mapbtns"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zreset" aria-label="Reset view">⟲</button></div>
+        <div class="zoomhint" id="zoomhint" hidden>Pinch, or hold Ctrl and scroll, to zoom</div>
         <div class="journey"><button id="play">Pause trip</button><p id="caption"></p></div>
       </div>
       <div class="below">
         <div class="legend" id="legend" aria-label="The five supply chain steps, in order"></div>
         <div class="key"><span><b>➤ Moving arrow:</b> confirmed link</span><span><b>Flashing line:</b> likely link</span><span><b>Dotted line, ➤ then ✓:</b> possible route to you</span></div>
-        <div class="hint">Click a supplier to see its supply chain. Scroll or pinch over the globe to zoom in on any spot. Click a country to set your location.</div>
+        <div class="hint">Click a supplier to see its supply chain. Pinch, or hold Ctrl and scroll, to zoom in on any spot. Click a country to set your location.</div>
       </div>
     </div>
     <section class="results" aria-labelledby="restitle">
@@ -1112,6 +1139,7 @@ const overlay = svg.append('g');
 const token = svg.append('g').attr('class', 'token').attr('display', 'none');
 token.append('path');
 token.append('text').attr('class', 'pinnum');
+const leader = svg.append('path').attr('class', 'arrow-mark').attr('display', 'none');
 const delivered = svg.append('g').attr('class', 'delivered').attr('display', 'none');
 const deliveredMark = delivered.append('g');
 deliveredMark.append('circle').attr('r', 13);
@@ -1167,7 +1195,8 @@ function drawArrows() {
     if (isDelivery && (calm || lap >= 0.75)) landed = true;
     const t = isDelivery && !calm ? lap / 0.75 : lap;
     const pos = d.go(Math.min(1, t));
-    const hide = !facing(pos) || (isDelivery && lap >= 0.75) || (d.lead && isDelivery && onLastLeg());
+    const active = journey && !paused && journey.legs[journey.i].from.at === d.a && journey.legs[journey.i].to.at === d.b;
+    const hide = !facing(pos) || (isDelivery && lap >= 0.75) || (d.lead && isDelivery && onLastLeg()) || active;
     d3.select(this).attr('display', hide ? 'none' : null)
       .attr('transform', hide ? null : `translate(${projection(pos)}) scale(${markScale}) rotate(${headingAt(d.go, Math.min(1, t))})`);
   });
@@ -1205,7 +1234,11 @@ function paint(force) {
     token.attr('display', null).attr('transform', `translate(${projection(journey.pos)}) scale(${markScale})${leg.to.you ? ` rotate(${headingAt(leg.go, moving)}) scale(1.5)` : ''}`);
     token.select('path').attr('d', leg.to.you ? ARROW : d3.symbol(s.sym, s.size * 1.25)()).attr('fill', `var(--${s.id})`);
     token.select('text').attr('y', s.numY).text(leg.to.you ? '' : s.num);
-  } else token.attr('display', 'none');
+    if (leg.ev === 'confirmed') {
+      leader.attr('display', null).attr('fill', `var(--${s.id})`)
+        .attr('transform', `translate(${projection(journey.pos)}) scale(${markScale}) rotate(${headingAt(leg.go, moving)}) translate(30,0) scale(1.15)`);
+    } else leader.attr('display', 'none');
+  } else { token.attr('display', 'none'); leader.attr('display', 'none'); }
 }
 
 // The journey follows the longest known path from a mine to the chosen supplier, then to the inventor.
@@ -1223,7 +1256,7 @@ function buildJourney(home) {
   const legs = stops.slice(1).map((to, i) => {
     const from = stops[i];
     const link = LINKS.find(l => l.from === from.id && l.to === to.id);
-    return { from, to, ev: link ? link.ev : 'delivery', go: d3.geoInterpolate(from.at, to.at), secs: 1.5 + d3.geoDistance(from.at, to.at) * 1.1 };
+    return { from, to, ev: link ? link.ev : 'delivery', go: d3.geoInterpolate(from.at, to.at), dist: d3.geoDistance(from.at, to.at), secs: 2.2 + d3.geoDistance(from.at, to.at) * 1.6 };
   });
   return legs.length ? { legs, i: 0, t: 0, hold: 1, pos: legs[0].from.at } : null;
 }
@@ -1256,19 +1289,23 @@ function advance(dt) {
       }
     }
     const leg = journey.legs[journey.i];
-    journey.pos = leg.go(d3.easeCubicInOut(journey.t));
+    const eased = d3.easeCubicInOut(journey.t);
+    journey.pos = leg.go(eased);
     if (journey.arrived && leg.to.you) setCaption('End of the trail', `This route ends with you in ${state.country}. Ask the supplier to confirm it ships there.`);
     else { const { step, text } = legCaption(leg); setCaption(step, text); }
-    cam.target = aim(journey.pos);
+    // The camera looks slightly ahead of the arrow, moves in at each stop, and pulls back on long legs.
+    cam.target = aim(leg.go(Math.min(1, eased + 0.05)));
+    const close = Math.min(6, Math.max(1.2, 1.4 / Math.max(leg.dist, 0.05)));
+    cam.zoom = close + (1 - close) * Math.sin(Math.PI * journey.t) * (leg.dist > 0.4 ? 1 : 0.3);
   } else if (!journey && !paused && !cam.target) cam.r[0] += dt * 6;
 
   if (cam.target) {
-    const ease = 1 - Math.exp(-dt * 3.5);
+    const ease = 1 - Math.exp(-dt * (paused ? 3.5 : 6));
     cam.r[0] += wrap(cam.target[0] - cam.r[0]) * ease;
     cam.r[1] += (cam.target[1] - cam.r[1]) * ease;
     if (paused && Math.abs(wrap(cam.target[0] - cam.r[0])) < 0.1) cam.target = null;
   }
-  cam.k += (cam.zoom - cam.k) * (1 - Math.exp(-dt * 8));
+  cam.k += (cam.zoom - cam.k) * (1 - Math.exp(-dt * (paused ? 8 : 2.5)));
   return (journey && !paused) || cam.target || !journey || (!calm && arrowData.length) || Math.abs(cam.zoom - cam.k) > 0.001;
 }
 let last = performance.now();
@@ -1307,7 +1344,15 @@ function fitView() {
 fitView();
 requestAnimationFrame(fitView);
 addEventListener('resize', fitView);
+// Plain scrolling must keep moving the page, so wheel zoom needs Ctrl or a trackpad pinch.
+let hintTimer = null;
+function showZoomHint() {
+  $('zoomhint').hidden = false;
+  clearTimeout(hintTimer);
+  hintTimer = setTimeout(() => { $('zoomhint').hidden = true; }, 1400);
+}
 svg.on('wheel', e => {
+  if (!e.ctrlKey && !e.metaKey) { showZoomHint(); return; }
   e.preventDefault();
   zoomAt(d3.pointer(e, mapNode), Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.002)));
 }, { passive: false });
@@ -1570,6 +1615,19 @@ $('legend').innerHTML = STAGES.map(s => `<span class="chip">
   <svg width="30" height="30" viewBox="-15 -15 30 30" aria-hidden="true"><path d="${d3.symbol(s.sym, s.size)()}" fill="var(--${s.id})"></path><text class="pinnum" y="${s.numY}">${s.num}</text></svg>${s.globe || s.label}</span>`).join('<span class="arrow" aria-hidden="true">→</span>');
 render();
 requestAnimationFrame(frame);
+
+// Parallax: background layers drift at their own speeds. Reading content stays steady.
+const depthLayers = [...document.querySelectorAll('[data-speed]')];
+let depthQueued = false;
+function applyDepth() {
+  depthQueued = false;
+  const y = scrollY, soften = innerWidth < 600 ? 0.5 : 1;
+  depthLayers.forEach(l => { l.style.transform = `translate3d(0, ${(y * +l.dataset.speed * soften).toFixed(1)}px, 0)`; });
+}
+if (!calm && depthLayers.length) {
+  addEventListener('scroll', () => { if (!depthQueued) { depthQueued = true; requestAnimationFrame(applyDepth); } }, { passive: true });
+  applyDepth();
+}
 </script>
 </body>
 </html>
