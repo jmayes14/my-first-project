@@ -697,6 +697,31 @@
     .steps { grid-auto-flow: row; grid-auto-columns: auto; overflow-x: visible; }
   }
   .finder { margin-top: 1rem; }
+
+  .sitenav { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: rgb(244 242 236 / 94%); backdrop-filter: blur(8px); }
+  .sitenav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: min(100% - 2rem, 76rem); min-height: 3.4rem; margin: 0 auto; }
+  .brand { color: var(--ink); font-weight: 850; letter-spacing: -0.02em; text-decoration: none; }
+  .brand span { color: var(--lime); }
+  .menu { display: flex; flex-wrap: wrap; gap: 0.2rem 1.1rem; margin: 0; padding: 0; list-style: none; }
+  .menu a { display: block; padding: 0.35rem 0; color: var(--muted); font-size: 0.92rem; font-weight: 650; text-decoration: none; }
+  .menu a:hover, .menu a[aria-current="page"] { color: var(--lime); text-decoration: underline; text-underline-offset: 0.3em; }
+  .menu-toggle { display: none; border: 1px solid var(--line); border-radius: 0.5rem; background: var(--panel); color: var(--ink); cursor: pointer; padding: 0.35rem 0.7rem; font: inherit; font-weight: 650; }
+  [id] { scroll-margin-top: 4.5rem; }
+  @media (max-width: 860px) {
+    .sitenav-inner { flex-wrap: wrap; padding: 0.3rem 0; }
+    .menu-toggle { display: block; }
+    .menu { display: none; flex-basis: 100%; flex-direction: column; padding-bottom: 0.5rem; }
+    .menu.open { display: flex; }
+    .menu a { padding: 0.55rem 0; font-size: 1rem; }
+  }
+  .how { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; margin-bottom: 1rem; }
+  .how article { border: 1px solid var(--line); border-radius: 1rem; background: var(--panel); padding: 1rem; }
+  .how b { display: block; margin-bottom: 0.2rem; }
+  .how p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+  .how-num { display: grid; width: 1.7rem; height: 1.7rem; place-items: center; margin-bottom: 0.5rem; border-radius: 50%; background: var(--lime); color: var(--lime-ink); font-size: 0.8rem; font-weight: 800; }
+  .how a { font-weight: 650; }
+  .ethics.owner { border-left-color: var(--line); }
+  @media (max-width: 760px) { .how { grid-template-columns: minmax(0, 1fr); } }
   .origin { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--panel); padding: 1rem; }
   .origin h3 { margin: 0 0 0.3rem; font-size: 1.05rem; }
   .origin-lead { margin: 0 0 0.7rem; color: var(--muted); font-size: 0.92rem; max-width: 70ch; }
@@ -794,6 +819,13 @@
 </style>
 </head>
 <body>
+<nav class="sitenav" aria-label="Main menu">
+  <div class="sitenav-inner">
+    <a class="brand" href="#top">Trace the <span>Source</span></a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu"><li><a href="#how">How it works</a></li><li><a href="#stages">Supply chain stages</a></li><li><a href="#find">Find a supplier</a></li><li><a href="#origin">Where it comes from</a></li><li><a href="#sources">Sources</a></li><li><a href="methodology.html">Methodology</a></li></ul>
+  </div>
+</nav>
 
 <div class="scene" aria-hidden="true">
   <svg class="stratum" data-speed="0.32" viewBox="0 0 1440 420" preserveAspectRatio="none"><path fill="var(--rock-1)" d="M0 150 C240 90 420 190 720 140 S1200 80 1440 150 V420 H0 Z"></path></svg>
@@ -807,11 +839,6 @@
 </div>
 
 <main>
-  <nav class="topline" aria-label="Project navigation">
-    <span>Field notes / 02</span>
-    <a href="#sources">Jump to sources and limits ↓</a>
-  </nav>
-
   <header class="hero">
     <div data-speed="0.14">
       <p class="eyebrow">A supply chain, for people building things</p>
@@ -824,7 +851,13 @@
     </aside>
   </header>
 
-  <section class="map-shell" aria-labelledby="map-title">
+  <section class="how" id="how" aria-label="How it works">
+    <article><span class="how-num">1</span><b>Pick what you’re building</b><p>Choose batteries, circuit boards, metals, motors, and more, then set your country.</p></article>
+    <article><span class="how-num">2</span><b>Find a supplier</b><p>See real companies, what they say about small orders, and how far each can be traced.</p></article>
+    <article><span class="how-num">3</span><b>Check where it comes from</b><p>See where materials are mined, documented labor problems, and what suppliers publish. <a href="methodology.html">How we check this</a>.</p></article>
+  </section>
+
+  <section class="map-shell" id="stages" aria-labelledby="map-title">
     <div class="map-heading">
       <div>
         <p class="eyebrow">Worked example: batteries</p>
@@ -858,7 +891,7 @@
     </div>
   </section>
 
-  <section class="map-shell finder" aria-labelledby="globe-title">
+  <section class="map-shell finder" id="find" aria-labelledby="globe-title">
     <div class="map-heading">
       <div>
         <p class="eyebrow">Interactive globe</p>
@@ -878,7 +911,7 @@
     <p class="tip"><b>Starting tip:</b> <span id="tip"></span></p>
   </div>
 
-  <section class="origin" aria-labelledby="origin-title">
+  <section class="origin" id="origin" aria-labelledby="origin-title">
     <h3 id="origin-title">Where it comes from</h3>
     <p class="origin-lead">No website can prove a part was ethically sourced, because most supply chains are not public. This shows where typical materials are mined, where labor problems are documented, and what each supplier has published.</p>
     <div class="cats" id="materials" role="group" aria-label="Choose a material"></div>
@@ -1005,7 +1038,11 @@ const LINKS = [
   { to: 'cps', from: null, ev: 'unknown', gap: 'Cell brands not named in the sources checked', stage: 'cell' },
   { to: 'epec', from: null, ev: 'unknown', gap: 'Cell brands not named in the sources checked', stage: 'cell' },
   { to: 'akku', from: null, ev: 'unknown', gap: 'Cell suppliers not established', stage: 'cell' },
-  { to: 'adafruit', from: null, ev: 'unknown', gap: 'Cell maker not named on the product page', stage: 'cell' },
+  { to: 'adafruit', from: 'pkcell', ev: 'likely', note: 'Sayari trade data shows Adafruit receiving from Shenzhen PKCELL Battery. The goods were not verified, and the product page does not name a cell maker.', sources: ['sayariAdafruit', 'sayariPkcell'] },
+  { to: 'pkcell', from: null, ev: 'unknown', gap: 'Cell materials suppliers not established', stage: 'refiner' },
+  { to: 'robu', from: 'adafruit', ev: 'likely', note: 'Sayari trade data shows Robu.in’s operator, Macfos, receiving from Adafruit. The goods were not verified.', sources: ['sayariMacfos'] },
+  { to: 'lges', from: 'genli', ev: 'likely', note: 'Sayari trade data shows LG Energy Solution receiving from General Lithium (Jiujiang). The goods and dates were not verified.', sources: ['sayariLg', 'sayariGenli'] },
+  { to: 'genli', from: null, ev: 'unknown', gap: 'Raw lithium source not established', stage: 'mine' },
   { to: 'digikey', from: 'adafruit', ev: 'confirmed', note: 'DigiKey lists Adafruit lithium-ion batteries for sale.', sources: ['digikey'] },
 ];
 const EV_LABEL = { confirmed: 'Confirmed link', likely: 'Likely link', unknown: 'Unknown' };
@@ -1052,6 +1089,12 @@ Object.assign(SOURCES, {
   metalSuperAbout: { label: 'Metal Supermarkets · About', url: 'https://metalsupermarkets.com/about' },
   metalSuperFranchise: { label: 'Canadian Franchise Association · Metal Supermarkets', url: 'https://cfa.ca/lookforafranchise/listing/metal-supermarkets' },
   pololu: { label: 'Pololu · About', url: 'https://www.pololu.com/about' },
+  sayariPkcell: { label: 'Sayari · Shenzhen PKCELL Battery (login required)', url: 'https://graph.sayari.com/resource/entity/Rt7mKFfp1IENVyEavfi6aQ' },
+  sayariGenli: { label: 'Sayari · General Lithium (Jiujiang) (login required)', url: 'https://graph.sayari.com/resource/entity/AmWbU8RgUQc2B8F3TiJ_yw' },
+  sayariAdafruit: { label: 'Sayari · Adafruit Industries (login required)', url: 'https://graph.sayari.com/resource/entity/8i6ZN1DnawvCtAMpcV7dTA' },
+  sayariMacfos: { label: 'Sayari · Macfos Limited (login required)', url: 'https://graph.sayari.com/resource/entity/leNcmPTbP-2vQhDVTKwpbg' },
+  sayariMouser: { label: 'Sayari · Mouser Electronics (login required)', url: 'https://graph.sayari.com/resource/entity/yxK5B96sM5FLd0cgaK6dPA' },
+  sayariGoodfellow: { label: 'Sayari · Goodfellow Cambridge (login required)', url: 'https://graph.sayari.com/resource/entity/_ZXxjw6IXTL9qRc-fFxezw' },
   rs: { label: 'Companies House · RS Components Limited', url: 'https://find-and-update.company-information.service.gov.uk/company/01002091' },
   rsMaxon: { label: 'RS · maxon brushless DC motor listing', url: 'https://my.rs-online.com/web/p/dc-motors/8332825' },
   maxon: { label: 'maxon · Company site', url: 'https://www.maxongroup.com/maxon/view/content/index' },
@@ -1080,6 +1123,8 @@ NODES.push(
   { id: 'metalsuper', stage: 'distributor', kind: 'Metal supplier', cats: ['metal'], cargo: 'Metal', name: 'Metal Supermarkets', what: 'Small-quantity metal, cut to size', place: 'Mississauga, Canada', at: [-79.64, 43.59], about: 'Lists over 130 stores across the US, Canada, and the UK. Sources differ on whether its head office is in Mississauga or Toronto.', small: { level: 'one', short: 'No minimum', text: 'Its Canadian quote page lists no minimum order requirements.' }, sources: ['metalSuper', 'metalSuperAbout', 'metalSuperFranchise'] },
   { id: 'pololu', stage: 'pack', kind: 'Motor and electronics maker', cats: ['motor', 'parts'], cargo: 'Motors', name: 'Pololu', what: 'Motors, wheels, sensors, and motion control', place: 'Las Vegas, USA', at: [-115.17, 36.07], about: 'An electronics manufacturer and online retailer that says it makes most of what it sells.', small: SHOP, sources: ['pololu'] },
   { id: 'rs', stage: 'distributor', kind: 'Electronics and industrial distributor', cats: ['parts', 'motor'], cargo: 'Parts', name: 'RS Components', what: 'Electronic and industrial parts, including motors', place: 'Corby, United Kingdom', at: [-0.68, 52.49], about: 'The UK trading arm of RS Group, with storefronts in many countries.', small: { level: 'one', short: 'From 1', text: 'Its maxon motor listings show a price for a single unit, though stock varies.' }, sources: ['rs', 'rsMaxon'] },
+  { id: 'pkcell', stage: 'cell', name: 'Shenzhen PKCELL Battery', what: 'Batteries', place: 'Shenzhen, China', at: [114.05, 22.68], about: 'A battery company in Shenzhen found through Sayari trade data.', sources: ['sayariPkcell'] },
+  { id: 'genli', stage: 'refiner', name: 'General Lithium (Jiujiang)', what: 'Lithium compounds', place: 'Jiujiang, China', at: [116.0, 29.71], about: 'A lithium company in Jiujiang found through Sayari trade data.', sources: ['sayariGenli'] },
   { id: 'maxon', stage: 'pack', kind: 'Motor maker', cats: ['motor'], cargo: 'Motors', name: 'maxon', what: 'Precision drive systems', place: 'Sachseln, Switzerland', at: [8.23, 46.87], about: 'A Swiss drive maker with an online shop for choosing and configuring products.', small: { level: 'proto', short: 'Configure', text: 'Its online shop lets you configure products. It does not state a minimum.' }, sources: ['maxon'] },
 );
 const CATS_BY_ID = { abs: ['battery'], grepow: ['battery'], cps: ['battery'], epec: ['battery'], akku: ['battery'], adafruit: ['battery', 'parts'], digikey: ['battery', 'parts'] };
@@ -1588,6 +1633,14 @@ const ETHICS = {
   mouser: { level: 'listed', text: 'Its ESG page lists a conflict minerals statement. The statement itself was not read for this check.', sources: ['mouserEsg'] },
   craftcloud: { level: 'listed', text: 'Its site links to a modern slavery policy, which was not read for this check. Parts may be made by any of its partners.', sources: ['craftcloud'] },
 };
+// Companies only. Individual owners are not published.
+const OWNERS = {
+  cps: { text: 'Sayari lists Addtech Nordic AB as a shareholder, part of Sweden’s Addtech group.', sources: ['sayariCps'] },
+  mouser: { text: 'Sayari shows Berkshire Hathaway as a parent in its ownership chain.', sources: ['sayariMouser'] },
+  goodfellow: { text: 'Sayari shows Advanced Scientific Materials Limited as its holding company, which matches Goodfellow’s own statement.', sources: ['sayariGoodfellow', 'goodfellowCm'] },
+  abs: { text: 'Komatsu agreed to acquire the company in November 2023. Sayari’s ownership records did not show this.', sources: ['komatsu'] },
+};
+const ownerHtml = n => OWNERS[n.id] ? `<div class="ethics owner"><b>Who owns it</b><span>${esc(OWNERS[n.id].text)}</span>${sourceLinks(OWNERS[n.id].sources)}</div>` : '';
 const ETHICS_NONE = { level: 'none', text: 'No ethical sourcing statement was found in a web search in November 2026. That does not mean sourcing is poor, or that no statement exists. Ask the company directly.', sources: [] };
 const ethicsOf = n => ETHICS[n.id] || (canBuy(n) ? ETHICS_NONE : null);
 function ethicsHtml(n) {
@@ -1679,7 +1732,7 @@ function drawTrace() {
   const r = state.rows.find(x => x.n.id === sel.id);
   el.innerHTML = `<h2>${esc(sel.name)}</h2>
     <p>${esc(sel.about)} ${esc(sel.small.text)} Confirm prices, minimums, and shipping directly with the company.</p>
-    ${sourceLinks(sel.sources)}${ethicsHtml(sel)}
+    ${sourceLinks(sel.sources)}${ethicsHtml(sel)}${ownerHtml(sel)}
     <p class="trail">${r.confirmed} of ${r.links.length} links in this chain are confirmed. A link describes companies, not what is inside a particular product.</p>
     <div class="steps" tabindex="0" aria-label="Supply chain from mine to supplier">${cols}</div>`;
 }
@@ -1705,7 +1758,7 @@ const STAGE_NOTES = {
     state: 'Cell maker named', tags: 'making',
     summary: 'Refined chemicals become individual battery cells, the basic unit inside every pack.',
     evidence: 'SQM and LG Energy Solution signed a long-term lithium supply deal in 2023, reported at 100,000 tons over seven years. In Sayari’s indexed records from 2025 onward, China is the most common departure country for shipments described as lithium-ion cells. Those are record counts, not total world trade.',
-    unknown: 'Unknown: the cell makers behind Cell Pack Solutions, Epec, Akku Power, and Adafruit. The sources checked do not name them.',
+    unknown: 'Unknown: the cell makers behind Cell Pack Solutions, Epec, and Akku Power. The sources checked do not name them.',
     sources: ['lgDeal', 'sayariLg'],
   },
   pack: {
@@ -1719,7 +1772,7 @@ const STAGE_NOTES = {
     state: 'Buy from one unit', tags: 'buying',
     summary: 'Distributors stock finished batteries in small quantities. For an early prototype, this is often the easiest place to start.',
     evidence: 'Adafruit listed a 3.7V 350mAh battery at $6.95 for one, in stock, in November 2026. DigiKey’s listed prices start at a quantity of one, and it lists Adafruit lithium-ion batteries.',
-    unknown: 'Unknown: who made the cells in these batteries, and which countries each company ships them to.',
+    unknown: 'Unknown: whether a given battery uses cells from PKCELL, which trade data links to Adafruit, and which countries each company ships to.',
     sources: ['adafruit', 'digikey'],
   },
 };
@@ -1825,6 +1878,14 @@ if (!calm && depthLayers.length) {
   addEventListener('scroll', () => { if (!depthQueued) { depthQueued = true; requestAnimationFrame(applyDepth); } }, { passive: true });
   applyDepth();
 }
+</script>
+<script>
+(() => {
+  const toggle = document.getElementById('menu-toggle'), menu = document.getElementById('site-menu');
+  const set = open => { menu.classList.toggle('open', open); toggle.setAttribute('aria-expanded', String(open)); };
+  toggle.addEventListener('click', () => set(!menu.classList.contains('open')));
+  menu.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
+})();
 </script>
 </body>
 </html>

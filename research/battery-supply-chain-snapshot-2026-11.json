@@ -116,6 +116,24 @@
       "to": "Core Electronics",
       "evidence": "confirmed",
       "basis": "Core Electronics sells Cytron products in Australia."
+    },
+    {
+      "from": "Shenzhen PKCELL Battery",
+      "to": "Adafruit",
+      "evidence": "likely",
+      "basis": "Sayari receives_from relationship; goods not verified."
+    },
+    {
+      "from": "General Lithium (Jiujiang)",
+      "to": "LG Energy Solution",
+      "evidence": "likely",
+      "basis": "Sayari receives_from relationship; goods and dates not verified."
+    },
+    {
+      "from": "Adafruit",
+      "to": "Robu.in (Macfos Limited)",
+      "evidence": "likely",
+      "basis": "Sayari receives_from relationship; goods not verified."
     }
   ],
   "suppliers": [
@@ -345,5 +363,26 @@
     "Aluminum": "China: forced labor, added 2024",
     "Lithium-ion batteries": "China: downstream listing based on mineral inputs",
     "Not confirmed": "Manganese and iron appear on the list, but country entries were not confirmed. No entry was seen for nickel, graphite, or rare earths; that is not evidence of no risk."
+  },
+  "sayari_review": {
+    "date": "2026-11-02",
+    "matched_records": 21,
+    "not_matched": [
+      "Core Electronics",
+      "MakerHero",
+      "JLCPCB",
+      "GbE Circuits",
+      "SendCutSend",
+      "Craftcloud",
+      "OnlineMetals"
+    ],
+    "direct_sanctions_flags_on_matched_records": 0,
+    "method": "Records were matched by name, place, and identifiers. Trade partners and ownership were reviewed for selected suppliers, not all of them.",
+    "published": [
+      "Likely trade links: PKCELL to Adafruit, General Lithium to LG Energy Solution, Adafruit to Macfos (Robu.in)",
+      "Company ownership for Cell Pack Solutions, Mouser, and Goodfellow"
+    ],
+    "not_published": "Risk flags, individual owners, and serious trade links where the goods could not be seen.",
+    "caveat": "Shipment name filters returned unrelated records, so the goods behind these links are unverified."
   }
 }
