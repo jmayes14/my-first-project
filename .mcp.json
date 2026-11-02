@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "sayari": {
+      "type": "http",
+      "url": "https://mcp.sayari.com/mcp"
+    }
+  }
+}
