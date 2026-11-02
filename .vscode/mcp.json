@@ -1,0 +1,80 @@
+{
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "sayari-client-id",
+      "description": "Sayari API client ID"
+    },
+    {
+      "type": "promptString",
+      "id": "sayari-client-secret",
+      "description": "Sayari API client secret",
+      "password": true
+    },
+    {
+      "type": "promptString",
+      "id": "tavily-api-key",
+      "description": "Tavily API key",
+      "password": true
+    }
+  ],
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "tavily": {
+      "type": "http",
+      "url": "https://mcp.tavily.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${input:tavily-api-key}"
+      }
+    },
+    "memory": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    },
+    "sequentialthinking": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/justinmayes/my-first-project"
+      ]
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp"
+      ]
+    },
+    "sayari": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/.vscode/sayari-mcp.mjs"],
+      "env": {
+        "SAYARI_CLIENT_ID": "${input:sayari-client-id}",
+        "SAYARI_CLIENT_SECRET": "${input:sayari-client-secret}"
+      }
+    },
+    "sayari-docs": {
+      "type": "http",
+      "url": "https://documentation.sayari.com/_mcp/server"
+    }
+  }
+}

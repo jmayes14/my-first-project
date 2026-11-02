@@ -16,7 +16,9 @@ Thumbs.db
 Desktop.ini
 
 # Editors
-.vscode/
+.vscode/*
+!.vscode/mcp.json
+!.vscode/sayari-mcp.mjs
 .idea/
 *.swp
 *.swo
