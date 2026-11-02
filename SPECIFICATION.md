@@ -106,6 +106,11 @@ on the globe, and selecting one follows its chain.
 Given the hero, when a visitor scrolls, then background layers and shapes move
 at different speeds while evidence and supplier content stays steady.
 
+**FR-18: Globe speed (US-6)**
+Given the globe, when a visitor picks Slow, Medium, or Fast, then the trip, the
+globe's turning, and the likely-link pulse change speed. Slow is the default, and
+the choice is remembered on that device.
+
 ## Screens
 - **Hero:** title, purpose, and research date.
 - **Stage map:** filters, five stage cards, and the evidence panel.
@@ -144,5 +149,5 @@ Records live in `docs/index.html` and match
 - **Accessibility:** cards, list items, and map markers work with a keyboard, and
   visitors who ask for reduced motion get no parallax, trip, or moving lines.
 - **Devices:** works at 390x844 and on desktop with no sideways scrolling.
-- **Privacy:** no accounts, cookies, or analytics.
+- **Privacy:** no accounts, cookies, or analytics. The speed choice stays in the visitor's browser.
 - **Cost:** free hosting on GitHub Pages.
