@@ -2,42 +2,598 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="A spinning globe that helps inventors find lithium-ion battery suppliers and trace them back toward the mine, with sources and known gaps.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Find lithium-ion battery suppliers and trace them back toward the mine, with sources and known gaps.">
+<meta name="theme-color" content="#f4f2ec">
 <title>Inventor Sourcing Map</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
-  /* Layout: a chart-table workspace. Map and ranked suppliers sit side by side; the trace runs underneath as one line from mine to inventor. */
+
+  /* Layout: the Field Notes page from the vape project, with the globe as a second panel. */
   :root {
-    --space: #0d181e; --bg: #eef2f3; --surface: #ffffff; --sea: #b9d3dd; --land: #f3f6f4; --land-line: #9db4bb;
-    --ink: #17282c; --muted: #546a70; --line: #cfdadd; --accent: #216653; --accent-ink: #ffffff; --accent-soft: #dcefe8;
+    color-scheme: light;
+    --bg: #f4f2ec; --surface: #ffffff; --accent: #216653; --accent-ink: #ffffff; --accent-soft: #e8f2ec;
+    --space: #dfe9e6; --sea: #b9d3dd; --land: #f7f8f4; --land-line: #9db4bb;
     --mine: #a34f20; --refiner: #7a4b9b; --cell: #1f6fa8; --pack: #216653; --distributor: #94600a; --pin-ink: #ffffff;
-    --confirmed: #216653; --likely: #a36a00; --unknown: #b23a3a; --warn-bg: #fff3d6; --warn-ink: #5e4300;
-    --sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --confirmed: #216653; --likely: #a36a00; --unknown: #b23a3a;
+    --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: ui-monospace, Menlo, Consolas, monospace;
+    --ink: #202b29;
+    --muted: #596a64;
+    --page: #f4f2ec;
+    --panel: #ffffff;
+    --panel-raised: #edf3ee;
+    --line: #d6dfd9;
+    --lime: #216653;
+    --lime-ink: #ffffff;
+    --orange: #a34f20;
+    --blue: #247984;
+    --unknown-bg: #fff1e7;
+    --shadow: 0 1.5rem 4rem rgb(34 52 45 / 10%);
+    --radius: 1.15rem;
   }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-    --bg: #101a1d; --surface: #182428; --sea: #1d4557; --land: #4d6468; --land-line: #6f878c;
-    --ink: #e7eff0; --muted: #9db0b5; --line: #304248; --accent: #52c4a0; --accent-ink: #082019; --accent-soft: #1b3a32;
-    --mine: #ec9662; --refiner: #c39ae3; --cell: #6db8ee; --pack: #52c4a0; --distributor: #e8b64e; --pin-ink: #0d1a1d;
-    --confirmed: #52c4a0; --likely: #e8b64e; --unknown: #f08a8a; --warn-bg: #3a2f12; --warn-ink: #f5dc9c; color-scheme: dark;
-  } }
-  :root[data-theme="dark"] {
-    --bg: #101a1d; --surface: #182428; --sea: #1d4557; --land: #4d6468; --land-line: #6f878c;
-    --ink: #e7eff0; --muted: #9db0b5; --line: #304248; --accent: #52c4a0; --accent-ink: #082019; --accent-soft: #1b3a32;
-    --mine: #ec9662; --refiner: #c39ae3; --cell: #6db8ee; --pack: #52c4a0; --distributor: #e8b64e; --pin-ink: #0d1a1d;
-    --confirmed: #52c4a0; --likely: #e8b64e; --unknown: #f08a8a; --warn-bg: #3a2f12; --warn-ink: #f5dc9c; color-scheme: dark;
+
+  * {
+    box-sizing: border-box;
   }
-  * { box-sizing: border-box; }
-  html { color-scheme: light; }
-  [hidden] { display: none !important; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.45; }
-  .wrap { max-width: 1320px; margin: 0 auto; display: grid; gap: 16px; padding-block: 20px 32px;
-    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-  h1 { font-size: 26px; line-height: 1.15; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
-  h2 { font-size: 15px; margin: 0; }
-  .lede { margin: 4px 0 0; color: var(--muted); max-width: 68ch; }
-  .sample { background: var(--warn-bg); color: var(--warn-ink); padding: 8px 12px; border-radius: 6px; font-size: 14px; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background:
+  radial-gradient(ellipse at 82% 4%, rgb(33 102 83 / 8%), transparent 30rem),
+  var(--page);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.55;
+  }
+
+  button,
+  a {
+    font: inherit;
+  }
+
+  a {
+    color: var(--lime);
+    text-underline-offset: 0.18em;
+  }
+
+  a:hover {
+    color: #174c3f;
+  }
+
+  button:focus-visible,
+  a:focus-visible {
+    outline: 3px solid #c06a35;
+    outline-offset: 4px;
+  }
+
+  main {
+    width: min(100% - 2rem, 76rem);
+    margin: 0 auto;
+    padding: 2rem 0 4rem;
+  }
+
+  .topline,
+  .eyebrow,
+  .step-kicker {
+    color: var(--lime);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0 2.75rem;
+  }
+
+  .topline a {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.65fr);
+    align-items: end;
+    gap: 3rem;
+    padding-bottom: 3.5rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin-top: 0;
+  }
+
+  h1 {
+    max-width: 13ch;
+    margin: 0.7rem 0 1rem;
+    font-size: clamp(3.2rem, 8vw, 7rem);
+    font-weight: 850;
+    letter-spacing: -0.075em;
+    line-height: 0.92;
+  }
+
+  h1 span {
+    color: var(--lime);
+  }
+
+  .hero-copy {
+    max-width: 43rem;
+    margin: 0;
+    color: var(--muted);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+  }
+
+  .hero-note {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+    padding: 1.3rem;
+    box-shadow: 0 0.8rem 2rem rgb(34 52 45 / 5%);
+  }
+
+  .hero-note strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: #8d481f;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .hero-note p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.96rem;
+  }
+
+  .map-shell {
+    border: 1px solid var(--line);
+    border-radius: 1.5rem;
+    background: linear-gradient(145deg, #ffffff, #f8faf7);
+    padding: clamp(1rem, 3vw, 2rem);
+    box-shadow: var(--shadow);
+  }
+
+  .map-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .map-heading h2 {
+    margin: 0.3rem 0 0;
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    letter-spacing: -0.045em;
+  }
+
+  .map-heading p {
+    max-width: 24rem;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: right;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .filter {
+    min-height: 2.6rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 0.55rem 0.95rem;
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+  }
+
+  .filter:hover {
+    border-color: var(--lime);
+    color: var(--ink);
+  }
+
+  .filter[aria-pressed="true"] {
+    border-color: var(--lime);
+    background: var(--lime);
+    color: var(--lime-ink);
+    font-weight: 750;
+  }
+
+  .chain {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .chain-item {
+    position: relative;
+    min-width: 0;
+  }
+
+  .chain-item:not(:last-child)::after {
+    position: absolute;
+    top: 2.15rem;
+    right: -0.83rem;
+    z-index: 2;
+    color: var(--lime);
+    content: "→";
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  .stage-button {
+    display: flex;
+    width: 100%;
+    min-height: 11.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: #f6f8f5;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 1rem;
+    text-align: left;
+    transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease, opacity 160ms ease;
+  }
+
+  .stage-button:hover {
+    transform: translateY(-3px);
+    border-color: var(--blue);
+  }
+
+  .stage-button[aria-pressed="true"] {
+    border-color: var(--lime);
+    background: #e8f2ec;
+    box-shadow: inset 0 0 0 1px var(--lime);
+  }
+
+  .stage-button.is-muted {
+    opacity: 0.42;
+  }
+
+  .stage-number {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    margin-bottom: auto;
+    border-radius: 50%;
+    background: var(--lime);
+    color: var(--lime-ink);
+    font-size: 0.83rem;
+    font-weight: 850;
+  }
+
+  .stage-name {
+    display: block;
+    margin-top: 1.2rem;
+    font-size: 1rem;
+    font-weight: 750;
+    line-height: 1.2;
+  }
+
+  .stage-state {
+    display: block;
+    margin-top: 0.5rem;
+    color: #8d481f;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .detail {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: var(--panel);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    box-shadow: 0 0.8rem 2rem rgb(34 52 45 / 5%);
+  }
+
+  .detail h3 {
+    margin: 0.45rem 0 0.65rem;
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+  }
+
+  .detail-summary,
+  .detail-evidence,
+  .detail-unknown {
+    color: var(--muted);
+  }
+
+  .detail-summary {
+    margin-bottom: 1rem;
+  }
+
+  .detail-evidence,
+  .detail-unknown {
+    margin-bottom: 0.75rem;
+    border-left: 4px solid var(--blue);
+    border-radius: 0 0.7rem 0.7rem 0;
+    background: #eaf4f3;
+    padding: 0.85rem 1rem;
+  }
+
+  .detail-evidence::before,
+  .detail-unknown::before {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--blue);
+    content: "What the evidence says";
+    font-size: 0.73rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .detail-unknown {
+    border-color: var(--orange);
+    background: var(--unknown-bg);
+  }
+
+  .detail-unknown::before {
+    color: #8d481f;
+    content: "Still unknown";
+  }
+
+  .detail strong {
+    color: var(--ink);
+  }
+
+  .detail-sources {
+    padding-left: 1.15rem;
+  }
+
+  .detail-sources li + li {
+    margin-top: 0.45rem;
+  }
+
+  .detail-sources a {
+    font-size: 0.93rem;
+    font-weight: 650;
+  }
+
+  .detail-sources small {
+    display: block;
+    color: var(--muted);
+    font-size: 0.83rem;
+  }
+
+  .stage-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.5rem;
+    margin-top: 1.3rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .stage-legend span::before {
+    display: inline-block;
+    width: 0.65rem;
+    height: 0.65rem;
+    margin-right: 0.45rem;
+    border-radius: 50%;
+    background: var(--blue);
+    content: "";
+  }
+
+  .stage-legend span:last-child::before {
+    background: var(--orange);
+  }
+
+  .lower {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .note-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+    padding: 1.3rem;
+    box-shadow: 0 0.8rem 2rem rgb(34 52 45 / 4%);
+  }
+
+  .note-card h2 {
+    margin-bottom: 0.6rem;
+    font-size: 1.05rem;
+  }
+
+  .note-card p,
+  .note-card ul {
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  .note-card:first-child {
+    border-top: 3px solid var(--lime);
+  }
+
+  .note-card:last-child {
+    border-top: 3px solid var(--orange);
+  }
+
+  .eyebrow,
+  .step-kicker {
+    color: var(--lime);
+  }
+
+  .note-card ul {
+    padding-left: 1.1rem;
+  }
+
+  .note-card li + li {
+    margin-top: 0.35rem;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+    }
+
+    .hero-note {
+  max-width: 36rem;
+    }
+
+    .chain {
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+    }
+
+    .chain-item:not(:last-child)::after {
+  top: auto;
+  right: 1.4rem;
+  bottom: -0.82rem;
+  content: "↓";
+    }
+
+    .stage-button {
+  min-height: 6.2rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.9rem;
+    }
+
+    .stage-number {
+  flex: 0 0 auto;
+  margin: 0;
+    }
+
+    .stage-labels {
+  flex: 1;
+    }
+
+    .stage-name {
+  margin: 0;
+    }
+
+    .stage-state {
+  margin-top: 0.25rem;
+    }
+
+    .detail {
+  grid-template-columns: 1fr;
+  gap: 1.3rem;
+    }
+
+    .map-heading {
+  align-items: flex-start;
+  flex-direction: column;
+    }
+
+    .map-heading p {
+  text-align: left;
+    }
+  }
+
+  @media (max-width: 520px) {
+    main {
+  width: min(100% - 1.2rem, 76rem);
+  padding-top: 1rem;
+    }
+
+    .topline {
+  padding-bottom: 2rem;
+    }
+
+    .topline a {
+  max-width: 9rem;
+  text-align: right;
+    }
+
+    h1 {
+  font-size: clamp(3.2rem, 17vw, 5rem);
+    }
+
+    .map-shell {
+  border-radius: 1rem;
+  padding: 0.9rem;
+    }
+
+    .filters {
+  gap: 0.4rem;
+    }
+
+    .filter {
+  min-height: 2.35rem;
+  padding: 0.45rem 0.72rem;
+  font-size: 0.85rem;
+    }
+
+    .lower {
+  grid-template-columns: 1fr;
+    }
+
+    footer {
+  flex-direction: column;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+  scroll-behavior: auto !important;
+  transition-duration: 0.01ms !important;
+    }
+  }
+
   .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
   .field { display: grid; gap: 3px; min-width: 0; flex: 1 1 170px; max-width: 280px; }
   .field label { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.02em; }
@@ -128,35 +684,109 @@
   .ev.confirmed { color: var(--confirmed); } .ev.likely { color: var(--likely); } .ev.unknown { color: var(--unknown); }
   .linkbtn { display: inline; font: inherit; color: var(--accent); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
   .srcs { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); }
-  .srcs a, .notes a { color: var(--accent); }
+  .srcs a { color: var(--accent); }
   .evnote { display: block; margin-top: 3px; color: var(--muted); }
   .trace > .trail { color: var(--ink); margin-top: 10px; }
-  .notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-  .notes article { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px; min-width: 0; font-size: 14px; }
-  .notes p { margin: 8px 0 0; }
-  .notes ul { margin: 8px 0 0; padding-left: 18px; }
-  .source-list { font-size: 13px; }
   .buyers { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 8px; }
   .key { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 8px; font-size: 13px; color: var(--muted); }
-  footer { color: var(--muted); font-size: 13px; max-width: 90ch; }
   button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
   @media (max-width: 960px) {
     .workspace { grid-template-columns: minmax(0, 1fr); }
     .list { max-height: none; }
-    .notes { grid-template-columns: minmax(0, 1fr); }
     .steps { grid-auto-flow: row; grid-auto-columns: auto; overflow-x: visible; }
+  }
+  .finder { margin-top: 1rem; }
+  .map-heading .eyebrow { max-width: none; margin-bottom: 0; text-align: left; }
+  h1 { max-width: 9ch; }
+  .results h2, .trace h2 { margin: 0; font-size: 1rem; }
+  .field { flex: 1 1 13rem; max-width: 20rem; }
+  .controls { margin-bottom: 1rem; }
+  .workspace { grid-template-columns: minmax(0, 1fr) 21rem; }
+  .list { max-height: 34rem; }
+  .row { padding: 0.65rem 0.8rem; }
+  .facts { grid-template-columns: repeat(3, auto); justify-content: start; }
+  .chain { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .stage-shape { margin-bottom: auto; }
+  .stage-name { margin-top: 1.2rem; }
+  .stage-button { min-height: 10.5rem; }
+  .pinnum { font: 700 11px var(--mono); }
+  .sources-card { grid-column: 1 / -1; }
+  .source-list { columns: 2; column-gap: 2rem; }
+  .source-list li { break-inside: avoid; }
+  .trace { margin-top: 1rem; }
+  @media (max-width: 960px) {
+    .chain { grid-template-columns: 1fr; gap: 0.65rem; }
+    .chain-item:not(:last-child)::after { top: auto; right: 1.4rem; bottom: -0.82rem; content: "↓"; }
+    .stage-button { min-height: 5rem; flex-direction: row; align-items: center; gap: 0.9rem; }
+    .stage-shape { flex: none; margin: 0; }
+    .stage-name { margin: 0; }
+    .workspace { grid-template-columns: minmax(0, 1fr); }
+    .source-list { columns: 1; }
   }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <div>
-    <h1>Inventor Sourcing Map</h1>
-    <p class="lede">Tell it where you are and what matters most. It shows who you could approach, then traces each supplier back toward the mine.</p>
-  </div>
-  <div class="sample"><strong>Research snapshot, November 2026.</strong> These are real companies from public sources and trade records, starting with lithium-ion batteries. Being listed is not an endorsement. Confirm prices, minimum orders, and shipping with each company.</div>
+<main>
+  <nav class="topline" aria-label="Project navigation">
+    <span>Field notes / 02</span>
+    <a href="#sources">Jump to sources and limits ↓</a>
+  </nav>
 
+  <header class="hero">
+    <div>
+      <p class="eyebrow">A supply chain, for people building things</p>
+      <h1>Trace the <span>source.</span></h1>
+      <p class="hero-copy">Find who can supply your battery, then follow it back toward the mine. See what public evidence shows, and where the trail currently stops.</p>
+    </div>
+    <aside class="hero-note">
+      <strong>Research snapshot · November 2026</strong>
+      <p>Real lithium-ion battery companies, with one chain traced from a lithium site in Chile to a pack maker in Michigan. Select a stage below, or use the globe.</p>
+    </aside>
+  </header>
+
+  <section class="map-shell" aria-labelledby="map-title">
+    <div class="map-heading">
+      <div>
+        <p class="eyebrow">Interactive map</p>
+        <h2 id="map-title">From mine to inventor</h2>
+      </div>
+      <p>Choose a topic to highlight the route, then select a stage for its evidence.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter supply-chain stages">
+      <button class="filter" type="button" data-filter="all" aria-pressed="true">All stages</button>
+      <button class="filter" type="button" data-filter="materials">Materials</button>
+      <button class="filter" type="button" data-filter="making">Manufacturing</button>
+      <button class="filter" type="button" data-filter="buying">Where inventors can buy</button>
+    </div>
+    <ol class="chain" id="chain" aria-label="Battery supply-chain stages"></ol>
+    <section class="detail" aria-live="polite" aria-atomic="true" aria-labelledby="detail-title">
+      <div>
+        <p class="step-kicker" id="detail-kicker"></p>
+        <h3 id="detail-title"></h3>
+        <p class="detail-summary" id="detail-summary"></p>
+      </div>
+      <div>
+        <p class="detail-evidence" id="detail-evidence"></p>
+        <p class="detail-unknown" id="detail-unknown"></p>
+        <h4>Sources</h4>
+        <ul class="detail-sources" id="detail-sources"></ul>
+      </div>
+    </section>
+    <div class="stage-legend" aria-label="Map legend">
+      <span>Public source gives context or names a company</span>
+      <span>Link to a specific battery not established</span>
+    </div>
+  </section>
+
+  <section class="map-shell finder" aria-labelledby="globe-title">
+    <div class="map-heading">
+      <div>
+        <p class="eyebrow">Interactive globe</p>
+        <h2 id="globe-title">Find a supplier, follow the parts</h2>
+      </div>
+      <p>Being listed is not an endorsement. Confirm prices, minimum orders, and shipping with each company.</p>
+    </div>
   <div class="controls">
     <div class="field"><label for="country">I'm in</label><select id="country"></select></div>
     <div class="field"><label for="sort">What matters most</label>
@@ -168,7 +798,7 @@
       <div class="mapbox">
         <svg id="map" viewBox="0 0 880 620" role="img" aria-label="Spinning globe of mines, refiners, cell makers, pack assemblers, and distributors"></svg>
         <div class="searchbox">
-          <input id="search" type="search" list="search-ideas" placeholder="Search, like cobalt or battery pack" aria-label="Search for a material, part, company, or place" autocomplete="off">
+          <input id="search" type="search" list="search-ideas" placeholder="Search, like cobalt" aria-label="Search for a material, part, company, or place" autocomplete="off">
           <datalist id="search-ideas"><option value="Battery pack"></option><option value="Battery cells"></option><option value="Lithium"></option><option value="Cobalt"></option></datalist>
         </div>
         <div class="mapbtns"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zreset" aria-label="Reset view">⟲</button></div>
@@ -187,28 +817,34 @@
   </div>
 
   <section class="trace" id="trace" aria-live="polite"></section>
-  <section class="notes" id="sources" aria-label="Research notes">
-    <article>
-      <h2>What this map can and can't say</h2>
+  </section>
+
+  <section class="lower" id="sources" aria-label="Research notes">
+    <article class="note-card">
+      <h2>What this map can and can’t say</h2>
       <p>A link shows evidence that two organizations are connected. It does not prove what is inside a particular battery, and a shipping record does not prove which factory made a product.</p>
       <p>The trail usually stops early. Companies rarely publish who supplies them, and no chain here yet runs from a mine all the way to a supplier that clearly serves small orders.</p>
     </article>
-    <article>
+    <article class="note-card">
       <h2>How to read the trail</h2>
       <ul>
         <li><b>Confirmed:</b> a named source states this link.</li>
         <li><b>Likely:</b> evidence points to it, but does not establish this exact step.</li>
-        <li><b>Unknown:</b> not established here. A gap doesn't mean a chain is clean or risky.</li>
+        <li><b>Unknown:</b> not established here. A gap doesn’t mean a chain is clean or risky.</li>
+        <li>Distance is measured from the center of your country and is not a delivery estimate.</li>
       </ul>
-      <p>USGS estimates lithium mine output at 290,000 tons in 2025, led by Australia, China, and Chile, and estimates Congo (Kinshasa) mined 73% of the world's cobalt.</p>
     </article>
-    <article>
+    <article class="note-card sources-card">
       <h2>Sources</h2>
       <ul class="source-list" id="source-list"></ul>
     </article>
   </section>
-  <footer>Distance is measured from the center of your country and is not a delivery estimate. Prices, minimums, and shipping are shown only when a source states them.</footer>
-</div>
+
+  <footer>
+    <span>Research snapshot: November 2026</span>
+    <span>Built to show uncertainty, not hide it.</span>
+  </footer>
+</main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
@@ -642,7 +1278,7 @@ function drawMap(home) {
 const sourceLinks = ids => (ids && ids.length ? `<span class="srcs">${ids.map(id => `<a href="${SOURCES[id].url}" target="_blank" rel="noopener">${esc(SOURCES[id].label)}</a>`).join(' · ')}</span>` : '');
 function factsHtml(r) {
   return `<div class="facts">
-    <span>${Math.round(r.km / 100) * 100 < 100 ? 'Under 100' : (Math.round(r.km / 100) * 100).toLocaleString()} km<small>from your country's center</small></span>
+    <span>${Math.round(r.km / 100) * 100 < 100 ? 'Under 100' : (Math.round(r.km / 100) * 100).toLocaleString()} km<small>away</small></span>
     <span>${esc(r.n.small.short)}<small>small orders</small></span>
     <span>${r.confirmed} of ${r.links.length}<small>links confirmed</small></span></div>`;
 }
@@ -693,6 +1329,68 @@ function drawTrace() {
     <div class="steps" tabindex="0" aria-label="Supply chain from mine to supplier">${cols}</div>`;
 }
 $('source-list').innerHTML = Object.values(SOURCES).map(s => `<li><a href="${s.url}" target="_blank" rel="noopener">${esc(s.label)}</a></li>`).join('');
+
+// Stage cards
+const STAGE_NOTES = {
+  mine: {
+    state: 'Mine named', tags: 'materials',
+    summary: 'Lithium comes from hard-rock mines and underground brines. Battery chemistries vary, so this map does not assume every battery contains the same materials.',
+    evidence: 'USGS estimates world lithium mine output outside the U.S. at 290,000 tons in 2025, led by Australia, China, and Chile, with batteries taking 88% of use. It estimates Congo (Kinshasa) mined 73% of the world’s cobalt. This is market context, not evidence about any one battery. The one named site in this map’s chain is SQM’s Salar de Atacama operation in Chile.',
+    unknown: 'Unknown: the mine-to-battery path for any specific pack, and the cobalt and nickel sources behind LG Energy Solution.',
+    sources: ['usgsLi', 'usgsCo', 'sqm20f'],
+  },
+  refiner: {
+    state: 'Refiner named', tags: 'materials',
+    summary: 'Raw material is purified into battery-grade chemicals before it can be used to make cells.',
+    evidence: 'SQM filings say lithium solutions from the Salar de Atacama go to its Carmen Lithium facility near Antofagasta, which makes lithium carbonate and hydroxide. USGS calls China the world’s leading producer of refined cobalt.',
+    unknown: 'Unknown: which refining plant supplied which order, and the refiners behind the suppliers inventors can actually use.',
+    sources: ['sqm20f', 'usgsCo'],
+  },
+  cell: {
+    state: 'Cell maker named', tags: 'making',
+    summary: 'Refined chemicals become individual battery cells, the basic unit inside every pack.',
+    evidence: 'SQM and LG Energy Solution signed a long-term lithium supply deal in 2023, reported at 100,000 tons over seven years. In Sayari’s indexed records from 2025 onward, China is the most common departure country for shipments described as lithium-ion cells. Those are record counts, not total world trade.',
+    unknown: 'Unknown: the cell makers behind Cell Pack Solutions, Epec, Akku Power, and Adafruit. The sources checked do not name them.',
+    sources: ['lgDeal', 'sayariLg'],
+  },
+  pack: {
+    state: 'Inventors may buy here', tags: 'making buying',
+    summary: 'Cells are combined with protection electronics and a housing to make a finished pack. For a custom battery, this is usually an inventor’s first call.',
+    evidence: 'Sayari trade data links LG Energy Solution to American Battery Solutions in Michigan, but the goods were not verified. Grepow, Cell Pack Solutions, and Epec describe samples, small batches, or prototyping. None of them publishes a minimum order.',
+    unknown: 'Unknown: real minimum orders, prices, and which cell brands each pack maker uses.',
+    sources: ['sayariAbs', 'grepow', 'cps', 'epec'],
+  },
+  distributor: {
+    state: 'Buy from one unit', tags: 'buying',
+    summary: 'Distributors stock finished batteries in small quantities. For an early prototype, this is often the easiest place to start.',
+    evidence: 'Adafruit listed a 3.7V 350mAh battery at $6.95 for one, in stock, in November 2026. DigiKey’s listed prices start at a quantity of one, and it lists Adafruit lithium-ion batteries.',
+    unknown: 'Unknown: who made the cells in these batteries, and which countries each company ships them to.',
+    sources: ['adafruit', 'digikey'],
+  },
+};
+
+function renderStage(id) {
+  const s = STAGE[id], note = STAGE_NOTES[id];
+  document.querySelectorAll('.stage-button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.stage === id)));
+  $('detail-kicker').textContent = `Stage 0${s.num} / ${note.state.toLowerCase()}`;
+  $('detail-title').textContent = s.label;
+  $('detail-summary').textContent = note.summary;
+  $('detail-evidence').textContent = note.evidence;
+  $('detail-unknown').textContent = note.unknown;
+  $('detail-sources').innerHTML = note.sources.map(k => `<li><a href="${SOURCES[k].url}" target="_blank" rel="noopener noreferrer">${esc(SOURCES[k].label)}</a></li>`).join('');
+}
+function applyFilter(filter) {
+  document.querySelectorAll('.filter').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === filter)));
+  document.querySelectorAll('.stage-button').forEach(b => {
+    b.classList.toggle('is-muted', filter !== 'all' && !STAGE_NOTES[b.dataset.stage].tags.split(' ').includes(filter));
+  });
+}
+const stageShape = s => `<svg class="stage-shape" width="34" height="34" viewBox="-17 -17 34 34" aria-hidden="true"><path d="${d3.symbol(s.sym, s.size * 1.25)()}" fill="var(--${s.id})"></path><text class="pinnum" y="${s.numY}">${s.num}</text></svg>`;
+$('chain').innerHTML = STAGES.map(s => `<li class="chain-item"><button class="stage-button" type="button" data-stage="${s.id}" aria-pressed="false">
+  ${stageShape(s)}<span class="stage-labels"><span class="stage-name">${s.label}</span><span class="stage-state">${esc(STAGE_NOTES[s.id].state)}</span></span></button></li>`).join('');
+$('chain').addEventListener('click', e => { const b = e.target.closest('.stage-button'); if (b) renderStage(b.dataset.stage); });
+document.querySelector('.filters').addEventListener('click', e => { const b = e.target.closest('.filter'); if (b) applyFilter(b.dataset.filter); });
+renderStage('mine');
 
 // `fresh` means the question changed, so one chain resets to the top match and ticked chains keep only those still listed.
 function render(fresh) {

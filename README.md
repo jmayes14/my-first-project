@@ -4,8 +4,10 @@ An interactive globe that helps inventors and early startups answer two
 questions: who can supply what I need from where I am, and where do that
 supplier's materials come from?
 
-Visitors choose their country and priority. The site ranks suppliers for them
-and follows each selected supply chain as far back as the evidence goes.
+A five-stage map explains what the evidence shows at each step, from mines to
+distributors, and what is still unknown. Below it, visitors choose their country
+and priority on the globe. The site ranks suppliers for them and
+follows each selected supply chain as far back as the evidence goes.
 
 ## Current status
 
