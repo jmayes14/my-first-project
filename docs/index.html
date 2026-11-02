@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Find lithium-ion battery suppliers and trace them back toward the mine, with sources and known gaps.">
 <meta name="theme-color" content="#f4f2ec">
+<link rel="icon" href="data:,">
 <title>Inventor Sourcing Map</title>
 <style>
 
@@ -723,6 +724,12 @@
     .workspace { grid-template-columns: minmax(0, 1fr); }
     .source-list { columns: 1; }
   }
+  @media (max-width: 600px) {
+    .mapbox { display: flex; flex-direction: column; }
+    .searchbox { position: static; order: -1; width: auto; padding: 8px; background: var(--surface); }
+    #search { box-shadow: none; }
+    .mapbtns { top: 62px; right: 8px; }
+  }
 </style>
 </head>
 <body>
@@ -1009,7 +1016,7 @@ deliveredMark.append('text').text('✓');
 const ARROW = 'M-11,-8 L11,0 L-11,8 L-5,0 Z';
 
 const cam = { r: [0, -15], k: 1, zoom: 1, target: null };
-let arrowData = [], clock = 0, shownPins = new Set(), marks = [], journey = null, journeyKey = null, paused = calm, dirty = true, captionFor = null;
+let markScale = 1, viewL = 0, viewR = W, arrowData = [], clock = 0, shownPins = new Set(), marks = [], journey = null, journeyKey = null, paused = calm, dirty = true, captionFor = null;
 
 const wrap = d => ((d % 360) + 540) % 360 - 180;
 const facing = p => d3.geoDistance(p, [-cam.r[0], -cam.r[1]]) < Math.PI / 2 - 0.02;
@@ -1017,21 +1024,24 @@ const aim = p => [-p[0], Math.max(-55, Math.min(55, -p[1] * 0.75))];
 
 // Labels sit beside their shapes. Chain stops claim space first, and a label with no free side stays hidden until the globe turns or zooms.
 const labelSide = new Map();
-const boxFor = (x, y, w, side) => ({ l: side > 0 ? x + 15 : x - 15 - w, r: side > 0 ? x + 15 + w : x - 15, t: y - 8, b: y + 8 });
+const boxFor = (x, y, w, side) => {
+  const gap = 15 * markScale, width = w * markScale;
+  return { l: side > 0 ? x + gap : x - gap - width, r: side > 0 ? x + gap + width : x - gap, t: y - 8 * markScale, b: y + 8 * markScale };
+};
 const hits = (a, b) => a.l < b.r && a.r > b.l && a.t < b.b && a.b > b.t;
 function placeLabels() {
   const live = NODES.filter(n => shownPins.has(n.id) && facing(n.at));
   const rank = n => (n.id === state.selected ? 2 : 0) + (journey && journey.legs.some(l => l.from.id === n.id || l.to.id === n.id) ? 1 : 0);
-  const taken = live.map(n => { const [x, y] = projection(n.at); return { l: x - 13, r: x + 13, t: y - 13, b: y + 13, id: n.id }; });
+  const taken = live.map(n => { const [x, y] = projection(n.at); const size = 13 * markScale; return { l: x - size, r: x + size, t: y - size, b: y + size, id: n.id }; });
   const you = marks.find(m => m.you);
   if (you && facing(you.at)) { const [x, y] = projection(you.at); taken.push(boxFor(x, y, you.text.length * 7, 1)); }
   const placed = new Map();
   [...live].sort((a, b) => rank(b) - rank(a)).forEach(n => {
     const [x, y] = projection(n.at), w = n.place.length * 6.1 + 4;
-    const first = labelSide.get(n.id) || (x + 15 + w > W ? -1 : 1);
+    const first = labelSide.get(n.id) || (boxFor(x, y, w, 1).r > viewR ? -1 : 1);
     for (const side of [first, -first]) {
       const box = boxFor(x, y, w, side);
-      if (box.l < 0 || box.r > W || taken.some(b => b.id !== n.id && hits(box, b))) continue;
+      if (box.l < viewL || box.r > viewR || taken.some(b => b.id !== n.id && hits(box, b))) continue;
       taken.push(box); labelSide.set(n.id, side); placed.set(n.id, side);
       break;
     }
@@ -1056,13 +1066,13 @@ function drawArrows() {
     const pos = d.go(Math.min(1, t));
     const hide = !facing(pos) || (isDelivery && lap >= 0.75) || (d.lead && isDelivery && onLastLeg());
     d3.select(this).attr('display', hide ? 'none' : null)
-      .attr('transform', hide ? null : `translate(${projection(pos)}) rotate(${headingAt(d.go, Math.min(1, t))})`);
+      .attr('transform', hide ? null : `translate(${projection(pos)}) scale(${markScale}) rotate(${headingAt(d.go, Math.min(1, t))})`);
   });
   const home = marks.find(m => m.you);
   const arrived = journey && journey.arrived && journey.legs[journey.i].to.you;
   const show = home && (arrived || (landed && !onLastLeg())) && facing(home.at);
   delivered.attr('display', show ? null : 'none');
-  if (show) delivered.attr('transform', `translate(${projection(home.at)})`);
+  if (show) delivered.attr('transform', `translate(${projection(home.at)}) scale(${markScale})`);
 }
 
 let paintedCam = '';
@@ -1081,15 +1091,15 @@ function paint(force) {
   (fine ? fineLand : coarseLand).paths.attr('d', geo);
   routes.selectAll('path').attr('d', d => geo({ type: 'LineString', coordinates: [d.a, d.b] }));
   pins.attr('display', n => shownPins.has(n.id) && facing(n.at) ? null : 'none')
-    .attr('transform', n => `translate(${projection(n.at)})`);
+    .attr('transform', n => `translate(${projection(n.at)}) scale(${markScale})`);
   placeLabels();
   overlay.selectAll('g').attr('display', d => facing(d.at) ? null : 'none')
-    .attr('transform', d => `translate(${projection(d.at)})`);
+    .attr('transform', d => `translate(${projection(d.at)}) scale(${markScale})`);
   }
   drawArrows();
   if (journey && journey.pos && facing(journey.pos) && !journey.arrived) {
     const leg = journey.legs[journey.i], s = STAGE[leg.from.stage], moving = paused ? journey.t : d3.easeCubicInOut(journey.t);
-    token.attr('display', null).attr('transform', `translate(${projection(journey.pos)})${leg.to.you ? ` rotate(${headingAt(leg.go, moving)}) scale(1.5)` : ''}`);
+    token.attr('display', null).attr('transform', `translate(${projection(journey.pos)}) scale(${markScale})${leg.to.you ? ` rotate(${headingAt(leg.go, moving)}) scale(1.5)` : ''}`);
     token.select('path').attr('d', leg.to.you ? ARROW : d3.symbol(s.sym, s.size * 1.25)()).attr('fill', `var(--${s.id})`);
     token.select('text').attr('y', s.numY).text(leg.to.you ? '' : s.num);
   } else token.attr('display', 'none');
@@ -1181,6 +1191,19 @@ function zoomAt(point, ratio) {
   dirty = true;
 }
 const mapNode = svg.node();
+// Phones crop to a square around the globe and enlarge marks so labels stay readable.
+function fitView() {
+  const narrow = innerWidth < 600;
+  viewL = narrow ? 130 : 0;
+  viewR = narrow ? W - 130 : W;
+  svg.attr('viewBox', `${viewL} 0 ${viewR - viewL} ${H}`);
+  const shown = mapNode.getBoundingClientRect().width;
+  markScale = shown ? Math.max(1, 0.85 * (viewR - viewL) / shown) : 1;
+  dirty = true;
+}
+fitView();
+requestAnimationFrame(fitView);
+addEventListener('resize', fitView);
 svg.on('wheel', e => {
   e.preventDefault();
   zoomAt(d3.pointer(e, mapNode), Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.002)));
