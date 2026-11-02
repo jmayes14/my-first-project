@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How Trace the Source finds suppliers, rates supply links, and checks ethical sourcing, and what it cannot prove.">
+<meta name="theme-color" content="#f4f2ec">
+<link rel="icon" href="data:,">
+<title>Methodology | Inventor Sourcing Map</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f4f2ec; --surface: #ffffff; --accent: #216653; --accent-ink: #ffffff; --accent-soft: #e8f2ec;
+    --space: #dfe9e6; --sea: #b9d3dd; --land: #f7f8f4; --land-line: #9db4bb;
+    --mine: #a34f20; --refiner: #7a4b9b; --cell: #1f6fa8; --pack: #216653; --distributor: #94600a; --pin-ink: #ffffff;
+    --confirmed: #216653; --likely: #a36a00; --unknown: #b23a3a;
+    --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: ui-monospace, Menlo, Consolas, monospace;
+    --ink: #202b29;
+    --muted: #596a64;
+    --page: #f4f2ec;
+    --panel: #ffffff;
+    --panel-raised: #edf3ee;
+    --line: #d6dfd9;
+    --lime: #216653;
+    --lime-ink: #ffffff;
+    --orange: #a34f20;
+    --blue: #247984;
+    --unknown-bg: #fff1e7;
+    --shadow: 0 1.5rem 4rem rgb(34 52 45 / 10%);
+    --radius: 1.15rem;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--sans); line-height: 1.6; }
+  a { color: var(--lime); text-underline-offset: 0.18em; }
+  button:focus-visible, a:focus-visible { outline: 3px solid #c06a35; outline-offset: 3px; }
+
+  .sitenav { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: rgb(244 242 236 / 94%); backdrop-filter: blur(8px); }
+  .sitenav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: min(100% - 2rem, 76rem); min-height: 3.4rem; margin: 0 auto; }
+  .brand { color: var(--ink); font-weight: 850; letter-spacing: -0.02em; text-decoration: none; }
+  .brand span { color: var(--lime); }
+  .menu { display: flex; flex-wrap: wrap; gap: 0.2rem 1.1rem; margin: 0; padding: 0; list-style: none; }
+  .menu a { display: block; padding: 0.35rem 0; color: var(--muted); font-size: 0.92rem; font-weight: 650; text-decoration: none; }
+  .menu a:hover, .menu a[aria-current="page"] { color: var(--lime); text-decoration: underline; text-underline-offset: 0.3em; }
+  .menu-toggle { display: none; border: 1px solid var(--line); border-radius: 0.5rem; background: var(--panel); color: var(--ink); cursor: pointer; padding: 0.35rem 0.7rem; font: inherit; font-weight: 650; }
+  [id] { scroll-margin-top: 4.5rem; }
+  @media (max-width: 860px) {
+    .sitenav-inner { flex-wrap: wrap; padding: 0.3rem 0; }
+    .menu-toggle { display: block; }
+    .menu { display: none; flex-basis: 100%; flex-direction: column; padding-bottom: 0.5rem; }
+    .menu.open { display: flex; }
+    .menu a { padding: 0.55rem 0; font-size: 1rem; }
+  }
+
+  main { width: min(100% - 2rem, 48rem); margin: 0 auto; padding: 2.5rem 0 4rem; }
+  .eyebrow { margin: 0; color: var(--lime); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  h1 { margin: 0.4rem 0 0.6rem; font-size: clamp(2.2rem, 7vw, 3.4rem); font-weight: 850; letter-spacing: -0.05em; line-height: 1; }
+  .lead { color: var(--muted); font-size: 1.1rem; }
+  section { margin-top: 1.1rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--panel); padding: 1.2rem; }
+  section.warn { border-left: 4px solid var(--orange); background: var(--unknown-bg); }
+  h2 { margin: 0 0 0.5rem; font-size: 1.2rem; letter-spacing: -0.02em; }
+  section p { margin: 0 0 0.6rem; } section p:last-child { margin-bottom: 0; }
+  dl { margin: 0; } dt { margin-top: 0.6rem; font-weight: 750; } dd { margin: 0; color: var(--muted); }
+  ul { margin: 0; padding-left: 1.2rem; }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; min-width: 34rem; border-collapse: collapse; font-size: 0.92rem; }
+  th, td { padding: 0.5rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+</style>
+</head>
+<body>
+<nav class="sitenav" aria-label="Main menu">
+  <div class="sitenav-inner">
+    <a class="brand" href="index.html">Trace the <span>Source</span></a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
+    <ul class="menu" id="site-menu"><li><a href="index.html#how">How it works</a></li><li><a href="index.html#stages">Supply chain stages</a></li><li><a href="index.html#find">Find a supplier</a></li><li><a href="index.html#origin">Where it comes from</a></li><li><a href="index.html#sources">Sources</a></li><li><a href="methodology.html" aria-current="page">Methodology</a></li></ul>
+  </div>
+</nav>
+
+<main id="top">
+  <p class="eyebrow">Methodology</p>
+  <h1>How this map works</h1>
+  <p class="lead">This page explains where the information comes from, how sure each claim is, and what the site cannot tell you. Last research update: November 2026.</p>
+
+  <section>
+    <h2>What this project is</h2>
+    <p>Trace the Source helps inventors and early startups find real suppliers and see where parts and materials may come from. Its deeper purpose is ethical sourcing: helping people ask whether the parts they use were made responsibly.</p>
+  </section>
+
+  <section class="warn">
+    <h2>What it cannot do</h2>
+    <p><strong>This site cannot prove that any part was ethically sourced.</strong> Most supply chains are not public, materials get mixed during refining, and a company link does not show what is inside one product.</p>
+    <p>The site shows evidence and gaps. It never rates a company as ethical or unethical. Being listed is not an endorsement.</p>
+  </section>
+
+  <section>
+    <h2>Where the information comes from</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Source</th><th>Used for</th><th>Limits</th></tr></thead>
+      <tbody>
+        <tr><td>U.S. Geological Survey, Mineral Commodity Summaries 2026</td><td>Where materials are mined, by country</td><td>2025 estimates; country level, not mine level</td></tr>
+        <tr><td>U.S. Department of Labor publications</td><td>Documented child labor and forced labor by good and country</td><td>A listing does not cover all production; entries shown are examples, not the full list</td></tr>
+        <tr><td>Sayari</td><td>Company records, trade links, and ownership</td><td>Requires a login; the goods behind a trade link were not always visible</td></tr>
+        <tr><td>Company websites and filings</td><td>What suppliers offer and publish</td><td>Self-reported, and can change</td></tr>
+        <tr><td>News and business profiles</td><td>Locations and supply deals</td><td>Secondary sources, labeled where they carry a claim</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>How supply links are rated</h2>
+    <dl>
+      <dt>Confirmed</dt><dd>A named source states this link. Shown with an arrow.</dd>
+      <dt>Likely</dt><dd>Evidence points to the link, but does not establish this exact step, or the goods could not be seen. Shown with a slowly pulsing line.</dd>
+      <dt>Unknown</dt><dd>Not established here. Shown in the panel with no line. A gap does not mean a chain is clean or risky.</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>How the ethical sourcing check works</h2>
+    <p>We looked for what each company has published, then recorded the strongest evidence found.</p>
+    <dl>
+      <dt>Independent audit</dt><dd>An outside body audited a site against a public standard.</dd>
+      <dt>Published report</dt><dd>The company reports on its due diligence.</dd>
+      <dt>Published policy</dt><dd>The company publishes a policy or supplier code. A policy is a promise, not proof.</dd>
+      <dt>Parent company policy</dt><dd>A policy was found only from the parent company.</dd>
+      <dt>Listed, not reviewed</dt><dd>A document is listed, but we did not read it.</dd>
+      <dt>Nothing found</dt><dd>No statement turned up in a web search. It does not mean sourcing is poor. Small companies often publish nothing.</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>How Sayari is used</h2>
+    <p>Sayari is a commercial database of company records and trade data. We matched 21 of the 28 suppliers to company records, checking names, places, and identifiers. No record was found for Core Electronics, MakerHero, JLCPCB, GbE Circuits, SendCutSend, Craftcloud, or OnlineMetals.</p>
+    <p>For selected suppliers, we looked at who they receive goods from and who owns them. None of the 21 matched records showed a direct sanctions flag. That is a limited check, not legal clearance.</p>
+    <p>We do not publish Sayari’s risk flags. Many come from a product’s type and country, or from companies several steps away, so they are research leads and not findings about a company. Trade links are marked likely unless another source confirms them. We leave out serious links when we cannot see the goods involved, and we do not publish the names of individual owners.</p>
+  </section>
+
+  <section>
+    <h2>How suppliers are ranked</h2>
+    <dl>
+      <dt>Best traceability</dt><dd>Longest known chain first, counting confirmed links as one and likely links as a half.</dd>
+      <dt>Small orders</dt><dd>Single units first, then samples or small runs, then not stated.</dd>
+      <dt>Closest to me</dt><dd>Straight-line distance from the center of your country. It is not a delivery estimate.</dd>
+      <dt>Ethics information</dt><dd>Strongest public evidence first. It measures disclosure, not behavior.</dd>
+    </dl>
+    <p>No supplier pays to be listed. Prices, minimum orders, and shipping appear only when a source states them.</p>
+  </section>
+
+  <section>
+    <h2>What to ask a supplier</h2>
+    <ul>
+      <li>Which companies make the cells or main parts you use?</li>
+      <li>Do you know the smelters or refiners behind tin, tantalum, tungsten, gold, and cobalt?</li>
+      <li>Do you have a supplier code of conduct or an audit you can share?</li>
+      <li>What is your minimum order, and do you ship to my country?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Found a mistake?</h2>
+    <p>Companies and readers can report a correction through <a href="https://github.com/jmayes14/my-first-project/issues">GitHub issues</a>. Records and caveats are public in the <a href="https://github.com/jmayes14/my-first-project/blob/main/research/battery-supply-chain-snapshot-2026-11.json">research file</a>.</p>
+  </section>
+</main>
+<script>
+(() => {
+  const toggle = document.getElementById('menu-toggle'), menu = document.getElementById('site-menu');
+  const set = open => { menu.classList.toggle('open', open); toggle.setAttribute('aria-expanded', String(open)); };
+  toggle.addEventListener('click', () => set(!menu.classList.contains('open')));
+  menu.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
+})();
+</script>
+</body>
+</html>

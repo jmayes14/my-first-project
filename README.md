@@ -53,6 +53,7 @@ inventor. Unknown links have no line and appear in the panel below the map.
 - [Implementation plan](./PLAN.md)
 - [Backlog](./BACKLOG.md)
 - [Published site source](./docs/index.html)
+- [Methodology page](./docs/methodology.html)
 
 The site is one file in `docs/`, published with GitHub Pages at
 <https://jmayes14.github.io/my-first-project/>. It has no build step. It loads
@@ -74,5 +75,5 @@ only the Python standard library and is not part of the published site.
 2. Run `python3 scripts/check_sayari.py`.
 
 It requests a token and reads the account's usage summary. It does not run
-searches or add any data to the map. The site links to a few Sayari records;
-check that your Sayari license allows this.
+searches or add any data to the map. The site uses Sayari trade links and
+ownership records and links to Sayari; check that your license allows this.
