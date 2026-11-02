@@ -2,6 +2,15 @@
 
 This describes what `docs/index.html` does today.
 
+## Page layout
+The page keeps the Field Notes layout from the vape project: a hero with a
+research note, a stage map, a globe panel, note cards, and a full source list.
+
+## Stage map
+Five stage cards use the globe's numbered shapes. Topic filters highlight
+materials, manufacturing, or where inventors can buy. Selecting a stage shows a
+summary, what the evidence says, what is still unknown, and its sources.
+
 ## Inputs
 - **Search:** filters suppliers by material, part, company, or place, including
   materials further up their chain.
