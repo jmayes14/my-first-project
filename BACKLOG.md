@@ -13,7 +13,7 @@
 - **T-6:** Establish cobalt and nickel sources for LG Energy Solution.
 - **T-7:** Connect the Greenbushes mine and the Kemerton and Kwinana plants to a cell maker.
 - **T-8:** Add suppliers outside the U.S., Europe, and China.
-- **T-9:** Add a second material or component based on what inventors ask for.
+- **T-9:** Trace a non-battery category back to raw materials, based on what inventors ask for.
 - **T-10:** Move records into a data file if manual updates become difficult.
 - **T-11:** Add a message for when the map libraries fail to load.
 
@@ -33,4 +33,5 @@ None known.
 - Built the globe, numbered shapes, moving trip, link styles, labels, and zoom.
 - Added real suppliers, sources, evidence levels, and known gaps.
 - Restored the Field Notes page layout.
+- Added 21 more suppliers, a category picker, starting tips, and an every-supplier view.
 - Checked dragging, scroll zoom, pinch zoom, and phone size with Playwright.
