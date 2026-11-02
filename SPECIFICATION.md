@@ -120,6 +120,15 @@ and outlines any with confirmed labor entries.
 Given a supplier, then the panel shows what it has published about ethical
 sourcing, from an independent audit to nothing found, with sources.
 
+**FR-21: Menu (US-5)**
+Given any page, then a menu stays at the top with links to each section and the
+methodology page. On phones it opens from a Menu button.
+
+**FR-22: Methodology (US-5)**
+Given the methodology page, then a visitor can read where information comes from,
+how links and ethics checks are rated, how Sayari is used, and how to report a
+mistake.
+
 ## Screens
 - **Hero:** title, purpose, and research date.
 - **Stage map:** filters, five stage cards, and the evidence panel.
@@ -150,6 +159,8 @@ Records live in `docs/index.html` and match
 - **BR-7:** Distance is measured from the center of the visitor's country and is not a delivery estimate.
 - **BR-8:** Sayari screening flags are not published.
 - **BR-9:** Being listed is not an endorsement.
+- **BR-15:** Names of individual owners are not published.
+- **BR-16:** A serious trade link is left out when the goods cannot be seen.
 - **BR-12:** The site never rates a company as ethical or unethical, and it does not claim to prove ethical sourcing.
 - **BR-13:** Nothing found means no public statement was found. It is not evidence of poor sourcing.
 - **BR-14:** A labor listing applies to a good and country, not to all production there or to a listed supplier.
