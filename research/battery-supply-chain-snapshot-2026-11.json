@@ -1,0 +1,97 @@
+{
+  "title": "Research snapshot: lithium-ion battery supply chain for inventors",
+  "retrieved": "2026-11-02",
+  "sources": {
+    "public": "USGS Mineral Commodity Summaries 2026, SEC filings, news reports, and company websites. URLs are in docs/index.html.",
+    "sayari": "Sayari Graph (subscription). Entity links require a Sayari login."
+  },
+  "evidence_levels": {
+    "confirmed": "A named source states the link between these two organizations or sites.",
+    "likely": "Evidence points to the link, but a source does not establish it for this specific step, or the goods were not verified.",
+    "unknown": "This project has not established the supplier. A gap is not evidence that a chain is clean or risky."
+  },
+  "caveats": [
+    "A link describes organizations. It does not prove what is inside a particular battery.",
+    "No researched chain reaches from a mine to a supplier that clearly serves small orders. The full chain ends at American Battery Solutions, which builds packs for industrial and commercial mobility.",
+    "Prices, minimum orders, delivery times, and shipping coverage are mostly unpublished. The site leaves them out unless a source states them.",
+    "Distance is measured from the center of the visitor's country and is not a delivery estimate.",
+    "Sayari company-name filters on shipment searches returned unrelated records and were not used as evidence. Entity relationships were used instead.",
+    "Sayari screening flags were not published. Many battery exporters carry product-level flags based on HS code and country, which are leads rather than findings about a company.",
+    "Whether the Sayari license allows these references on a public site has not been checked."
+  ],
+  "industry_context": {
+    "lithium_2025": {
+      "source": "USGS Mineral Commodity Summaries 2026",
+      "world_mine_production_excluding_us_tons": 290000,
+      "mine_production_tons": { "Australia": 92000, "China": 62000, "Chile": 56000, "Zimbabwe": 28000, "Argentina": 23000 },
+      "battery_share_of_end_use_percent": 88
+    },
+    "cobalt_2025": {
+      "source": "USGS Mineral Commodity Summaries 2026",
+      "world_mine_production_tons": 310000,
+      "congo_kinshasa_tons": 230000,
+      "indonesia_tons": 44000,
+      "note": "USGS estimates Congo (Kinshasa) at 73% of world mined cobalt and calls China the world's leading producer of refined cobalt."
+    },
+    "sayari_trade_facets": {
+      "query": "'lithium ion cells' under HS 850760, 2025-01-01 onward",
+      "note": "Counts of Sayari's indexed records, not total world trade.",
+      "top_departure_countries": { "CHN": 89669, "VNM": 10307, "TWN": 7924, "HKG": 5918 },
+      "top_arrival_countries": { "IND": 91053, "VNM": 29593, "IDN": 5120, "USA": 4673 }
+    }
+  },
+  "chain": [
+    {
+      "from": "Salar de Atacama (SQM)",
+      "to": "SQM Carmen Lithium plant",
+      "evidence": "confirmed",
+      "basis": "SQM SEC filings describe lithium solutions from the Salar going to the Carmen Lithium facility near Antofagasta."
+    },
+    {
+      "from": "SQM Carmen Lithium plant",
+      "to": "LG Energy Solution",
+      "evidence": "likely",
+      "basis": "A 2023 long-term deal covers lithium carbonate and hydroxide. Reporting says SQM's lithium comes from Chile and Australia, so this plant is not established for any given order."
+    },
+    {
+      "from": "LG Energy Solution",
+      "to": "American Battery Solutions",
+      "evidence": "likely",
+      "basis": "Sayari shows a ships_to relationship between the two entities. The shipped goods were not verified.",
+      "sayari_entities": {
+        "shipper": "Jt71Tb2z1whIR0iQZpP-fw",
+        "receiver": "lpxxufsKuHQFHejgEmSp4Q"
+      }
+    },
+    {
+      "from": "Adafruit",
+      "to": "DigiKey",
+      "evidence": "confirmed",
+      "basis": "DigiKey lists Adafruit lithium-ion batteries for sale."
+    }
+  ],
+  "suppliers": [
+    { "name": "American Battery Solutions", "place": "Lake Orion, Michigan, USA", "small_orders": "Not mentioned", "sayari_entity": "lpxxufsKuHQFHejgEmSp4Q" },
+    { "name": "Grepow (Shenzhen Grepow Battery Co., Ltd.)", "place": "Shenzhen, China", "small_orders": "Sample stage described; no minimum published", "sayari_entity": "MTOrJf7GE-xv_Z8c3cHKPg" },
+    { "name": "Cell Pack Solutions Limited", "place": "South Shields, United Kingdom", "small_orders": "Small batch production described; no minimum published", "sayari_entity": "PjGe3FJGcXLnxUa2l3OFug" },
+    { "name": "Epec", "place": "New Bedford, Massachusetts, USA", "small_orders": "Prototyping described; no minimum published" },
+    { "name": "Akku Power GmbH Batterien", "place": "Schorndorf, Germany", "small_orders": "Not mentioned", "sayari_entity": "e1WCqwnYjPwJbuKAZSWVAA" },
+    { "name": "Adafruit", "place": "Brooklyn, New York, USA", "small_orders": "Single units; $6.95 for a 3.7V 350mAh battery on 2026-11-02" },
+    { "name": "DigiKey", "place": "Thief River Falls, Minnesota, USA", "small_orders": "Listed prices start at a quantity of one" }
+  ],
+  "unconnected_leads": [
+    {
+      "lead": "Greenbushes mine, Western Australia",
+      "detail": "Talison Lithium operates the mine. Albemarle owns 49%, and the Tianqi and IGO joint venture owns 51%. Each side can take 50% of output, and Talison names the Kwinana and Kemerton plants as downstream uses. No link from those plants to a cell maker has been established."
+    },
+    {
+      "lead": "American Battery Solutions and Komatsu",
+      "detail": "Komatsu agreed in November 2023 to acquire American Battery Solutions."
+    }
+  ],
+  "open_questions": [
+    "Which cell makers supply Cell Pack Solutions, Epec, Akku Power, and Adafruit?",
+    "Which companies supply cobalt and nickel to LG Energy Solution, and in which cells?",
+    "Which pack makers will actually quote an inventor for 1 to 100 units, and in which countries?"
+  ]
+}

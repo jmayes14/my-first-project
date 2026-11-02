@@ -16,9 +16,9 @@ Inventors also need small orders, which many industrial suppliers are not set
 up for.
 
 ## What this project does
-An inventor sets their location and order size. The site shows who can
-realistically supply them, then traces each supplier back through
-manufacturers to the mine.
+An inventor sets their location and what matters most. The site shows who they
+could approach, then traces each supplier back through manufacturers toward the
+mine as far as the evidence goes.
 
 Inventors usually cannot buy from a mine or large refiner, so the site answers
 two separate questions:
