@@ -697,6 +697,11 @@
     .steps { grid-auto-flow: row; grid-auto-columns: auto; overflow-x: visible; }
   }
   .finder { margin-top: 1rem; }
+  .srcs em { color: var(--muted); font-style: normal; }
+  em.older, small.older { color: #8d481f; font-weight: 700; }
+  .source-list small { display: block; color: var(--muted); font-size: 0.78rem; }
+  .source-list small.older { color: #8d481f; }
+  .source-list li { margin-bottom: 0.3rem; }
 
   .sitenav { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: rgb(244 242 236 / 94%); backdrop-filter: blur(8px); }
   .sitenav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: min(100% - 2rem, 76rem); min-height: 3.4rem; margin: 0 auto; }
@@ -846,7 +851,7 @@
       <p class="hero-copy">Find who can supply what you’re building, then follow it back toward the mine. See what public evidence shows, and where the trail currently stops.</p>
     </div>
     <aside class="hero-note" data-speed="0.07">
-      <strong>Research snapshot · November 2026</strong>
+      <strong>Research date · November 2, 2026</strong>
       <p>Real suppliers on six continents for batteries, circuit boards, metals, motors, and more. Select a stage below, or use the globe.</p>
     </aside>
   </header>
@@ -961,10 +966,12 @@
         <li><b>Unknown:</b> not established here. A gap doesn’t mean a chain is clean or risky.</li>
         <li><b>Ethical sourcing check:</b> what a company has published. An audit is stronger than a policy, and a policy is a promise, not proof.</li>
         <li>Distance is measured from the center of your country and is not a delivery estimate.</li>
+        <li><b>Dates:</b> each source shows when it was published. Sources from 2023 or earlier are marked older.</li>
       </ul>
     </article>
     <article class="note-card sources-card">
       <h2>Sources</h2>
+      <p id="source-summary"></p>
       <ul class="source-list" id="source-list"></ul>
     </article>
   </section>
@@ -1100,6 +1107,18 @@ Object.assign(SOURCES, {
   maxon: { label: 'maxon · Company site', url: 'https://www.maxongroup.com/maxon/view/content/index' },
 });
 
+// Every source shows when it was published and when this project found it.
+const DATE_FOUND = 'November 2, 2026';
+const SOURCE_DATES = {
+  usgsLi: 'Feb 2026', usgsCo: 'Feb 2026', usgsNi: 'Feb 2026', usgsGr: 'Feb 2026', usgsMn: 'Feb 2026', usgsCu: 'Feb 2026', usgsSn: 'Feb 2026', usgsTa: 'Feb 2026', usgsAu: 'Feb 2026', usgsAl: 'Feb 2026', usgsFe: 'Feb 2026', usgsRe: 'Feb 2026',
+  dolList: 'Sep 2024', dol2018: '2018', dol2020: '2020', dol2022: '2022',
+  sqm20f: '2026, covering 2025', lgDeal: 'Jul 2023', irma: 'Sep 2023', irmaFollow: 'Mar 2026', lgesRsr: '2025', komatsu: 'Jul 2021',
+  protolabs: '2026, covering 2025', protolabsCmr: '2025, covering 2024', xometry10k: '2024, covering 2023', xometryCode: 'Jan 2022', maxonCode: 'Jul 2024', goodfellowCm: 'Mar 2023', makerhero: 'Feb 2023', gbe: 'Jul 2025',
+  adafruit: 'Live listing', digikey: 'Live listing', mouserAdafruit: 'Live listing', rsMaxon: 'Live listing', coreBrand: 'Live listing', rs: 'Live record',
+};
+const sourceDate = id => SOURCE_DATES[id] || (id.startsWith('sayari') ? 'Live database' : 'No date shown');
+const isOlder = id => { const y = (sourceDate(id).match(/\d{4}/) || [])[0]; return y && +y <= 2023; };
+const dateNote = id => `${sourceDate(id)}${isOlder(id) ? ', older source' : ''}`;
 const SHOP = { level: 'proto', short: 'Shop', text: 'Sells individual products through an online shop. Check each listing for quantities and shipping.' };
 const NO_STOCK_INFO = { level: 'unknown', short: 'Ask' };
 NODES.push(
@@ -1571,6 +1590,7 @@ Object.assign(SOURCES, {
   usgsAl: { label: 'USGS · Mineral Commodity Summaries 2026: Bauxite and Alumina', url: 'https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bauxite-alumina.pdf' },
   usgsFe: { label: 'USGS · Mineral Commodity Summaries 2026: Iron Ore', url: 'https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-iron-ore.pdf' },
   usgsRe: { label: 'USGS · Mineral Commodity Summaries 2026: Rare Earths', url: 'https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf' },
+  irmaFollow: { label: 'IRMA · News on Chile audits, including the 2026 surveillance report', url: 'https://responsiblemining.net/tag/chile/page/1/' },
   irma: { label: 'IRMA · Audit of SQM’s Salar de Atacama operation', url: 'https://responsiblemining.net/2023/09/06/sqms-salar-de-atacama-lithium-operation-in-chile-audited-against-the-irma-standard-for-responsible-mining/' },
   lgesRsr: { label: 'LG Energy Solution · 2025 Responsible Sourcing report', url: 'https://www.lgensol.com/assets/file/LGES_2025_RSR%20Report_EN.pdf' },
   lgesEsg: { label: 'LG Energy Solution · Supply chain ESG risk management', url: 'https://www.lgensol.com/en/esg-supplychain-management' },
@@ -1578,7 +1598,7 @@ Object.assign(SOURCES, {
   epecPolicy: { label: 'Epec · Conflict minerals policy', url: 'https://www.epectec.com/operations/conflict-minerals-policy.html' },
   mouserEsg: { label: 'Mouser · ESG documentation', url: 'https://www.mouser.com/en/esg-documentation/' },
   rsConflict: { label: 'RS Americas · Conflict Minerals Declaration', url: 'https://assets.rs-online.com/image/upload/v1692219845/MKT/LP/about-us/RS_Americas_Conflict_Minerals_Declaration_-_Signed.pdf' },
-  protolabsCmr: { label: 'Proto Labs · Conflict Minerals Report for 2025 (SEC filing)', url: 'https://www.sec.gov/Archives/edgar/data/0001443669/000162828025028318/prlbconflictmineralsreport.htm' },
+  protolabsCmr: { label: 'Proto Labs · Conflict Minerals Report for 2024 (SEC filing)', url: 'https://www.sec.gov/Archives/edgar/data/0001443669/000162828025028318/prlbconflictmineralsreport.htm' },
   xometryCode: { label: 'Xometry · Supplier Code of Business Conduct and Ethics', url: 'https://xometry.asia/wp-content/uploads/2024/12/Xometry-Supplier-Code-01.31.20221.pdf' },
   maxonCode: { label: 'maxon · Supplier Code of Conduct', url: 'https://live.maxongroup.com/assets/public/caas/v1/media/244884/data/817c4c3881300395a184317c3d127d5a/coc-supplier-download.pdf' },
   goodfellowSlavery: { label: 'Goodfellow · Anti-slavery policy', url: 'https://www.goodfellow.com/eu/legal/anti-slavery' },
@@ -1595,7 +1615,7 @@ const MATERIALS = {
   manganese: { label: 'Manganese', unit: 'thousand tons', world: 20000, note: 'Manganese is on the list, but the country entries were not confirmed here.', producers: [['South Africa', 7600], ['Gabon', 5000], ['Ghana', 2000], ['Australia', 1600]], flags: [], sources: ['usgsMn', 'dolList'] },
   copper: { label: 'Copper', unit: 'thousand tons', world: 23000, producers: [['Chile', 5300], [CONGO, 3200], ['Peru', 2700], ['China', 1800]], flags: [[CONGO, 'Child labor listed for copper ore since 2009']], sources: ['usgsCu', 'dolBattery'] },
   tin: { label: 'Tin', unit: 'tons', world: 290000, producers: [['China', 71000], ['Indonesia', 61000], ['Peru', 33000], ['Brazil', 28000], [CONGO, 27000]], flags: [[CONGO, 'Listed in the 2024 edition; forced mining reported'], ['Indonesia', 'Child labor listed in earlier editions; 2024 status not confirmed here']], sources: ['usgsSn', 'dolList', 'dolDrc', 'dol2020'] },
-  tantalum: { label: 'Tantalum', unit: 'tons', world: 2500, producers: [[CONGO, 1300], ['Rwanda', 400], ['Nigeria', 390], ['Brazil', 190]], flags: [[CONGO, 'Child labor and forced labor listed in the 2018 edition; forced mining reported in 2024']], sources: ['usgsTa', 'dol2018', 'dolDrc'] },
+  tantalum: { label: 'Tantalum', unit: 'tons', world: 2500, producers: [[CONGO, 1300], ['Rwanda', 400], ['Nigeria', 390], ['Brazil', 190]], flags: [[CONGO, 'In the 2024 list; child labor and forced labor shown in the 2018 edition; forced mining reported in 2024']], sources: ['usgsTa', 'dolList', 'dol2018', 'dolDrc'] },
   gold: { label: 'Gold', unit: 'tons', world: 3300, note: 'Gold is among the most common mined goods on the list, across many more countries than shown here.', producers: [['China', 380], ['Russia', 310], ['Australia', 280], ['Canada', 200]], flags: [[CONGO, 'Listed; forced mining reported'], ['Zimbabwe', 'Child labor added in 2022']], sources: ['usgsAu', 'dolList', 'dol2022', 'dolDrc'] },
   aluminum: { label: 'Aluminum (bauxite)', unit: 'thousand tons', world: 440000, note: 'Producer shares are for bauxite ore. The listing is for aluminum made in or from Xinjiang.', producers: [['Guinea', 150000], ['Australia', 97000], ['China', 87000], ['Brazil', 33000]], flags: [['China', 'Forced labor listed for aluminum in 2024']], sources: ['usgsAl', 'dolList'] },
   iron: { label: 'Iron ore', unit: 'thousand tons', world: 2600000, note: 'Iron is on the list, but the country entries were not confirmed here.', producers: [['Australia', 980000], ['Brazil', 420000], ['India', 310000], ['China', 290000]], flags: [], sources: ['usgsFe', 'dolList'] },
@@ -1621,7 +1641,7 @@ const ETHICS_LEVELS = {
   none: { rank: 5, label: 'Nothing found' },
 };
 const ETHICS = {
-  atacama: { level: 'audit', text: 'Audited against the IRMA responsible mining standard, reaching IRMA 75 in 2023, the first lithium operation to do so. The audit report says not all communities beyond the direct area of influence were engaged.', sources: ['irma'] },
+  atacama: { level: 'audit', text: 'Audited against the IRMA responsible mining standard, reaching IRMA 75 in 2023, the first lithium operation to do so. The audit report says not all communities beyond the direct area of influence were engaged. A follow-up audit report came out in March 2026 and was not read for this check.', sources: ['irma', 'irmaFollow'] },
   lges: { level: 'report', text: 'Publishes a responsible sourcing report and says its due diligence follows the OECD framework for cobalt, lithium, nickel, and graphite. Its 2025 report says improvements are needed. No named mine-level audit was found.', sources: ['lgesRsr', 'lgesEsg'] },
   abs: { level: 'parent', text: 'Nothing was found from the company itself. Its parent, Komatsu, publishes a statement on gold, tin, tantalum, and tungsten, which does not mention cobalt or lithium.', sources: ['komatsu'] },
   protolabs: { level: 'report', text: 'Files a conflict minerals report with the SEC, covering tin, tantalum, tungsten, and gold. It says it does not directly source those minerals.', sources: ['protolabsCmr'] },
@@ -1676,7 +1696,7 @@ function paintOrigin() {
 }
 
 // Panels
-const sourceLinks = ids => (ids && ids.length ? `<span class="srcs">${ids.map(id => `<a href="${SOURCES[id].url}" target="_blank" rel="noopener">${esc(SOURCES[id].label)}</a>`).join(' · ')}</span>` : '');
+const sourceLinks = ids => (ids && ids.length ? `<span class="srcs">${ids.map(id => `<a href="${SOURCES[id].url}" target="_blank" rel="noopener">${esc(SOURCES[id].label)}</a> <em class="${isOlder(id) ? 'older' : ''}">(${esc(dateNote(id))})</em>`).join('<br>')}</span>` : '');
 function factsHtml(r) {
   return `<div class="facts">
     <span>${Math.round(r.km / 100) * 100 < 100 ? 'Under 100' : (Math.round(r.km / 100) * 100).toLocaleString()} km<small>away</small></span>
@@ -1736,7 +1756,9 @@ function drawTrace() {
     <p class="trail">${r.confirmed} of ${r.links.length} links in this chain are confirmed. A link describes companies, not what is inside a particular product.</p>
     <div class="steps" tabindex="0" aria-label="Supply chain from mine to supplier">${cols}</div>`;
 }
-$('source-list').innerHTML = Object.values(SOURCES).map(s => `<li><a href="${s.url}" target="_blank" rel="noopener">${esc(s.label)}</a></li>`).join('');
+$('source-list').innerHTML = Object.keys(SOURCES).map(id => `<li><a href="${SOURCES[id].url}" target="_blank" rel="noopener">${esc(SOURCES[id].label)}</a><small class="${isOlder(id) ? 'older' : ''}">Published: ${esc(dateNote(id))}</small></li>`).join('');
+const allSources = Object.keys(SOURCES);
+$('source-summary').textContent = `All ${allSources.length} sources were found on ${DATE_FOUND}. ${allSources.filter(isOlder).length} are older sources from 2023 or earlier, and ${allSources.filter(id => sourceDate(id) === 'No date shown').length} pages show no date.`;
 
 // Stage cards
 const STAGE_NOTES = {
@@ -1785,7 +1807,7 @@ function renderStage(id) {
   $('detail-summary').textContent = note.summary;
   $('detail-evidence').textContent = note.evidence;
   $('detail-unknown').textContent = note.unknown;
-  $('detail-sources').innerHTML = note.sources.map(k => `<li><a href="${SOURCES[k].url}" target="_blank" rel="noopener noreferrer">${esc(SOURCES[k].label)}</a></li>`).join('');
+  $('detail-sources').innerHTML = note.sources.map(k => `<li><a href="${SOURCES[k].url}" target="_blank" rel="noopener noreferrer">${esc(SOURCES[k].label)}</a><small class="${isOlder(k) ? 'older' : ''}">Published: ${esc(dateNote(k))} · Found: ${DATE_FOUND}</small></li>`).join('');
 }
 function applyFilter(filter) {
   document.querySelectorAll('.filter').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === filter)));
