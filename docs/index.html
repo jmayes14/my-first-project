@@ -697,6 +697,24 @@
     .steps { grid-auto-flow: row; grid-auto-columns: auto; overflow-x: visible; }
   }
   .finder { margin-top: 1rem; }
+  .riskdot { display: inline-block; width: 0.7rem; height: 0.7rem; margin-left: 0.35rem; border-radius: 50%; border: 1px solid var(--surface); vertical-align: -0.04rem; }
+  .riskdot.higher { background: #b5441c; }
+  .riskdot.some { background: #d9a227; }
+  .riskdot.none { background: #a9b6b1; }
+  .risk-key { display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; margin: 0.6rem 0 0; color: var(--muted); font-size: 0.82rem; }
+  .risk-key .riskdot { margin: 0 0.3rem 0 0; }
+  .riskbox { grid-column: 1 / -1; border-radius: 0.7rem; background: var(--bg); padding: 0.7rem 0.85rem; font-size: 0.88rem; }
+  .riskbox.higher { background: #fbe6db; }
+  .riskbox.some { background: #fbf1d3; }
+  .riskbox b:first-child { display: block; }
+  .riskbox ul { margin: 0.2rem 0; padding-left: 1.1rem; }
+  .riskbox p { margin: 0.25rem 0 0; }
+  .labor.full { grid-column: 1 / -1; }
+  .country[data-risk="1"] { fill: #f0cfba; }
+  .country[data-risk="2"] { fill: #e09a6d; }
+  .country[data-risk="3"] { fill: #b5441c; }
+  .ethics.risk { border-left-color: #b5441c; }
+  .ethics.risk span { margin-top: 2px; }
   .srcs em { color: var(--muted); font-style: normal; }
   em.older, small.older { color: #8d481f; font-weight: 700; }
   .source-list small { display: block; color: var(--muted); font-size: 0.78rem; }
@@ -920,6 +938,8 @@
     <h3 id="origin-title">Where it comes from</h3>
     <p class="origin-lead">No website can prove a part was ethically sourced, because most supply chains are not public. This shows where typical materials are mined, where labor problems are documented, and what each supplier has published.</p>
     <div class="cats" id="materials" role="group" aria-label="Choose a material"></div>
+    <p class="risk-key"><span><i class="riskdot higher"></i>Higher attention</span><span><i class="riskdot some"></i>Some attention</span><span><i class="riskdot none"></i>No entries found</span><span id="risk-summary"></span></p>
+    <label class="multi" for="riskview"><input type="checkbox" id="riskview">Show labor risk on the globe</label>
     <div class="origin-detail" id="origin-detail"></div>
     <p class="origin-note" id="ethics-summary"></p>
   </section>
@@ -1194,7 +1214,7 @@ const places = topojson.feature(detail, detail.objects.countries).features.filte
 const CENTER_FIX = { 'United States of America': [-98, 39], 'France': [2.5, 46.5], 'Russia': [90, 60], 'Norway': [9, 61], 'Canada': [-100, 56] };
 const centerOf = f => CENTER_FIX[f.properties.name] || d3.geoCentroid(f);
 
-const state = { country: 'United States of America', sort: 'trace', selected: null, picked: new Set(), inspect: null, multi: false, material: null, speed: 'slow', showAll: false, category: 'all', search: '' };
+const state = { country: 'United States of America', sort: 'trace', selected: null, picked: new Set(), inspect: null, multi: false, material: null, riskView: false, speed: 'slow', showAll: false, category: 'all', search: '' };
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -1667,31 +1687,77 @@ function ethicsHtml(n) {
   const e = ethicsOf(n);
   return e ? `<div class="ethics ${e.level}"><b>Ethical sourcing check: ${esc(ETHICS_LEVELS[e.level].label)}</b><span>${esc(e.text)}</span>${sourceLinks(e.sources)}</div>` : '';
 }
+// Risk levels describe materials, never companies. The rules are published on the methodology page.
+const CONFLICT_MATERIALS = ['tin', 'tantalum', 'gold'];
+const LISTED_NO_COUNTRY = ['manganese', 'iron'];
+const RISK_LEVELS = {
+  higher: { label: 'Higher attention', rank: 0 },
+  some: { label: 'Some attention', rank: 1 },
+  none: { label: 'No entries found', rank: 2 },
+};
+function riskOf(id) {
+  const m = MATERIALS[id];
+  const [lead, value] = m.producers[0];
+  const leadShare = (m.stated && m.stated[lead]) || value / m.world * 100;
+  const signals = [];
+  if (m.flags.length) signals.push({ key: 'labor', text: 'Labor entries from the U.S. Department of Labor', step: 'Ask where this material is mined, or which smelter or refiner handled it.' });
+  else if (LISTED_NO_COUNTRY.includes(id)) signals.push({ key: 'labor', text: 'Appears on the U.S. Department of Labor list; country entries not confirmed here', step: 'Ask where this material is mined, or which smelter or refiner handled it.' });
+  if (CONFLICT_MATERIALS.includes(id)) signals.push({ key: 'conflict', text: 'Covered by conflict minerals reporting rules', step: 'Ask for a conflict minerals report, such as a CMRT.' });
+  if (leadShare >= 50) signals.push({ key: 'concentration', text: `One country mines ${Math.round(leadShare)}% of the supply`, step: 'Ask whether there is a second source if that country’s supply is disrupted.' });
+  return { signals, level: signals.length >= 2 ? 'higher' : signals.length === 1 ? 'some' : 'none' };
+}
+const riskList = ids => ids.map(id => MATERIALS[id].label).join(', ');
+function riskHtml(n) {
+  const ids = [...new Set(n.cats.flatMap(c => CATEGORY_MATERIALS[c]))];
+  const higher = ids.filter(id => riskOf(id).level === 'higher');
+  const links = chainLinks(n.id);
+  const unknown = links.filter(l => l.ev === 'unknown').length;
+  return `<div class="ethics risk"><b>Risk check for this type of product</b><span>Products like this typically use ${ids.length} tracked ${ids.length === 1 ? 'material' : 'materials'}: ${esc(riskList(ids))}.</span>
+    <span>${higher.length ? `Higher attention: ${esc(riskList(higher))}.` : 'None of these is at the higher attention level.'} ${unknown} of ${links.length} links in this supplier’s chain ${unknown === 1 ? 'is' : 'are'} unknown.</span>
+    <span>This describes typical materials, not this company. <a href="methodology.html#risk">How risk levels work</a>.</span></div>`;
+}
+function laborByCountry(ids) {
+  const countries = new Map();
+  ids.forEach(id => MATERIALS[id].flags.forEach(([c]) => countries.set(c, [...(countries.get(c) || []), id])));
+  return [...countries].sort((a, b) => b[1].length - a[1].length);
+}
 function drawOrigin() {
   const ids = CATEGORY_MATERIALS[state.category];
   if (state.material && !ids.includes(state.material)) state.material = null;
-  $('materials').innerHTML = ids.map(id => `<button class="cat" type="button" data-material="${id}" aria-pressed="${state.material === id}">${esc(MATERIALS[id].label)}${MATERIALS[id].flags.length ? ' <span class="flagmark" title="Has labor entries">!</span>' : ''}</button>`).join('');
+  $('materials').innerHTML = ids.map(id => `<button class="cat" type="button" data-material="${id}" aria-pressed="${state.material === id}">${esc(MATERIALS[id].label)}<span class="riskdot ${riskOf(id).level}" title="${RISK_LEVELS[riskOf(id).level].label}"></span></button>`).join('');
+  const tally = l => ids.filter(id => riskOf(id).level === l).length;
+  $('risk-summary').textContent = `${ids.length} materials: ${tally('higher')} higher attention, ${tally('some')} some attention, ${tally('none')} with no entries found.`;
   const m = MATERIALS[state.material];
   const suppliers = NODES.filter(canBuy);
   const count = l => suppliers.filter(n => ethicsOf(n).level === l).length;
   const published = count('report') + count('policy');
   $('ethics-summary').textContent = `Of ${suppliers.length} suppliers, ${published} publish a report or policy, ${count('parent')} relies on a parent company’s policy, ${count('listed')} list one that was not reviewed, and ${count('none')} have nothing found.`;
-  if (!m) { $('origin-detail').innerHTML = '<p class="origin-hint">Pick a material to light up where it is mined on the globe.</p>'; return; }
   const named = name => name === CONGO ? 'Congo (Kinshasa)' : name === USA ? 'United States' : name;
+  if (!m) {
+    const rows = laborByCountry(ids);
+    $('origin-detail').innerHTML = state.riskView
+      ? `<div class="labor full"><h3>Countries with labor entries for these materials</h3><ul>${rows.map(([c, list]) => `<li><b>${esc(named(c))}:</b> ${esc(riskList(list))}</li>`).join('') || '<li>No entries confirmed for these materials.</li>'}</ul><p class="origin-note">Darker countries have entries for more of these materials. This list comes from confirmed entries only and is not complete. A country with no color is not a safe country.</p></div>`
+      : '<p class="origin-hint">Pick a material to see where it is mined and why it has its risk level, or turn on the labor risk view.</p>';
+    return;
+  }
+  const risk = riskOf(state.material);
   const bars = m.producers.map(([c, v]) => {
     const share = (m.stated && m.stated[c]) || v / m.world * 100;
     return `<li><span>${esc(named(c))}</span><i><b style="width:${share.toFixed(1)}%"></b></i><span>${share < 1 ? '<1' : Math.round(share)}%</span></li>`;
   }).join('');
   const flags = m.flags.length ? `<ul>${m.flags.map(([c, t]) => `<li><b>${esc(named(c))}:</b> ${esc(t)}</li>`).join('')}</ul>` : '<p>No country entry was confirmed for this material. That is not evidence of no risk.</p>';
-  $('origin-detail').innerHTML = `<div><h3>${esc(m.label)}: top mining countries</h3><ul class="bars">${bars}</ul>${m.note ? `<p class="origin-note">${esc(m.note)}</p>` : ''}</div>
+  const riskBlock = `<div class="riskbox ${risk.level}"><b>${RISK_LEVELS[risk.level].label}</b>${risk.signals.length ? `<ul>${risk.signals.map(s => `<li>${esc(s.text)}</li>`).join('')}</ul><p><b>What to do:</b> ${risk.signals.map(s => esc(s.step)).join(' ')}</p>` : '<p>None of the three warning signs was confirmed. That is not proof of low risk. Still ask where it comes from.</p>'}</div>`;
+  $('origin-detail').innerHTML = `${riskBlock}<div><h3>${esc(m.label)}: top mining countries</h3><ul class="bars">${bars}</ul>${m.note ? `<p class="origin-note">${esc(m.note)}</p>` : ''}</div>
     <div class="labor"><h3>U.S. Department of Labor evidence</h3>${flags}<p class="origin-note">A listing means significant evidence exists in that country. It does not mean all production is affected, or that a supplier here uses it.</p>${sourceLinks(m.sources)}</div>`;
 }
 function paintOrigin() {
   const m = MATERIALS[state.material];
   const shares = new Map(m ? m.producers.map(([c, v]) => [c, v / m.world]) : []);
   const flagged = new Set(m ? m.flags.map(f => f[0]) : []);
+  const riskCounts = new Map(!m && state.riskView ? laborByCountry(CATEGORY_MATERIALS[state.category]).map(([c, list]) => [c, list.length]) : []);
   [coarseLand, fineLand].forEach(layer => layer.paths
     .attr('data-share', f => { const s = shares.get(f.properties.name); return s === undefined ? null : s >= 0.3 ? 3 : s >= 0.1 ? 2 : 1; })
+    .attr('data-risk', f => { const r = riskCounts.get(f.properties.name); return r ? Math.min(r, 3) : null; })
     .classed('flagged', f => flagged.has(f.properties.name)));
 }
 
@@ -1752,7 +1818,7 @@ function drawTrace() {
   const r = state.rows.find(x => x.n.id === sel.id);
   el.innerHTML = `<h2>${esc(sel.name)}</h2>
     <p>${esc(sel.about)} ${esc(sel.small.text)} Confirm prices, minimums, and shipping directly with the company.</p>
-    ${sourceLinks(sel.sources)}${ethicsHtml(sel)}${ownerHtml(sel)}
+    ${sourceLinks(sel.sources)}${riskHtml(sel)}${ethicsHtml(sel)}${ownerHtml(sel)}
     <p class="trail">${r.confirmed} of ${r.links.length} links in this chain are confirmed. A link describes companies, not what is inside a particular product.</p>
     <div class="steps" tabindex="0" aria-label="Supply chain from mine to supplier">${cols}</div>`;
 }
@@ -1868,6 +1934,8 @@ $('materials').addEventListener('click', e => {
   state.material = state.material === b.dataset.material ? null : b.dataset.material;
   const m = MATERIALS[state.material];
   if (m) {
+    state.riskView = false;
+    $('riskview').checked = false;
     const lead = places.find(c => c.properties.name === m.producers[0][0]);
     drifting = false;
     setPaused(true);
@@ -1876,6 +1944,20 @@ $('materials').addEventListener('click', e => {
   }
   render();
 });
+$('riskview').onchange = e => {
+  state.riskView = e.target.checked;
+  if (state.riskView) {
+    state.material = null;
+    const top = laborByCountry(CATEGORY_MATERIALS[state.category])[0];
+    if (top) {
+      drifting = false;
+      setPaused(true);
+      cam.zoom = 1;
+      cam.target = aim(centerOf(places.find(c => c.properties.name === top[0])));
+    }
+  }
+  render();
+};
 $('showall').onchange = e => { state.showAll = e.target.checked; render(); };
 $('multi').onchange = e => { state.multi = e.target.checked; if (!state.multi) state.picked = new Set([state.selected]); render(); };
 $('sort').onchange = e => { state.sort = e.target.value; render(true); };
