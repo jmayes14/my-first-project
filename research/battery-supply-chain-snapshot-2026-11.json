@@ -17,9 +17,9 @@
     "Distance is measured from the center of the visitor's country and is not a delivery estimate.",
     "Sayari company-name filters on shipment searches returned unrelated records and were not used as evidence. Entity relationships were used instead.",
     "Sayari screening flags were not published. Many battery exporters carry product-level flags based on HS code and country, which are leads rather than findings about a company.",
-    "Whether the Sayari license allows these references on a public site has not been checked.",
     "Small-order labels reflect what a source says. \"Shop\" means an online shop sells individual products, not that every item ships everywhere.",
-    "Marketplaces such as Xometry and Craftcloud may have parts made elsewhere, so the place shown is the company, not the factory."
+    "Marketplaces such as Xometry and Craftcloud may have parts made elsewhere, so the place shown is the company, not the factory.",
+    "The project owner confirmed that Sayari data can be used. Accuracy rules still apply, so unverified serious links stay off the site."
   ],
   "industry_context": {
     "lithium_2025": {
