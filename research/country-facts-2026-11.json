@@ -8,7 +8,7 @@
   },
   "method": {
     "labor": "Every Department of Labor entry, grouped by type of labor. List dated 2024-09-05.",
-    "minerals": "2025 mine production divided by the USGS world total, top six per country. Congo cobalt uses the 73% USGS states in its chapter.",
+    "minerals": "2025 mine production divided by the USGS world total, top six per country. Congo cobalt uses the 73% USGS states in its chapter. Minerals with no matching USGS world total are left out, such as titanium, talc, and building stone.",
     "sanctions": "Programs on the OFAC page named after a country, mapped by hand. Worldwide topic programs are left out. UN sanctions were not added because the UN page could not be read."
   },
   "caveats": [
@@ -151,6 +151,10 @@
           48
         ],
         [
+          "Iron ore",
+          38
+        ],
+        [
           "Zirconium",
           33
         ],
@@ -165,13 +169,9 @@
         [
           "Lead",
           11
-        ],
-        [
-          "Gold",
-          8
         ]
       ],
-      "more": 17
+      "more": 18
     },
     "Austria": {
       "minerals": [
@@ -418,6 +418,10 @@
           19
         ],
         [
+          "Iron ore",
+          16
+        ],
+        [
           "Asbestos",
           16
         ],
@@ -428,13 +432,9 @@
         [
           "Tin",
           10
-        ],
-        [
-          "Magnesium compounds",
-          9
         ]
       ],
-      "more": 15
+      "more": 16
     },
     "Bulgaria": {
       "minerals": [
@@ -535,19 +535,19 @@
           12
         ],
         [
+          "Palladium",
+          8
+        ],
+        [
           "Gold",
           6
         ],
         [
           "Niobium (columbium)",
           5
-        ],
-        [
-          "Salt",
-          5
         ]
       ],
-      "more": 11
+      "more": 14
     },
     "Central African Rep.": {
       "labor": [
@@ -606,7 +606,7 @@
           5
         ]
       ],
-      "more": 4
+      "more": 5
     },
     "China": {
       "labor": [
@@ -688,7 +688,7 @@
           69
         ]
       ],
-      "more": 33,
+      "more": 35,
       "sanctions": [
         "Chinese military companies",
         "Hong Kong-related"
@@ -746,6 +746,10 @@
     },
     "Czechia": {
       "minerals": [
+        [
+          "Clays",
+          5
+        ],
         [
           "Garnet (industrial)",
           0
@@ -1098,6 +1102,10 @@
     "Greece": {
       "minerals": [
         [
+          "Clays",
+          5
+        ],
+        [
           "Pumice and pumicite",
           5
         ],
@@ -1243,23 +1251,23 @@
           19
         ],
         [
+          "Clays",
+          18
+        ],
+        [
           "Wollastonite",
           14
         ],
         [
+          "Iron ore",
+          12
+        ],
+        [
           "Salt",
           11
-        ],
-        [
-          "Zinc",
-          7
-        ],
-        [
-          "Chromium",
-          6
         ]
       ],
-      "more": 13
+      "more": 15
     },
     "Indonesia": {
       "labor": [
@@ -1349,19 +1357,19 @@
           10
         ],
         [
+          "Clays",
+          6
+        ],
+        [
+          "Iron ore",
+          4
+        ],
+        [
           "Barite",
           3
-        ],
-        [
-          "Iodine",
-          2
-        ],
-        [
-          "Lead",
-          2
         ]
       ],
-      "more": 5,
+      "more": 7,
       "sanctions": [
         "Iran"
       ]
@@ -1486,7 +1494,7 @@
           3
         ]
       ],
-      "more": 7
+      "more": 8
     },
     "Kenya": {
       "labor": [
@@ -1758,6 +1766,12 @@
             "Goats"
           ]
         ]
+      ],
+      "minerals": [
+        [
+          "Iron ore",
+          0
+        ]
       ]
     },
     "Mauritius": {
@@ -1824,7 +1838,7 @@
           4
         ]
       ],
-      "more": 11
+      "more": 13
     },
     "Mongolia": {
       "labor": [
@@ -2301,7 +2315,7 @@
           6
         ]
       ],
-      "more": 3
+      "more": 4
     },
     "Philippines": {
       "labor": [
@@ -2410,6 +2424,10 @@
       ],
       "minerals": [
         [
+          "Palladium",
+          44
+        ],
+        [
           "Diamond (industrial)",
           42
         ],
@@ -2428,13 +2446,9 @@
         [
           "Potash",
           20
-        ],
-        [
-          "Vanadium",
-          19
         ]
       ],
-      "more": 27,
+      "more": 31,
       "sanctions": [
         "Russian harmful foreign activities",
         "Ukraine-/Russia-related"
@@ -2529,6 +2543,10 @@
           6
         ],
         [
+          "Clays",
+          4
+        ],
+        [
           "Phosphate rock",
           1
         ]
@@ -2588,6 +2606,10 @@
     "South Africa": {
       "minerals": [
         [
+          "Platinum",
+          71
+        ],
+        [
           "Chromium",
           45
         ],
@@ -2596,23 +2618,19 @@
           38
         ],
         [
+          "Palladium",
+          37
+        ],
+        [
           "Vermiculite",
           35
         ],
         [
           "Zirconium",
           22
-        ],
-        [
-          "Diamond (industrial)",
-          8
-        ],
-        [
-          "Vanadium",
-          5
         ]
       ],
-      "more": 5
+      "more": 8
     },
     "South Korea": {
       "labor": [
@@ -2658,6 +2676,10 @@
           22
         ],
         [
+          "Clays",
+          16
+        ],
+        [
           "Gypsum",
           7
         ],
@@ -2672,13 +2694,9 @@
         [
           "Pumice and pumicite",
           2
-        ],
-        [
-          "Salt",
-          1
         ]
       ],
-      "more": 4
+      "more": 5
     },
     "Sri Lanka": {
       "minerals": [
@@ -2728,6 +2746,10 @@
         [
           "Silver",
           2
+        ],
+        [
+          "Iron ore",
+          1
         ]
       ]
     },
@@ -2912,19 +2934,19 @@
           17
         ],
         [
+          "Clays",
+          12
+        ],
+        [
           "Magnesium compounds",
           8
         ],
         [
           "Gypsum",
           6
-        ],
-        [
-          "Diatomite",
-          6
         ]
       ],
-      "more": 12
+      "more": 14
     },
     "Turkmenistan": {
       "labor": [
@@ -2997,6 +3019,10 @@
           3
         ],
         [
+          "Iron ore",
+          2
+        ],
+        [
           "Graphite (natural)",
           0
         ]
@@ -3020,6 +3046,10 @@
     "United States of America": {
       "minerals": [
         [
+          "Clays",
+          55
+        ],
+        [
           "Beryllium",
           53
         ],
@@ -3038,13 +3068,9 @@
         [
           "Molybdenum",
           15
-        ],
-        [
-          "Salt",
-          15
         ]
       ],
-      "more": 18
+      "more": 22
     },
     "Uzbekistan": {
       "labor": [
@@ -3056,6 +3082,10 @@
         ]
       ],
       "minerals": [
+        [
+          "Clays",
+          12
+        ],
         [
           "Rhenium",
           9
@@ -3075,12 +3105,9 @@
         [
           "Phosphate rock",
           0
-        ],
-        [
-          "Vermiculite",
-          0
         ]
-      ]
+      ],
+      "more": 1
     },
     "Venezuela": {
       "labor": [
@@ -3211,8 +3238,16 @@
           13
         ],
         [
+          "Platinum",
+          11
+        ],
+        [
           "Lithium",
           10
+        ],
+        [
+          "Palladium",
+          8
         ],
         [
           "Vermiculite",
@@ -3221,12 +3256,9 @@
         [
           "Chromium",
           4
-        ],
-        [
-          "Gemstones",
-          0
         ]
-      ]
+      ],
+      "more": 1
     },
     "eSwatini": {
       "labor": [
