@@ -134,6 +134,18 @@ Given any source, then the page shows when it was published and when this projec
 found it. Sources from 2023 or earlier are marked older, and a page with no date
 says so.
 
+**FR-24: Material risk levels (US-4)**
+Given a material, then the page shows its risk level, the warning signs behind
+it, and what to do next.
+
+**FR-25: Labor risk view (US-4)**
+Given the labor risk option is on, then the globe shades countries by how many of
+the selected materials have labor entries there.
+
+**FR-26: Supplier risk check (US-4)**
+Given a supplier, then the panel summarizes risk for that type of product and
+says it describes typical materials, not that company.
+
 ## Screens
 - **Hero:** title, purpose, and research date.
 - **Stage map:** filters, five stage cards, and the evidence panel.
@@ -164,6 +176,8 @@ Records live in `docs/index.html` and match
 - **BR-7:** Distance is measured from the center of the visitor's country and is not a delivery estimate.
 - **BR-8:** Sayari screening flags are not published.
 - **BR-9:** Being listed is not an endorsement.
+- **BR-17:** Risk levels apply to materials, never companies. Two or more warning signs is higher attention, and one is some attention.
+- **BR-18:** The site never says low risk.
 - **BR-15:** Names of individual owners are not published.
 - **BR-16:** A serious trade link is left out when the goods cannot be seen.
 - **BR-12:** The site never rates a company as ethical or unethical, and it does not claim to prove ethical sourcing.
