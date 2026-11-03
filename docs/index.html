@@ -640,7 +640,8 @@
   }
   .pin { cursor: pointer; outline: none; opacity: 0.5; }
   .pin path { stroke: var(--surface); stroke-width: 1.2px; }
-  .pin.inchain, .pin.selected, .pin:hover, .pin:focus-visible { opacity: 1; }
+  .pin.inchain, .pin.selected, .pin:hover, .pin:focus-visible, .pin.typical { opacity: 1; }
+  .pin.site:not(.typical):not(:hover) path, .pin.site:not(.typical):not(:hover) .pinnum { transform: scale(0.7); }
   .pin:focus-visible path { stroke: var(--ink); stroke-width: 2px; }
   .pinnum { font: 700 11px var(--mono); fill: var(--pin-ink); text-anchor: middle; dominant-baseline: central; pointer-events: none; }
   .arrow { color: var(--muted); align-self: center; }
@@ -974,7 +975,7 @@
       </div>
     </div>
     <section class="results" aria-labelledby="restitle">
-      <header><h2 id="restitle"></h2><p id="ressub"></p><label class="multi" for="multi"><input type="checkbox" id="multi">Show more than one supply chain</label><label class="multi" for="showall"><input type="checkbox" id="showall">Show every supplier on the globe</label></header>
+      <header><h2 id="restitle"></h2><p id="ressub"></p><label class="multi" for="multi"><input type="checkbox" id="multi">Show more than one supply chain</label><label class="multi" for="showall"><input type="checkbox" id="showall">Show every supplier on the globe</label><label class="multi" for="showsites"><input type="checkbox" id="showsites" checked>Show mines and refiners</label></header>
       <ul class="list" id="list"></ul>
     </section>
   </div>
@@ -1021,7 +1022,7 @@
 const STAGES = [
   { id: 'mine', num: 1, label: 'Mines', one: 'Mine', sym: d3.symbolTriangle, size: 280, numY: 2 },
   { id: 'refiner', num: 2, label: 'Refiners', one: 'Refiner', sym: d3.symbolDiamond, size: 260, numY: 0 },
-  { id: 'cell', num: 3, label: 'Cell makers', one: 'Cell maker', sym: d3.symbolSquare, size: 210, numY: 0 },
+  { id: 'cell', num: 3, globe: 'Parts and materials', label: 'Cell makers', one: 'Cell maker', sym: d3.symbolSquare, size: 210, numY: 0 },
   { id: 'pack', num: 4, globe: 'Makers and assemblers', label: 'Pack assemblers', one: 'Pack assembler', sym: d3.symbolCircle, size: 250, numY: 0 },
   { id: 'distributor', num: 5, globe: 'Shops and distributors', label: 'Distributors', one: 'Distributor', sym: d3.symbolStar, size: 400, numY: 0 },
 ];
@@ -1177,6 +1178,94 @@ NODES.push(
   { id: 'genli', stage: 'refiner', name: 'General Lithium (Jiujiang)', what: 'Lithium compounds', place: 'Jiujiang, China', at: [116.0, 29.71], about: 'A lithium company in Jiujiang found through Sayari trade data.', sources: ['sayariGenli'] },
   { id: 'maxon', stage: 'pack', kind: 'Motor maker', cats: ['motor'], cargo: 'Motors', name: 'maxon', what: 'Precision drive systems', place: 'Sachseln, Switzerland', at: [8.23, 46.87], about: 'A Swiss drive maker with an online shop for choosing and configuring products.', small: { level: 'proto', short: 'Configure', text: 'Its online shop lets you configure products. It does not state a minimum.' }, sources: ['maxon'] },
 );
+// Mines and refiners stand on their own unless a source links them to a supplier.
+Object.assign(SOURCES, {
+  mCobalt: { label: 'Mining.com.au · The world’s 10 largest cobalt mines', url: 'https://mining.com.au/the-worlds-10-largest-cobalt-mines/' },
+  cmnNickel: { label: 'Critical Minerals News · Top 10 Indonesia nickel companies', url: 'https://critical-minerals-news.com/top-10-indonesia-nickel-companies/' },
+  nmCopper: { label: 'The Northern Miner · Top 20 biggest copper mines 2025', url: 'https://www.northernminer.com/news/ranked-top-20-biggest-copper-mines-2025/1003883512/' },
+  itaYunnan: { label: 'International Tin Association · Yunnan Tin', url: 'https://www.internationaltin.org/tag/yunnan-tin' },
+  itaBisie: { label: 'International Tin Association · Alphamin production', url: 'https://www.internationaltin.org/category/current-supply/page/16' },
+  timah: { label: 'PT Timah · Meeting with Yunnan Tin', url: 'https://timah.com/news/post/the-two-largest-tin-producers-in-the-world-meet-pt-timah-and-yunnan-tin-discuss-three-synergistic-things.html' },
+  argusRubaya: { label: 'Argus · Rubaya mine collapse and tantalum supply', url: 'https://www.argusmedia.com/es/news-and-insights/market-opinion-and-analysis-blog/rubaya-mine-collapse-tantalum-supply-chain' },
+  amgMibra: { label: 'AMG · Mibra mine lithium plant startup', url: 'https://amg-nv.com/investors/press-release/amg-advanced-metallurgical-group-n-v-announces-startup-of-amg-mineracaos-first-lithium-concentrate-plant/' },
+  asiCbg: { label: 'Aluminium Stewardship Initiative · CBG member page', url: 'https://aluminium-stewardship.org/about-asi/asi-members/compagnie-des-bauxites-de-guinee/' },
+  mwWeipa: { label: 'Mining Weekly · Rio Tinto Queensland bauxite project', url: 'https://www.miningweekly.com/article/australias-rio-tinto-to-invest-19bn-in-queensland-bauxite-project-2026-10-23' },
+  kitcoCarajas: { label: 'Kitco · Vale to raise Carajás output', url: 'https://www.kitco.com/news/off-the-wire/2025-02-17/vale-raise-carajas-iron-ore-output-12-billion-investment' },
+  alb10k: { label: 'Albemarle · Form 10-K for 2025 (SEC filing)', url: 'https://www.sec.gov/Archives/edgar/data/915913/000091591326000018/alb-20251231.htm' },
+  mtBikita: { label: 'Mining Technology · Sinomine and Bikita', url: 'https://www.mining-technology.com/news/sinomine-bikita-lithium-zimbabwe/' },
+  lar2026: { label: 'Lithium Argentina · 2026 report (SEC filing)', url: 'https://www.sec.gov/Archives/edgar/data/1440972/000110465926032465/tm269254d1_ex99-1.htm' },
+  kitcoGold: { label: 'Kitco · World’s top 10 largest gold mines', url: 'https://www.kitco.com/news/article/2023-06-08/worlds-top-10-largest-gold-mines-2022-report' },
+  ecofinBalama: { label: 'Ecofin · Syrah eases back into production at Balama', url: 'https://www.ecofinagency.com/news-industry/2006-47350-syrah-eases-back-into-production-at-balama-graphite-mine-africa-s-largest' },
+  usgsGabon: { label: 'USGS · Gabon', url: 'https://www.usgs.gov/centers/national-minerals-information-center/gabon' },
+  south32: { label: 'South32 · South Africa Manganese', url: 'https://www.south32.net/what-we-do/our-locations/southern-africa' },
+  nsBayan: { label: 'NS Energy · Bayan Obo rare earth mine', url: 'https://www.nsenergybusiness.com/projects/bayan-obo-rare-earth-mine/' },
+  mp10k: { label: 'MP Materials · Form 10-K for 2025 (SEC filing)', url: 'https://www.sec.gov/Archives/edgar/data/1801368/000180136826000008/mp-20251231.htm' },
+  nsWeld: { label: 'NS Energy · Mt Weld rare earths mine', url: 'https://www.nsenergybusiness.com/projects/mt-weld-rare-earths-mine/' },
+  spHuayou: { label: 'S&P Global · Huayou Cobalt’s Quzhou plant', url: 'https://www.spglobal.com/energy/en/news-research/latest-news/metals/031822-chinas-huayou-cobalt-to-reduce-cobalt-smelting-recycling-lines-at-quzhou-plant' },
+  sayariCytron: { label: 'Sayari · Cytron Technologies (login required)', url: 'https://graph.sayari.com/resource/entity/Bds-MZVC90_MjCAf4Pfzrw' },
+  sayariPimoroni: { label: 'Sayari · Pimoroni (login required)', url: 'https://graph.sayari.com/resource/entity/Q8FAjKYgms1OVsHNtMmX9A' },
+  sayariPololu: { label: 'Sayari · Pololu (login required)', url: 'https://graph.sayari.com/resource/entity/oFHH7sv9HynEGzIhmINPqw' },
+  sayariMaxon: { label: 'Sayari · maxon motor (login required)', url: 'https://graph.sayari.com/resource/entity/BTu6apSyRek27atgiy_g0w' },
+  sayariJlc: { label: 'Sayari · Shenzhen JLC Technology Group (login required)', url: 'https://graph.sayari.com/resource/entity/rJecndyD3cOA85SdjwmOHw' },
+  sayariItm: { label: 'Sayari · ITM Semiconductor Vietnam (login required)', url: 'https://graph.sayari.com/resource/entity/HKdxGQ3aLpHF0uWC11Wmig' },
+  sayariRyder: { label: 'Sayari · Ryder Electronics (Hong Kong) (login required)', url: 'https://graph.sayari.com/resource/entity/j9FsBDjFnvr7R5_6YZuvzA' },
+  sayariSamtec: { label: 'Sayari · Samtec Asia Pacific (login required)', url: 'https://graph.sayari.com/resource/entity/BWMMbyFdjqVYzcu7fZ1-oQ' },
+  sayariYaya: { label: 'Sayari · Shenzhen Yaya Education and Technology (login required)', url: 'https://graph.sayari.com/resource/entity/S9Jvz-97zQYm5hPj6cpYPQ' },
+  sayariPlansee: { label: 'Sayari · Plansee India (login required)', url: 'https://graph.sayari.com/resource/entity/fY5iZjKDdWEW1InaCltzGQ' },
+});
+Object.assign(SOURCE_DATES, { nmCopper: '2025', argusRubaya: 'Feb 2026', amgMibra: 'May 2018', mwWeipa: 'Oct 2026', kitcoCarajas: 'Feb 2025', alb10k: '2026, covering 2025', lar2026: '2026', kitcoGold: 'Jun 2023', ecofinBalama: 'Jun 2025', mp10k: '2026, covering 2025', spHuayou: 'Mar 2022' });
+NODES.push(
+  { id: 'tenke', stage: 'mine', name: 'Tenke Fungurume', what: 'Copper and cobalt', place: 'Lualaba, Congo (Kinshasa)', country: 'Dem. Rep. Congo', at: [26.57, -10.57], site: ['cobalt',  'copper'], about: 'A large copper and cobalt mine run by CMOC.', sources: ['mCobalt'] },
+  { id: 'kisanfu', stage: 'mine', name: 'Kisanfu', what: 'Copper and cobalt', place: 'Lualaba, Congo (Kinshasa)', country: 'Dem. Rep. Congo', at: [25.93, -10.78], site: ['cobalt',  'copper'], about: 'A copper and cobalt mine run by CMOC.', sources: ['mCobalt'] },
+  { id: 'kamoto', stage: 'mine', name: 'Kamoto (KCC)', what: 'Copper and cobalt', place: 'Kolwezi, Congo (Kinshasa)', country: 'Dem. Rep. Congo', at: [25.4, -10.72], site: ['cobalt',  'copper'], about: 'A copper and cobalt mine run by Glencore.', sources: ['mCobalt'] },
+  { id: 'kamoa', stage: 'mine', name: 'Kamoa-Kakula', what: 'Copper', place: 'Lualaba, Congo (Kinshasa)', country: 'Dem. Rep. Congo', at: [25.86, -10.55], site: ['copper'], about: 'A large copper complex run by Ivanhoe Mines. Seismic activity flooded part of the underground mine in 2025.', sources: ['nmCopper'] },
+  { id: 'bisie', stage: 'mine', name: 'Bisie', what: 'Tin', place: 'North Kivu, Congo (Kinshasa)', country: 'Dem. Rep. Congo', at: [27.6, -1.0], site: ['tin'], about: 'A tin mine run by Alphamin, in a region affected by conflict. Production stopped and resumed in April 2025.', sources: ['itaBisie'] },
+  { id: 'rubaya', stage: 'mine', name: 'Rubaya', what: 'Coltan, the ore that contains tantalum', place: 'North Kivu, Congo (Kinshasa)', country: 'Dem. Rep. Congo', at: [28.85, -1.55], site: ['tantalum'], about: 'A rebel-held mining area that the UN estimates supplies over 15% of the world’s tantalum. A landslide in January 2026 killed more than 200 people.', sources: ['argusRubaya'] },
+  { id: 'wedabay', stage: 'mine', name: 'Weda Bay', what: 'Nickel', place: 'Halmahera, Indonesia', country: 'Indonesia', at: [127.9, 0.5], site: ['nickel'], about: 'A very large nickel mine owned mainly by Tsingshan and Eramet.', sources: ['cmnNickel'] },
+  { id: 'grasberg', stage: 'mine', name: 'Grasberg', what: 'Copper and gold', place: 'Papua, Indonesia', country: 'Indonesia', at: [137.11, -4.05], site: ['copper',  'gold'], about: 'A very large copper and gold mine run by Freeport-McMoRan. A 2025 landslide killed seven workers and halted production.', sources: ['nmCopper',  'kitcoGold'] },
+  { id: 'bangka', stage: 'mine', name: 'PT Timah operations', what: 'Tin', place: 'Bangka Belitung, Indonesia', country: 'Indonesia', at: [106.1, -2.1], site: ['tin'], about: 'Indonesia’s state-owned tin company, based in Bangka Belitung.', sources: ['timah'] },
+  { id: 'sangaredi', stage: 'mine', name: 'Sangarédi (CBG)', what: 'Bauxite, the ore used to make aluminum', place: 'Boké, Guinea', country: 'Guinea', at: [-13.78, 11.1], site: ['aluminum'], about: 'A bauxite mine run by Compagnie des Bauxites de Guinée, a member of the Aluminium Stewardship Initiative.', sources: ['asiCbg'] },
+  { id: 'carajas', stage: 'mine', name: 'Carajás', what: 'Iron ore', place: 'Pará, Brazil', country: 'Brazil', at: [-50.2, -6.07], site: ['iron'], about: 'Vale’s main iron ore complex.', sources: ['kitcoCarajas'] },
+  { id: 'mibra', stage: 'mine', name: 'Mibra', what: 'Tantalum and lithium', place: 'Minas Gerais, Brazil', country: 'Brazil', at: [-44.6, -21.2], site: ['tantalum',  'lithium'], about: 'A tantalum mine run by AMG, which added a lithium plant in 2018. Its current output was not confirmed.', sources: ['amgMibra'] },
+  { id: 'greenbushes', stage: 'mine', name: 'Greenbushes', what: 'Lithium', place: 'Western Australia, Australia', country: 'Australia', at: [116.06, -33.86], site: ['lithium'], about: 'A hard-rock lithium mine run by Talison. Albemarle holds 49% of the site.', sources: ['alb10k'] },
+  { id: 'weipa', stage: 'mine', name: 'Weipa', what: 'Bauxite, the ore used to make aluminum', place: 'Queensland, Australia', country: 'Australia', at: [141.87, -12.63], site: ['aluminum'], about: 'Rio Tinto’s bauxite operation on Cape York.', sources: ['mwWeipa'] },
+  { id: 'mountweld', stage: 'mine', name: 'Mount Weld', what: 'Rare earths', place: 'Western Australia, Australia', country: 'Australia', at: [122.55, -28.86], site: ['rareearths'], about: 'Lynas’s rare earths mine. Its concentrate is processed in Malaysia.', sources: ['nsWeld'] },
+  { id: 'bikita', stage: 'mine', name: 'Bikita', what: 'Lithium', place: 'Masvingo, Zimbabwe', country: 'Zimbabwe', at: [31.3, -20.08], site: ['lithium'], about: 'A lithium mine owned by Sinomine of China since 2022.', sources: ['mtBikita'] },
+  { id: 'cauchari', stage: 'mine', name: 'Cauchari-Olaroz', what: 'Lithium brine', place: 'Jujuy, Argentina', country: 'Argentina', at: [-66.7, -23.4], site: ['lithium'], about: 'A lithium brine operation owned by Ganfeng, Lithium Argentina, and the province of Jujuy.', sources: ['lar2026'] },
+  { id: 'escondida', stage: 'mine', name: 'Escondida', what: 'Copper', place: 'Antofagasta, Chile', country: 'Chile', at: [-69.07, -24.27], site: ['copper'], about: 'The world’s largest copper mine, run by BHP.', sources: ['nmCopper'] },
+  { id: 'muruntau', stage: 'mine', name: 'Muruntau', what: 'Gold', place: 'Navoi, Uzbekistan', country: 'Uzbekistan', at: [64.57, 41.5], site: ['gold'], about: 'One of the world’s largest gold mines, run by Navoi Mining.', sources: ['kitcoGold'] },
+  { id: 'balama', stage: 'mine', name: 'Balama', what: 'Graphite', place: 'Cabo Delgado, Mozambique', country: 'Mozambique', at: [38.6, -13.33], site: ['graphite'], about: 'A graphite mine run by Syrah Resources. Protests stopped work for several quarters before it restarted in June 2025.', sources: ['ecofinBalama'] },
+  { id: 'moanda', stage: 'mine', name: 'Moanda', what: 'Manganese', place: 'Moanda, Gabon', country: 'Gabon', at: [13.2, -1.55], site: ['manganese'], about: 'A manganese mine run by Comilog, part of Eramet.', sources: ['usgsGabon'] },
+  { id: 'hotazel', stage: 'mine', name: 'Hotazel Manganese Mines', what: 'Manganese', place: 'Northern Cape, South Africa', country: 'South Africa', at: [22.97, -27.2], site: ['manganese'], about: 'South32’s Mamatwan and Wessels mines in the Kalahari Basin.', sources: ['south32'] },
+  { id: 'bayanobo', stage: 'mine', name: 'Bayan Obo', what: 'Rare earths and iron', place: 'Inner Mongolia, China', country: 'China', at: [109.97, 41.78], site: ['rareearths',  'iron'], about: 'The world’s largest known rare earth deposit. Ore goes to Baotou for processing.', sources: ['nsBayan'] },
+  { id: 'mountainpass', stage: 'mine', name: 'Mountain Pass', what: 'Rare earths', place: 'California, USA', country: 'United States of America', at: [-115.53, 35.48], site: ['rareearths'], about: 'MP Materials’ mine, the largest commercial rare earth source in the Western Hemisphere.', sources: ['mp10k'] },
+  { id: 'imip', stage: 'refiner', name: 'Morowali Industrial Park', what: 'Nickel processing', place: 'Central Sulawesi, Indonesia', country: 'Indonesia', at: [122.15, -2.83], site: ['nickel'], about: 'A nickel processing hub running 11 smelters.', sources: ['cmnNickel'] },
+  { id: 'huayou', stage: 'refiner', name: 'Huayou Cobalt, Quzhou', what: 'Refined cobalt', place: 'Quzhou, China', country: 'China', at: [118.87, 28.97], site: ['cobalt'], about: 'A cobalt refinery owned by Zhejiang Huayou Cobalt, one of the largest cobalt refiners.', sources: ['spHuayou'] },
+  { id: 'yunnantin', stage: 'refiner', name: 'Yunnan Tin', what: 'Refined tin', place: 'Gejiu, China', country: 'China', at: [103.16, 23.36], site: ['tin'], about: 'The world’s largest producer of refined tin.', sources: ['itaYunnan'] },
+  { id: 'lynasmy', stage: 'refiner', name: 'Lynas Malaysia', what: 'Separated rare earths', place: 'Kuantan, Malaysia', country: 'Malaysia', at: [103.38, 3.97], site: ['rareearths'], about: 'Separates rare earths from Mount Weld at Gebeng, near Kuantan.', sources: ['nsWeld'] },
+  { id: 'jlcgroup', stage: 'cell', kind: 'Electronics maker', cargo: 'Electronics', name: 'Shenzhen JLC Technology Group', what: 'Electronics', place: 'Zhuhai, China', at: [113.28, 22.14], about: 'A Chinese electronics group with a factory in Zhuhai. Its name suggests a tie to JLCPCB, but that was not confirmed.', sources: ['sayariJlc'] },
+  { id: 'itmvn', stage: 'cell', kind: 'Electronics maker', cargo: 'Electronics', name: 'ITM Semiconductor Vietnam', what: 'Electronics', place: 'Bac Ninh, Vietnam', at: [106.0, 21.12], about: 'An electronics maker in the VSIP Bac Ninh industrial park.', sources: ['sayariItm'] },
+  { id: 'ryder', stage: 'cell', kind: 'Electronics supplier', cargo: 'Electronics', name: 'Ryder Electronics (Hong Kong)', what: 'Electronics', place: 'Hong Kong', at: [114.17, 22.32], about: 'A small trading record, with six shipments in Sayari’s data.', sources: ['sayariRyder'] },
+  { id: 'samtec', stage: 'cell', kind: 'Electronics maker', cargo: 'Electronics', name: 'Samtec Asia Pacific', what: 'Electronics', place: 'Johor Bahru, Malaysia', at: [103.74, 1.49], about: 'The Malaysian arm of the connector maker Samtec.', sources: ['sayariSamtec'] },
+  { id: 'yaya', stage: 'cell', kind: 'Parts supplier', cargo: 'Parts', name: 'Shenzhen Yaya Education and Technology', what: 'Parts', place: 'Shenzhen, China', at: [114.25, 22.72], about: 'A small trading record, with three shipments in Sayari’s data.', sources: ['sayariYaya'] },
+  { id: 'plansee', stage: 'cell', kind: 'Metals maker', cargo: 'Specialty metals', name: 'Plansee India', what: 'Specialty metals', place: 'Mysore, India', at: [76.64, 12.3], about: 'The Indian arm of the Plansee metals group.', sources: ['sayariPlansee'] },
+);
+LINKS.push(
+  { to: 'cytron', from: 'jlcgroup', ev: 'likely', note: 'Sayari trade data shows Cytron receiving from Shenzhen JLC Technology Group. The goods were not verified.', sources: ['sayariCytron',  'sayariJlc'] },
+  { to: 'pimoroni', from: 'cytron', ev: 'likely', note: 'Sayari trade data shows Pimoroni receiving from Cytron Technologies. The goods were not verified.', sources: ['sayariPimoroni',  'sayariCytron'] },
+  { to: 'pololu', from: 'yaya', ev: 'likely', note: 'Sayari trade data shows Pololu receiving from Shenzhen Yaya Education and Technology. The goods were not verified.', sources: ['sayariPololu',  'sayariYaya'] },
+  { to: 'maxon', from: 'samtec', ev: 'likely', note: 'Sayari trade data shows maxon receiving from Samtec Asia Pacific. The goods were not verified.', sources: ['sayariMaxon',  'sayariSamtec'] },
+  { to: 'cps', from: 'ryder', ev: 'likely', note: 'Sayari trade data shows Cell Pack Solutions receiving from Ryder Electronics. The goods were not verified.', sources: ['sayariCps',  'sayariRyder'] },
+  { to: 'grepow', from: 'itmvn', ev: 'likely', note: 'Sayari trade data shows Grepow receiving from ITM Semiconductor Vietnam. The goods were not verified.', sources: ['sayariGrepow',  'sayariItm'] },
+  { to: 'goodfellow', from: 'plansee', ev: 'likely', note: 'Sayari trade data shows Goodfellow receiving from Plansee India. The goods were not verified.', sources: ['sayariGoodfellow',  'sayariPlansee'] },
+  { to: 'lynasmy', from: 'mountweld', ev: 'confirmed', note: 'Concentrate from Mount Weld goes to Lynas in Malaysia for separation.', sources: ['nsWeld'] },
+  { to: 'jlcgroup', from: null, ev: 'unknown', gap: 'Raw material sources not established', stage: 'refiner' },
+  { to: 'itmvn', from: null, ev: 'unknown', gap: 'Raw material sources not established', stage: 'refiner' },
+  { to: 'ryder', from: null, ev: 'unknown', gap: 'Raw material sources not established', stage: 'refiner' },
+  { to: 'samtec', from: null, ev: 'unknown', gap: 'Raw material sources not established', stage: 'refiner' },
+  { to: 'yaya', from: null, ev: 'unknown', gap: 'Raw material sources not established', stage: 'refiner' },
+  { to: 'plansee', from: null, ev: 'unknown', gap: 'Raw material sources not established', stage: 'refiner' },
+);
 const CATS_BY_ID = { abs: ['battery'], grepow: ['battery'], cps: ['battery'], epec: ['battery'], akku: ['battery'], adafruit: ['battery', 'parts'], digikey: ['battery', 'parts'] };
 Object.entries(CATS_BY_ID).forEach(([id, cats]) => { NODE[id] = NODES.find(n => n.id === id); NODE[id].cats = cats; });
 NODES.forEach(n => { NODE[n.id] = n; });
@@ -1225,7 +1314,7 @@ const places = topojson.feature(detail, detail.objects.countries).features.filte
 const CENTER_FIX = { 'United States of America': [-98, 39], 'France': [2.5, 46.5], 'Russia': [90, 60], 'Norway': [9, 61], 'Canada': [-100, 56] };
 const centerOf = f => CENTER_FIX[f.properties.name] || d3.geoCentroid(f);
 
-const state = { country: 'United States of America', sort: 'trace', selected: null, picked: new Set(), inspect: null, multi: false, material: null, riskView: false, speed: 'slow', showAll: false, category: 'all', search: '', facts: null };
+const state = { country: 'United States of America', sort: 'trace', selected: null, picked: new Set(), inspect: null, multi: false, material: null, riskView: false, speed: 'slow', showAll: false, category: 'all', search: '', facts: null, showSites: true };
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -1271,13 +1360,14 @@ const routes = svg.append('g');
 const arrows = svg.append('g');
 const pins = svg.append('g').selectAll('g').data(NODES).join('g')
   .attr('class', 'pin').attr('tabindex', 0).attr('role', 'button')
-  .attr('aria-label', n => `${STAGE[n.stage].one}: ${n.name}, ${n.place}`)
+  .attr('aria-label', n => `${n.kind || STAGE[n.stage].one}: ${n.name}, ${n.place}`)
   .on('click', (e, n) => select(n.id))
   .on('keydown', (e, n) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(n.id); } });
 pins.append('path').attr('d', n => d3.symbol(STAGE[n.stage].sym, STAGE[n.stage].size)()).attr('fill', n => `var(--${n.stage})`);
 pins.append('text').attr('class', 'pinnum').attr('y', n => STAGE[n.stage].numY).text(n => STAGE[n.stage].num);
 const pinLabels = pins.append('text').attr('class', 'pinlabel').attr('y', 4).text(n => n.place);
-pins.append('title').text(n => `${n.name} (${STAGE[n.stage].one}), ${n.place}`);
+pins.classed('site', n => !!n.site);
+pins.append('title').text(n => `${n.name} (${n.kind || STAGE[n.stage].one}), ${n.place}`);
 const overlay = svg.append('g');
 const token = svg.append('g').attr('class', 'token').attr('display', 'none');
 token.append('path');
@@ -1292,7 +1382,7 @@ const ARROW = 'M-11,-8 L11,0 L-11,8 L-5,0 Z';
 const cam = { r: [0, -15], k: 1, zoom: 1, target: null };
 // Speed scales the trip, the camera, and the slow drift, and sets how fast likely links pulse.
 const SPEEDS = { slow: { pace: 1, pulse: '4.5s' }, medium: { pace: 1.8, pulse: '3s' }, fast: { pace: 3, pulse: '1.8s' } };
-let drifting = false, markScale = 1, viewL = 0, viewR = W, arrowData = [], clock = 0, shownPins = new Set(), marks = [], journey = null, journeyKey = null, paused = calm, dirty = true, captionFor = null;
+let drifting = false, markScale = 1, viewL = 0, viewR = W, arrowData = [], clock = 0, shownPins = new Set(), typicalSites = new Set(), marks = [], journey = null, journeyKey = null, paused = calm, dirty = true, captionFor = null;
 
 const wrap = d => ((d % 360) + 540) % 360 - 180;
 const facing = p => d3.geoDistance(p, [-cam.r[0], -cam.r[1]]) < Math.PI / 2 - 0.02;
@@ -1312,7 +1402,7 @@ function placeLabels() {
   const you = marks.find(m => m.you);
   if (you && facing(you.at)) { const [x, y] = projection(you.at); taken.push(boxFor(x, y, you.text.length * 7, 1)); }
   const placed = new Map();
-  [...live].sort((a, b) => rank(b) - rank(a)).forEach(n => {
+  [...live].filter(n => !n.site || typicalSites.has(n.id)).sort((a, b) => rank(b) - rank(a)).forEach(n => {
     const [x, y] = projection(n.at), w = n.place.length * 6.1 + 4;
     const first = labelSide.get(n.id) || (boxFor(x, y, w, 1).r > viewR ? -1 : 1);
     for (const side of [first, -first]) {
@@ -1569,9 +1659,13 @@ function drawMap(home) {
     .attr('class', d => `arrow-mark${d.other ? ' other' : ''}`).style('fill', d => `var(--${d.stage})`);
   routes.selectAll('path').data(lines).join('path').attr('class', d => `route ${d.cls}`).style('stroke', d => `var(--${d.stage})`);
   if (state.showAll) state.ranked.open.forEach(r => shown.add(r.n.id));
+  const focus = state.material ? [state.material] : sel && sel.cats ? materialsFor(sel) : [];
+  const sites = NODES.filter(n => n.site);
+  typicalSites = new Set(sites.filter(n => n.site.some(m => focus.includes(m))).map(n => n.id));
+  if (state.showSites) sites.filter(n => !state.material || typicalSites.has(n.id)).forEach(n => shown.add(n.id));
   shownPins = shown;
   paintOrigin();
-  pins.classed('inchain', n => lead.has(n.id)).classed('selected', n => n.id === state.selected);
+  pins.classed('inchain', n => lead.has(n.id)).classed('selected', n => n.id === state.selected).classed('typical', n => typicalSites.has(n.id));
   marks = [{ at: home, you: true, text: `You, ${state.country}` }];
   overlay.selectAll('g').data(marks).join(enter => {
     const m = enter.append('g'); m.append('circle').attr('class', 'youdot'); m.append('text').attr('class', 'maplabel').attr('x', 15).attr('y', 4); return m;
@@ -1723,8 +1817,18 @@ function riskOf(id) {
   return { signals, level: signals.length >= 2 ? 'higher' : signals.length === 1 ? 'some' : 'none' };
 }
 const riskList = ids => ids.map(id => MATERIALS[id].label).join(', ');
+const materialsFor = n => [...new Set(n.cats.flatMap(c => CATEGORY_MATERIALS[c]))];
+function typicalHtml(n) {
+  const rows = materialsFor(n).map(id => {
+    const m = MATERIALS[id];
+    const places = m.producers.slice(0, 2).map(([c, v]) => `${named(c)} ${Math.round((m.stated && m.stated[c]) || v / m.world * 100)}%`).join(', ');
+    const sites = NODES.filter(s => s.site && s.site.includes(id)).map(s => `<button class="linkbtn" data-id="${s.id}">${esc(s.name)}</button>`).join(', ');
+    return `<span><b>${esc(m.label)}:</b> ${esc(places)}.${sites ? ` Sites on this map: ${sites}.` : ''}</span>`;
+  }).join('');
+  return `<div class="ethics risk"><b>Where these materials usually come from</b>${rows}<span>This is the typical picture for these materials, not a finding about this company. It does not show where this company’s parts came from.</span></div>`;
+}
 function riskHtml(n) {
-  const ids = [...new Set(n.cats.flatMap(c => CATEGORY_MATERIALS[c]))];
+  const ids = materialsFor(n);
   const higher = ids.filter(id => riskOf(id).level === 'higher');
   const links = chainLinks(n.id);
   const unknown = links.filter(l => l.ev === 'unknown').length;
@@ -1784,6 +1888,7 @@ function drawCountryCard() {
   const f = COUNTRY_FACTS[name] || {};
   const labor = f.labor ? `<ul>${f.labor.map(([type, goods]) => `<li><b>${esc(type)}:</b> ${esc(goods.join(', '))}</li>`).join('')}</ul>` : '<p>No entries found on this list. That is not evidence of no risk.</p>';
   const minerals = f.minerals ? `<ul>${f.minerals.map(([m, share]) => `<li>${esc(m)}: ${share ? `about ${share}%` : 'under 1%'} of world mining</li>`).join('')}</ul>${f.more ? `<p>Plus ${f.more} more.</p>` : ''}` : '<p>Not named among the main producers. Smaller producers are often left out of these tables.</p>';
+  const sites = NODES.filter(n => n.country === name);
   const sanctions = f.sanctions ? `<ul>${f.sanctions.map(p => `<li>${esc(p)}</li>`).join('')}</ul><p>Programs range from a few named people to wide trade bans. Check before buying.</p>` : '<p>No U.S. program is named after this country. Programs that apply worldwide can still cover people or companies here.</p>';
   const home = name === state.country;
   el.innerHTML = `<div class="cardhead"><h3>${esc(named(name))}</h3>
@@ -1791,7 +1896,7 @@ function drawCountryCard() {
     <button class="cardclose" type="button" data-close aria-label="Close country facts">×</button></div>
     <div class="cardfacts">
       <div><h4>Labor</h4>${labor}</div>
-      <div><h4>Minerals mined</h4>${minerals}</div>
+      <div><h4>Minerals mined</h4>${minerals}${sites.length ? `<p><b>On this map:</b> ${sites.map(n => `<button class="linkbtn" data-id="${n.id}">${esc(n.name)}</button>`).join(', ')}</p>` : ''}</div>
       <div><h4>U.S. sanctions programs</h4>${sanctions}</div>
     </div>
     <p class="origin-note">These are facts about a country, not findings about any company there. A labor listing does not cover all production. All three sources are U.S. government sources, so rules in your country may differ.</p>
@@ -1836,9 +1941,9 @@ function drawTrace() {
   if (!canBuy(sel)) {
     const buyers = NODES.filter(canBuy).filter(n => chainLinks(n.id).some(l => l.from === sel.id));
     el.innerHTML = `<h2>${esc(sel.name)}</h2>
-      <p>${esc(sel.about)} Inventors usually can't buy from this step directly, so go through a supplier that traces back here.</p>
+      <p>${esc(sel.about)} Inventors usually can't buy from this step directly.${buyers.length ? ' Go through a supplier that traces back here.' : ''}</p>
       ${sourceLinks(sel.sources)}${ethicsHtml(sel)}
-      <div class="buyers">${buyers.map(b => `<button class="linkbtn" data-id="${b.id}">${esc(b.name)}</button>`).join('') || 'No listed supplier traces back here.'}</div>`;
+      <div class="buyers">${buyers.map(b => `<button class="linkbtn" data-id="${b.id}">${esc(b.name)}</button>`).join('') || 'No source links this site to a supplier on this map.'}</div>`;
     return;
   }
   const links = chainLinks(sel.id);
@@ -1855,7 +1960,7 @@ function drawTrace() {
     <p>${esc(sel.about)} ${esc(sel.small.text)} Confirm prices, minimums, and shipping directly with the company.</p>
     ${sourceLinks(sel.sources)}${riskHtml(sel)}${ethicsHtml(sel)}${ownerHtml(sel)}
     <p class="trail">${r.confirmed} of ${r.links.length} links in this chain are confirmed. A link describes companies, not what is inside a particular product.</p>
-    <div class="steps" tabindex="0" aria-label="Supply chain from mine to supplier">${cols}</div>`;
+    <div class="steps" tabindex="0" aria-label="Supply chain from mine to supplier">${cols}</div>${typicalHtml(sel)}`;
 }
 $('source-list').innerHTML = Object.keys(SOURCES).map(id => `<li><a href="${SOURCES[id].url}" target="_blank" rel="noopener">${esc(SOURCES[id].label)}</a><small class="${isOlder(id) ? 'older' : ''}">Published: ${esc(dateNote(id))}</small></li>`).join('');
 const allSources = Object.keys(SOURCES);
@@ -1866,7 +1971,7 @@ const STAGE_NOTES = {
   mine: {
     state: 'Mine named', tags: 'materials',
     summary: 'Lithium comes from hard-rock mines and underground brines. Battery chemistries vary, so this map does not assume every battery contains the same materials.',
-    evidence: 'USGS estimates world lithium mine output outside the U.S. at 290,000 tons in 2025, led by Australia, China, and Chile, with batteries taking 88% of use. It estimates Congo (Kinshasa) mined 73% of the world’s cobalt. This is market context, not evidence about any one battery. The one named site in this map’s chain is SQM’s Salar de Atacama operation in Chile.',
+    evidence: 'USGS estimates world lithium mine output outside the U.S. at 290,000 tons in 2025, led by Australia, China, and Chile, with batteries taking 88% of use. It estimates Congo (Kinshasa) mined 73% of the world’s cobalt. This is market context, not evidence about any one battery. The globe names large mines for each tracked material. The only one linked to a supplier so far is SQM’s Salar de Atacama operation in Chile.',
     unknown: 'Unknown: the mine-to-battery path for any specific pack, and the cobalt and nickel sources behind LG Energy Solution.',
     sources: ['usgsLi', 'usgsCo', 'sqm20f'],
   },
@@ -2004,6 +2109,7 @@ $('riskview').onchange = e => {
   render();
 };
 $('showall').onchange = e => { state.showAll = e.target.checked; render(); };
+$('showsites').onchange = e => { state.showSites = e.target.checked; render(); };
 $('multi').onchange = e => { state.multi = e.target.checked; if (!state.multi) state.picked = new Set([state.selected]); render(); };
 $('sort').onchange = e => { state.sort = e.target.value; render(true); };
 document.addEventListener('click', e => {

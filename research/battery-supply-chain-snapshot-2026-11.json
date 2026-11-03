@@ -384,7 +384,8 @@
     "method": "Records were matched by name, place, and identifiers. Trade partners and ownership were reviewed for selected suppliers, not all of them.",
     "published": [
       "Likely trade links: PKCELL to Adafruit, General Lithium to LG Energy Solution, Adafruit to Macfos (Robu.in)",
-      "Company ownership for Cell Pack Solutions, Mouser, and Goodfellow"
+      "Company ownership for Cell Pack Solutions, Mouser, and Goodfellow",
+      "Likely trade links added 2026-11-02 for Cytron, Pimoroni, Pololu, maxon, Cell Pack Solutions, Grepow, and Goodfellow; see research/sites-and-links-2026-11.json"
     ],
     "not_published": "Risk flags, individual owners, and serious trade links where the goods could not be seen.",
     "caveat": "Shipment name filters returned unrelated records, so the goods behind these links are unverified."
