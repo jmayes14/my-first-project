@@ -1,0 +1,746 @@
+{
+  "title": "Mines, refiners, and Sayari links",
+  "retrieved": "2026-11-02",
+  "note": "Sites were found through web search excerpts and company filings. Coordinates are approximate. A site is not linked to a supplier unless a source says so.",
+  "sites": [
+    {
+      "id": "tenke",
+      "stage": "mine",
+      "name": "Tenke Fungurume",
+      "what": "Copper and cobalt",
+      "place": "Lualaba, Congo (Kinshasa)",
+      "country": "Dem. Rep. Congo",
+      "at": [
+        26.57,
+        -10.57
+      ],
+      "materials": [
+        "cobalt",
+        "copper"
+      ],
+      "about": "A large copper and cobalt mine run by CMOC.",
+      "sources": [
+        "mCobalt"
+      ]
+    },
+    {
+      "id": "kisanfu",
+      "stage": "mine",
+      "name": "Kisanfu",
+      "what": "Copper and cobalt",
+      "place": "Lualaba, Congo (Kinshasa)",
+      "country": "Dem. Rep. Congo",
+      "at": [
+        25.93,
+        -10.78
+      ],
+      "materials": [
+        "cobalt",
+        "copper"
+      ],
+      "about": "A copper and cobalt mine run by CMOC.",
+      "sources": [
+        "mCobalt"
+      ]
+    },
+    {
+      "id": "kamoto",
+      "stage": "mine",
+      "name": "Kamoto (KCC)",
+      "what": "Copper and cobalt",
+      "place": "Kolwezi, Congo (Kinshasa)",
+      "country": "Dem. Rep. Congo",
+      "at": [
+        25.4,
+        -10.72
+      ],
+      "materials": [
+        "cobalt",
+        "copper"
+      ],
+      "about": "A copper and cobalt mine run by Glencore.",
+      "sources": [
+        "mCobalt"
+      ]
+    },
+    {
+      "id": "kamoa",
+      "stage": "mine",
+      "name": "Kamoa-Kakula",
+      "what": "Copper",
+      "place": "Lualaba, Congo (Kinshasa)",
+      "country": "Dem. Rep. Congo",
+      "at": [
+        25.86,
+        -10.55
+      ],
+      "materials": [
+        "copper"
+      ],
+      "about": "A large copper complex run by Ivanhoe Mines. Seismic activity flooded part of the underground mine in 2025.",
+      "sources": [
+        "nmCopper"
+      ]
+    },
+    {
+      "id": "bisie",
+      "stage": "mine",
+      "name": "Bisie",
+      "what": "Tin",
+      "place": "North Kivu, Congo (Kinshasa)",
+      "country": "Dem. Rep. Congo",
+      "at": [
+        27.6,
+        -1.0
+      ],
+      "materials": [
+        "tin"
+      ],
+      "about": "A tin mine run by Alphamin, in a region affected by conflict. Production stopped and resumed in April 2025.",
+      "sources": [
+        "itaBisie"
+      ]
+    },
+    {
+      "id": "rubaya",
+      "stage": "mine",
+      "name": "Rubaya",
+      "what": "Coltan, the ore that contains tantalum",
+      "place": "North Kivu, Congo (Kinshasa)",
+      "country": "Dem. Rep. Congo",
+      "at": [
+        28.85,
+        -1.55
+      ],
+      "materials": [
+        "tantalum"
+      ],
+      "about": "A rebel-held mining area that the UN estimates supplies over 15% of the world’s tantalum. A landslide in January 2026 killed more than 200 people.",
+      "sources": [
+        "argusRubaya"
+      ]
+    },
+    {
+      "id": "wedabay",
+      "stage": "mine",
+      "name": "Weda Bay",
+      "what": "Nickel",
+      "place": "Halmahera, Indonesia",
+      "country": "Indonesia",
+      "at": [
+        127.9,
+        0.5
+      ],
+      "materials": [
+        "nickel"
+      ],
+      "about": "A very large nickel mine owned mainly by Tsingshan and Eramet.",
+      "sources": [
+        "cmnNickel"
+      ]
+    },
+    {
+      "id": "grasberg",
+      "stage": "mine",
+      "name": "Grasberg",
+      "what": "Copper and gold",
+      "place": "Papua, Indonesia",
+      "country": "Indonesia",
+      "at": [
+        137.11,
+        -4.05
+      ],
+      "materials": [
+        "copper",
+        "gold"
+      ],
+      "about": "A very large copper and gold mine run by Freeport-McMoRan. A 2025 landslide killed seven workers and halted production.",
+      "sources": [
+        "nmCopper",
+        "kitcoGold"
+      ]
+    },
+    {
+      "id": "bangka",
+      "stage": "mine",
+      "name": "PT Timah operations",
+      "what": "Tin",
+      "place": "Bangka Belitung, Indonesia",
+      "country": "Indonesia",
+      "at": [
+        106.1,
+        -2.1
+      ],
+      "materials": [
+        "tin"
+      ],
+      "about": "Indonesia’s state-owned tin company, based in Bangka Belitung.",
+      "sources": [
+        "timah"
+      ]
+    },
+    {
+      "id": "sangaredi",
+      "stage": "mine",
+      "name": "Sangarédi (CBG)",
+      "what": "Bauxite, the ore used to make aluminum",
+      "place": "Boké, Guinea",
+      "country": "Guinea",
+      "at": [
+        -13.78,
+        11.1
+      ],
+      "materials": [
+        "aluminum"
+      ],
+      "about": "A bauxite mine run by Compagnie des Bauxites de Guinée, a member of the Aluminium Stewardship Initiative.",
+      "sources": [
+        "asiCbg"
+      ]
+    },
+    {
+      "id": "carajas",
+      "stage": "mine",
+      "name": "Carajás",
+      "what": "Iron ore",
+      "place": "Pará, Brazil",
+      "country": "Brazil",
+      "at": [
+        -50.2,
+        -6.07
+      ],
+      "materials": [
+        "iron"
+      ],
+      "about": "Vale’s main iron ore complex.",
+      "sources": [
+        "kitcoCarajas"
+      ]
+    },
+    {
+      "id": "mibra",
+      "stage": "mine",
+      "name": "Mibra",
+      "what": "Tantalum and lithium",
+      "place": "Minas Gerais, Brazil",
+      "country": "Brazil",
+      "at": [
+        -44.6,
+        -21.2
+      ],
+      "materials": [
+        "tantalum",
+        "lithium"
+      ],
+      "about": "A tantalum mine run by AMG, which added a lithium plant in 2018. Its current output was not confirmed.",
+      "sources": [
+        "amgMibra"
+      ]
+    },
+    {
+      "id": "greenbushes",
+      "stage": "mine",
+      "name": "Greenbushes",
+      "what": "Lithium",
+      "place": "Western Australia, Australia",
+      "country": "Australia",
+      "at": [
+        116.06,
+        -33.86
+      ],
+      "materials": [
+        "lithium"
+      ],
+      "about": "A hard-rock lithium mine run by Talison. Albemarle holds 49% of the site.",
+      "sources": [
+        "alb10k"
+      ]
+    },
+    {
+      "id": "weipa",
+      "stage": "mine",
+      "name": "Weipa",
+      "what": "Bauxite, the ore used to make aluminum",
+      "place": "Queensland, Australia",
+      "country": "Australia",
+      "at": [
+        141.87,
+        -12.63
+      ],
+      "materials": [
+        "aluminum"
+      ],
+      "about": "Rio Tinto’s bauxite operation on Cape York.",
+      "sources": [
+        "mwWeipa"
+      ]
+    },
+    {
+      "id": "mountweld",
+      "stage": "mine",
+      "name": "Mount Weld",
+      "what": "Rare earths",
+      "place": "Western Australia, Australia",
+      "country": "Australia",
+      "at": [
+        122.55,
+        -28.86
+      ],
+      "materials": [
+        "rareearths"
+      ],
+      "about": "Lynas’s rare earths mine. Its concentrate is processed in Malaysia.",
+      "sources": [
+        "nsWeld"
+      ]
+    },
+    {
+      "id": "bikita",
+      "stage": "mine",
+      "name": "Bikita",
+      "what": "Lithium",
+      "place": "Masvingo, Zimbabwe",
+      "country": "Zimbabwe",
+      "at": [
+        31.3,
+        -20.08
+      ],
+      "materials": [
+        "lithium"
+      ],
+      "about": "A lithium mine owned by Sinomine of China since 2022.",
+      "sources": [
+        "mtBikita"
+      ]
+    },
+    {
+      "id": "cauchari",
+      "stage": "mine",
+      "name": "Cauchari-Olaroz",
+      "what": "Lithium brine",
+      "place": "Jujuy, Argentina",
+      "country": "Argentina",
+      "at": [
+        -66.7,
+        -23.4
+      ],
+      "materials": [
+        "lithium"
+      ],
+      "about": "A lithium brine operation owned by Ganfeng, Lithium Argentina, and the province of Jujuy.",
+      "sources": [
+        "lar2026"
+      ]
+    },
+    {
+      "id": "escondida",
+      "stage": "mine",
+      "name": "Escondida",
+      "what": "Copper",
+      "place": "Antofagasta, Chile",
+      "country": "Chile",
+      "at": [
+        -69.07,
+        -24.27
+      ],
+      "materials": [
+        "copper"
+      ],
+      "about": "The world’s largest copper mine, run by BHP.",
+      "sources": [
+        "nmCopper"
+      ]
+    },
+    {
+      "id": "muruntau",
+      "stage": "mine",
+      "name": "Muruntau",
+      "what": "Gold",
+      "place": "Navoi, Uzbekistan",
+      "country": "Uzbekistan",
+      "at": [
+        64.57,
+        41.5
+      ],
+      "materials": [
+        "gold"
+      ],
+      "about": "One of the world’s largest gold mines, run by Navoi Mining.",
+      "sources": [
+        "kitcoGold"
+      ]
+    },
+    {
+      "id": "balama",
+      "stage": "mine",
+      "name": "Balama",
+      "what": "Graphite",
+      "place": "Cabo Delgado, Mozambique",
+      "country": "Mozambique",
+      "at": [
+        38.6,
+        -13.33
+      ],
+      "materials": [
+        "graphite"
+      ],
+      "about": "A graphite mine run by Syrah Resources. Protests stopped work for several quarters before it restarted in June 2025.",
+      "sources": [
+        "ecofinBalama"
+      ]
+    },
+    {
+      "id": "moanda",
+      "stage": "mine",
+      "name": "Moanda",
+      "what": "Manganese",
+      "place": "Moanda, Gabon",
+      "country": "Gabon",
+      "at": [
+        13.2,
+        -1.55
+      ],
+      "materials": [
+        "manganese"
+      ],
+      "about": "A manganese mine run by Comilog, part of Eramet.",
+      "sources": [
+        "usgsGabon"
+      ]
+    },
+    {
+      "id": "hotazel",
+      "stage": "mine",
+      "name": "Hotazel Manganese Mines",
+      "what": "Manganese",
+      "place": "Northern Cape, South Africa",
+      "country": "South Africa",
+      "at": [
+        22.97,
+        -27.2
+      ],
+      "materials": [
+        "manganese"
+      ],
+      "about": "South32’s Mamatwan and Wessels mines in the Kalahari Basin.",
+      "sources": [
+        "south32"
+      ]
+    },
+    {
+      "id": "bayanobo",
+      "stage": "mine",
+      "name": "Bayan Obo",
+      "what": "Rare earths and iron",
+      "place": "Inner Mongolia, China",
+      "country": "China",
+      "at": [
+        109.97,
+        41.78
+      ],
+      "materials": [
+        "rareearths",
+        "iron"
+      ],
+      "about": "The world’s largest known rare earth deposit. Ore goes to Baotou for processing.",
+      "sources": [
+        "nsBayan"
+      ]
+    },
+    {
+      "id": "mountainpass",
+      "stage": "mine",
+      "name": "Mountain Pass",
+      "what": "Rare earths",
+      "place": "California, USA",
+      "country": "United States of America",
+      "at": [
+        -115.53,
+        35.48
+      ],
+      "materials": [
+        "rareearths"
+      ],
+      "about": "MP Materials’ mine, the largest commercial rare earth source in the Western Hemisphere.",
+      "sources": [
+        "mp10k"
+      ]
+    },
+    {
+      "id": "imip",
+      "stage": "refiner",
+      "name": "Morowali Industrial Park",
+      "what": "Nickel processing",
+      "place": "Central Sulawesi, Indonesia",
+      "country": "Indonesia",
+      "at": [
+        122.15,
+        -2.83
+      ],
+      "materials": [
+        "nickel"
+      ],
+      "about": "A nickel processing hub running 11 smelters.",
+      "sources": [
+        "cmnNickel"
+      ]
+    },
+    {
+      "id": "huayou",
+      "stage": "refiner",
+      "name": "Huayou Cobalt, Quzhou",
+      "what": "Refined cobalt",
+      "place": "Quzhou, China",
+      "country": "China",
+      "at": [
+        118.87,
+        28.97
+      ],
+      "materials": [
+        "cobalt"
+      ],
+      "about": "A cobalt refinery owned by Zhejiang Huayou Cobalt, one of the largest cobalt refiners.",
+      "sources": [
+        "spHuayou"
+      ]
+    },
+    {
+      "id": "yunnantin",
+      "stage": "refiner",
+      "name": "Yunnan Tin",
+      "what": "Refined tin",
+      "place": "Gejiu, China",
+      "country": "China",
+      "at": [
+        103.16,
+        23.36
+      ],
+      "materials": [
+        "tin"
+      ],
+      "about": "The world’s largest producer of refined tin.",
+      "sources": [
+        "itaYunnan"
+      ]
+    },
+    {
+      "id": "lynasmy",
+      "stage": "refiner",
+      "name": "Lynas Malaysia",
+      "what": "Separated rare earths",
+      "place": "Kuantan, Malaysia",
+      "country": "Malaysia",
+      "at": [
+        103.38,
+        3.97
+      ],
+      "materials": [
+        "rareearths"
+      ],
+      "about": "Separates rare earths from Mount Weld at Gebeng, near Kuantan.",
+      "sources": [
+        "nsWeld"
+      ]
+    }
+  ],
+  "sources": {
+    "mCobalt": {
+      "label": "Mining.com.au · The world’s 10 largest cobalt mines",
+      "url": "https://mining.com.au/the-worlds-10-largest-cobalt-mines/",
+      "published": null
+    },
+    "cmnNickel": {
+      "label": "Critical Minerals News · Top 10 Indonesia nickel companies",
+      "url": "https://critical-minerals-news.com/top-10-indonesia-nickel-companies/",
+      "published": null
+    },
+    "nmCopper": {
+      "label": "The Northern Miner · Top 20 biggest copper mines 2025",
+      "url": "https://www.northernminer.com/news/ranked-top-20-biggest-copper-mines-2025/1003883512/",
+      "published": "2025"
+    },
+    "itaYunnan": {
+      "label": "International Tin Association · Yunnan Tin",
+      "url": "https://www.internationaltin.org/tag/yunnan-tin",
+      "published": null
+    },
+    "itaBisie": {
+      "label": "International Tin Association · Alphamin production",
+      "url": "https://www.internationaltin.org/category/current-supply/page/16",
+      "published": null
+    },
+    "timah": {
+      "label": "PT Timah · Meeting with Yunnan Tin",
+      "url": "https://timah.com/news/post/the-two-largest-tin-producers-in-the-world-meet-pt-timah-and-yunnan-tin-discuss-three-synergistic-things.html",
+      "published": null
+    },
+    "argusRubaya": {
+      "label": "Argus · Rubaya mine collapse and tantalum supply",
+      "url": "https://www.argusmedia.com/es/news-and-insights/market-opinion-and-analysis-blog/rubaya-mine-collapse-tantalum-supply-chain",
+      "published": "Feb 2026"
+    },
+    "amgMibra": {
+      "label": "AMG · Mibra mine lithium plant startup",
+      "url": "https://amg-nv.com/investors/press-release/amg-advanced-metallurgical-group-n-v-announces-startup-of-amg-mineracaos-first-lithium-concentrate-plant/",
+      "published": "May 2018"
+    },
+    "asiCbg": {
+      "label": "Aluminium Stewardship Initiative · CBG member page",
+      "url": "https://aluminium-stewardship.org/about-asi/asi-members/compagnie-des-bauxites-de-guinee/",
+      "published": null
+    },
+    "mwWeipa": {
+      "label": "Mining Weekly · Rio Tinto Queensland bauxite project",
+      "url": "https://www.miningweekly.com/article/australias-rio-tinto-to-invest-19bn-in-queensland-bauxite-project-2026-10-23",
+      "published": "Oct 2026"
+    },
+    "kitcoCarajas": {
+      "label": "Kitco · Vale to raise Carajás output",
+      "url": "https://www.kitco.com/news/off-the-wire/2025-02-17/vale-raise-carajas-iron-ore-output-12-billion-investment",
+      "published": "Feb 2025"
+    },
+    "alb10k": {
+      "label": "Albemarle · Form 10-K for 2025 (SEC filing)",
+      "url": "https://www.sec.gov/Archives/edgar/data/915913/000091591326000018/alb-20251231.htm",
+      "published": "2026, covering 2025"
+    },
+    "mtBikita": {
+      "label": "Mining Technology · Sinomine and Bikita",
+      "url": "https://www.mining-technology.com/news/sinomine-bikita-lithium-zimbabwe/",
+      "published": null
+    },
+    "lar2026": {
+      "label": "Lithium Argentina · 2026 report (SEC filing)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1440972/000110465926032465/tm269254d1_ex99-1.htm",
+      "published": "2026"
+    },
+    "kitcoGold": {
+      "label": "Kitco · World’s top 10 largest gold mines",
+      "url": "https://www.kitco.com/news/article/2023-06-08/worlds-top-10-largest-gold-mines-2022-report",
+      "published": "Jun 2023"
+    },
+    "ecofinBalama": {
+      "label": "Ecofin · Syrah eases back into production at Balama",
+      "url": "https://www.ecofinagency.com/news-industry/2006-47350-syrah-eases-back-into-production-at-balama-graphite-mine-africa-s-largest",
+      "published": "Jun 2025"
+    },
+    "usgsGabon": {
+      "label": "USGS · Gabon",
+      "url": "https://www.usgs.gov/centers/national-minerals-information-center/gabon",
+      "published": null
+    },
+    "south32": {
+      "label": "South32 · South Africa Manganese",
+      "url": "https://www.south32.net/what-we-do/our-locations/southern-africa",
+      "published": null
+    },
+    "nsBayan": {
+      "label": "NS Energy · Bayan Obo rare earth mine",
+      "url": "https://www.nsenergybusiness.com/projects/bayan-obo-rare-earth-mine/",
+      "published": null
+    },
+    "mp10k": {
+      "label": "MP Materials · Form 10-K for 2025 (SEC filing)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1801368/000180136826000008/mp-20251231.htm",
+      "published": "2026, covering 2025"
+    },
+    "nsWeld": {
+      "label": "NS Energy · Mt Weld rare earths mine",
+      "url": "https://www.nsenergybusiness.com/projects/mt-weld-rare-earths-mine/",
+      "published": null
+    },
+    "spHuayou": {
+      "label": "S&P Global · Huayou Cobalt’s Quzhou plant",
+      "url": "https://www.spglobal.com/energy/en/news-research/latest-news/metals/031822-chinas-huayou-cobalt-to-reduce-cobalt-smelting-recycling-lines-at-quzhou-plant",
+      "published": "Mar 2022"
+    }
+  },
+  "sayari_links": [
+    {
+      "to": "cytron",
+      "from": "jlcgroup",
+      "evidence": "likely",
+      "note": "Direct trade record; goods not verified"
+    },
+    {
+      "to": "pimoroni",
+      "from": "cytron",
+      "evidence": "likely",
+      "note": "Direct trade record; goods not verified"
+    },
+    {
+      "to": "pololu",
+      "from": "yaya",
+      "evidence": "likely",
+      "note": "Direct trade record; goods not verified"
+    },
+    {
+      "to": "maxon",
+      "from": "samtec",
+      "evidence": "likely",
+      "note": "Direct trade record; goods not verified"
+    },
+    {
+      "to": "cps",
+      "from": "ryder",
+      "evidence": "likely",
+      "note": "Direct trade record; goods not verified"
+    },
+    {
+      "to": "grepow",
+      "from": "itmvn",
+      "evidence": "likely",
+      "note": "Direct trade record; goods not verified"
+    },
+    {
+      "to": "goodfellow",
+      "from": "plansee",
+      "evidence": "likely",
+      "note": "Direct trade record; goods not verified"
+    }
+  ],
+  "sayari_new_companies": [
+    {
+      "id": "jlcgroup",
+      "name": "Shenzhen JLC Technology Group",
+      "place": "Zhuhai, China",
+      "sayari": "rJecndyD3cOA85SdjwmOHw"
+    },
+    {
+      "id": "itmvn",
+      "name": "ITM Semiconductor Vietnam",
+      "place": "Bac Ninh, Vietnam",
+      "sayari": "HKdxGQ3aLpHF0uWC11Wmig"
+    },
+    {
+      "id": "ryder",
+      "name": "Ryder Electronics (Hong Kong)",
+      "place": "Hong Kong",
+      "sayari": "j9FsBDjFnvr7R5_6YZuvzA"
+    },
+    {
+      "id": "samtec",
+      "name": "Samtec Asia Pacific",
+      "place": "Johor Bahru, Malaysia",
+      "sayari": "BWMMbyFdjqVYzcu7fZ1-oQ"
+    },
+    {
+      "id": "yaya",
+      "name": "Shenzhen Yaya Education and Technology",
+      "place": "Shenzhen, China",
+      "sayari": "S9Jvz-97zQYm5hPj6cpYPQ"
+    },
+    {
+      "id": "plansee",
+      "name": "Plansee India",
+      "place": "Mysore, India",
+      "sayari": "fY5iZjKDdWEW1InaCltzGQ"
+    }
+  ],
+  "not_published": [
+    "OCSiAl to Grepow: serious lead, goods not verified",
+    "Sayari risk flags",
+    "Trade partners that look like freight, equipment, or a company’s own branch"
+  ],
+  "not_checked": "Epec has no Sayari match. Xometry, Protolabs, Micro Robotics, OSH Park, Metal Supermarkets, and RS Components did not get a trade partner review in this pass."
+}

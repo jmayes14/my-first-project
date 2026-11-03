@@ -24,13 +24,24 @@ cannot prove that for any part. It shows where typical materials are mined, wher
 the U.S. Department of Labor documents labor problems, and what each supplier has
 published. It never rates a company as ethical or unethical.
 
+Clicking any country on the globe shows its Department of Labor entries, the
+minerals it mines, and any U.S. sanctions programs named for it. These are facts
+about countries, not findings about companies, and there is no country score.
+
+The globe also shows 28 large mines and refiners for the tracked materials. They
+are linked to a supplier only when a source shows it. Choosing a supplier lights
+up the sites for the materials its type of product typically uses, which is the
+general picture and not that company's confirmed source.
+
 No chain yet runs from a mine to a supplier that clearly serves small orders.
 Prices, minimum orders, and shipping are shown only when a source states them,
 so inventors should confirm them with each company. A gap must not be read as
 evidence that a chain is clean or risky.
 
 The records, identifiers, and caveats are in
-[research/battery-supply-chain-snapshot-2026-11.json](./research/battery-supply-chain-snapshot-2026-11.json).
+[research/battery-supply-chain-snapshot-2026-11.json](./research/battery-supply-chain-snapshot-2026-11.json),
+[research/country-facts-2026-11.json](./research/country-facts-2026-11.json),
+and [research/sites-and-links-2026-11.json](./research/sites-and-links-2026-11.json).
 
 ## How to read the map
 
