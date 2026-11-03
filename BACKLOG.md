@@ -2,7 +2,7 @@
 
 ## Now
 - **T-1:** Get a person to review the site and documents with `REVIEW-CHECKLIST.md`.
-- **T-2:** Check whether the Sayari license allows the Sayari references on the public site.
+- **T-2:** Open the Sayari records for the Chemaf and Grepow leads to confirm or drop them.
 
 ## Next
 - **T-3:** Show the site to two or three inventors, and record what they search for first and where they are.
