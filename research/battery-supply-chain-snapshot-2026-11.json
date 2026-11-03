@@ -389,5 +389,28 @@
     "date_found": "2026-11-02",
     "note": "Publication dates are shown on the site for each source. Sources from 2023 or earlier are marked older. Some sources were read in full, and some were seen only as search excerpts.",
     "correction": "The Proto Labs conflict minerals report cited covers 2024, not 2025."
+  },
+  "risk_levels": {
+    "method": "One point each for a Department of Labor entry, conflict minerals coverage, and one country mining 50% or more. Two or more points is higher attention, and one is some attention.",
+    "applies_to": "Materials, never companies. This is the project's own method, not a government rating or legal advice.",
+    "levels": {
+      "Higher attention": [
+        "Cobalt",
+        "Tin",
+        "Tantalum",
+        "Gold"
+      ],
+      "Some attention": [
+        "Lithium",
+        "Nickel",
+        "Graphite",
+        "Manganese",
+        "Copper",
+        "Aluminum",
+        "Iron ore",
+        "Rare earths"
+      ],
+      "No entries found": []
+    }
   }
 }
