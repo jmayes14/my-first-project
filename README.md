@@ -76,4 +76,4 @@ only the Python standard library and is not part of the published site.
 
 It requests a token and reads the account's usage summary. It does not run
 searches or add any data to the map. The site uses Sayari trade links and
-ownership records and links to Sayari; check that your license allows this.
+ownership records, and the project owner has confirmed Sayari data can be used.
