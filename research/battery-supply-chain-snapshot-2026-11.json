@@ -354,15 +354,19 @@
     "All other suppliers": "none"
   },
   "labor_entries": {
-    "Cobalt": "Congo (Kinshasa): child labor since 2009; forced labor reported",
-    "Copper": "Congo (Kinshasa): child labor since 2009",
+    "Cobalt": "Congo (Kinshasa): child and forced labor",
+    "Copper": "Congo (Kinshasa): child labor; Zambia: child labor (copper ore)",
     "Lithium": "Zimbabwe: child labor",
-    "Tin": "Congo (Kinshasa): listed in 2024; Indonesia: child labor in earlier editions, 2024 status not confirmed",
-    "Tantalum": "Congo (Kinshasa): child and forced labor in the 2018 edition; forced mining reported in 2024",
-    "Gold": "Many countries, including Congo (Kinshasa) and Zimbabwe",
+    "Tin": "Congo (Kinshasa): child and forced labor (tin ore); Indonesia and Bolivia: child labor",
+    "Tantalum": "Congo (Kinshasa): child and forced labor (coltan)",
+    "Gold": "28 countries and areas; see country_facts file",
     "Aluminum": "China: forced labor, added 2024",
     "Lithium-ion batteries": "China: downstream listing based on mineral inputs",
-    "Not confirmed": "Manganese and iron appear on the list, but country entries were not confirmed. No entry was seen for nickel, graphite, or rare earths; that is not evidence of no risk."
+    "Nickel": "Indonesia: forced labor",
+    "Manganese": "Zambia: child labor",
+    "Iron": "North Korea: forced labor",
+    "No entry": "No entry for graphite or rare earths; that is not evidence of no risk.",
+    "Checked against": "Full Department of Labor listing, 527 entries, dated 2024-09-05, read on 2026-11-02"
   },
   "sayari_review": {
     "date": "2026-11-02",
@@ -388,7 +392,8 @@
   "source_dating": {
     "date_found": "2026-11-02",
     "note": "Publication dates are shown on the site for each source. Sources from 2023 or earlier are marked older. Some sources were read in full, and some were seen only as search excerpts.",
-    "correction": "The Proto Labs conflict minerals report cited covers 2024, not 2025."
+    "correction": "The Proto Labs conflict minerals report cited covers 2024, not 2025.",
+    "correction_labor": "An earlier version said no labor entry was seen for nickel and that manganese and iron had no confirmed country. The full list shows Indonesia, Zambia, and North Korea."
   },
   "risk_levels": {
     "method": "One point each for a Department of Labor entry, conflict minerals coverage, and one country mining 50% or more. Two or more points is higher attention, and one is some attention.",
@@ -396,13 +401,13 @@
     "levels": {
       "Higher attention": [
         "Cobalt",
+        "Nickel",
         "Tin",
         "Tantalum",
         "Gold"
       ],
       "Some attention": [
         "Lithium",
-        "Nickel",
         "Graphite",
         "Manganese",
         "Copper",
@@ -412,5 +417,9 @@
       ],
       "No entries found": []
     }
+  },
+  "country_facts": {
+    "file": "research/country-facts-2026-11.json",
+    "note": "Country facts come from public lists, not supplier research. No country score is calculated."
   }
 }

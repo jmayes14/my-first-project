@@ -1,0 +1,3242 @@
+{
+  "title": "Country facts snapshot",
+  "retrieved": "2026-11-02",
+  "sources": {
+    "labor": "https://www.dol.gov/agencies/ilab/reports/child-labor/list-of-goods",
+    "minerals": "https://www.sciencebase.gov/catalog/item/69837e43b66b01367d7ec7c7",
+    "sanctions": "https://ofac.treasury.gov/sanctions-programs-and-country-information"
+  },
+  "method": {
+    "labor": "Every Department of Labor entry, grouped by type of labor. List dated 2024-09-05.",
+    "minerals": "2025 mine production divided by the USGS world total, top six per country. Congo cobalt uses the 73% USGS states in its chapter.",
+    "sanctions": "Programs on the OFAC page named after a country, mapped by hand. Worldwide topic programs are left out. UN sanctions were not added because the UN page could not be read."
+  },
+  "caveats": [
+    "Facts about countries, not findings about companies.",
+    "No entry does not mean no risk.",
+    "All sources are U.S. government sources."
+  ],
+  "countries": {
+    "Afghanistan": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Bricks"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Carpets",
+            "Coal",
+            "Poppies",
+            "Salt"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Talc and pyrophyllite",
+          3
+        ]
+      ],
+      "sanctions": [
+        "Afghanistan-related"
+      ]
+    },
+    "Albania": {
+      "sanctions": [
+        "Western Balkans (a regional program)"
+      ]
+    },
+    "Algeria": {
+      "minerals": [
+        [
+          "Pumice and pumicite",
+          4
+        ],
+        [
+          "Gypsum",
+          2
+        ],
+        [
+          "Phosphate rock",
+          0
+        ]
+      ]
+    },
+    "Angola": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Diamonds"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Gemstones",
+          19
+        ],
+        [
+          "Diamond (industrial)",
+          3
+        ]
+      ]
+    },
+    "Argentina": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Garments"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Bricks",
+            "Cotton",
+            "Garlic",
+            "Grapes",
+            "Olives",
+            "Strawberries",
+            "Tobacco",
+            "Tomatoes",
+            "Yerba Mate (stimulant plant)"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Lithium",
+          8
+        ],
+        [
+          "Diatomite",
+          8
+        ],
+        [
+          "Silver",
+          3
+        ],
+        [
+          "Sand and gravel (industrial)",
+          1
+        ],
+        [
+          "Strontium",
+          0
+        ]
+      ]
+    },
+    "Armenia": {
+      "minerals": [
+        [
+          "Molybdenum",
+          2
+        ],
+        [
+          "Rhenium",
+          0
+        ]
+      ]
+    },
+    "Australia": {
+      "minerals": [
+        [
+          "Garnet (industrial)",
+          48
+        ],
+        [
+          "Zirconium",
+          33
+        ],
+        [
+          "Lithium",
+          32
+        ],
+        [
+          "Bauxite",
+          22
+        ],
+        [
+          "Lead",
+          11
+        ],
+        [
+          "Gold",
+          8
+        ]
+      ],
+      "more": 17
+    },
+    "Austria": {
+      "minerals": [
+        [
+          "Magnesium compounds",
+          3
+        ],
+        [
+          "Tungsten",
+          0
+        ],
+        [
+          "Graphite (natural)",
+          0
+        ]
+      ]
+    },
+    "Azerbaijan": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Cotton"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Iodine",
+          0
+        ]
+      ]
+    },
+    "Bangladesh": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Dried Fish",
+            "Garments"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Bidis (hand-rolled cigarettes)",
+            "Bricks",
+            "Footwear",
+            "Furniture (steel)",
+            "Glass",
+            "Jute (textiles)",
+            "Leather",
+            "Matches",
+            "Poultry",
+            "Salt",
+            "Shrimp",
+            "Soap",
+            "Textiles"
+          ]
+        ]
+      ]
+    },
+    "Belarus": {
+      "labor": [
+        [
+          "Forced labor",
+          [
+            "Furniture",
+            "Lumber"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Potash",
+          12
+        ],
+        [
+          "Peat",
+          11
+        ],
+        [
+          "Salt",
+          0
+        ]
+      ],
+      "sanctions": [
+        "Belarus"
+      ]
+    },
+    "Belize": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Bananas",
+            "Citrus Fruits",
+            "Sugarcane"
+          ]
+        ]
+      ]
+    },
+    "Benin": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Cotton"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Granite (crushed)"
+          ]
+        ]
+      ]
+    },
+    "Bolivia": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Brazil Nuts/Chestnuts",
+            "Cattle",
+            "Corn",
+            "Sugarcane"
+          ]
+        ],
+        [
+          "Forced labor",
+          [
+            "Peanuts"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Bricks",
+            "Coca (stimulant plant)",
+            "Gold",
+            "Lead",
+            "Silver",
+            "Tin",
+            "Zinc"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Silver",
+          6
+        ],
+        [
+          "Tin",
+          5
+        ],
+        [
+          "Antimony",
+          5
+        ],
+        [
+          "Zinc",
+          4
+        ],
+        [
+          "Lead",
+          2
+        ],
+        [
+          "Tungsten",
+          2
+        ]
+      ],
+      "more": 1
+    },
+    "Bosnia and Herz.": {
+      "sanctions": [
+        "Western Balkans (a regional program)"
+      ]
+    },
+    "Botswana": {
+      "minerals": [
+        [
+          "Gemstones",
+          19
+        ],
+        [
+          "Diamond (industrial)",
+          13
+        ]
+      ]
+    },
+    "Brazil": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Cattle",
+            "Charcoal",
+            "Coffee",
+            "Sugarcane"
+          ]
+        ],
+        [
+          "Forced labor",
+          [
+            "Garments",
+            "Timber"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Açaí Berries",
+            "Bananas",
+            "Beef",
+            "Bricks",
+            "Cashews",
+            "Ceramics",
+            "Cocoa",
+            "Corn",
+            "Cotton",
+            "Fish",
+            "Footwear",
+            "Hogs",
+            "Manioc/Cassava",
+            "Pineapples",
+            "Poultry",
+            "Rice",
+            "Sheep",
+            "Sisal",
+            "Tobacco"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Niobium (columbium)",
+          93
+        ],
+        [
+          "Beryllium",
+          19
+        ],
+        [
+          "Asbestos",
+          16
+        ],
+        [
+          "Vermiculite",
+          11
+        ],
+        [
+          "Tin",
+          10
+        ],
+        [
+          "Magnesium compounds",
+          9
+        ]
+      ],
+      "more": 15
+    },
+    "Bulgaria": {
+      "minerals": [
+        [
+          "Vermiculite",
+          2
+        ],
+        [
+          "Sand and gravel (industrial)",
+          2
+        ],
+        [
+          "Salt",
+          1
+        ]
+      ]
+    },
+    "Burkina Faso": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Cotton",
+            "Gold"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Granite"
+          ]
+        ]
+      ]
+    },
+    "Burundi": {
+      "minerals": [
+        [
+          "Tantalum",
+          0
+        ]
+      ]
+    },
+    "Cambodia": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Bricks"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Alcoholic Beverages",
+            "Bovines",
+            "Fish",
+            "Manioc/Cassava",
+            "Meat",
+            "Rubber",
+            "Shrimp",
+            "Sugarcane",
+            "Textiles",
+            "Timber",
+            "Tobacco"
+          ]
+        ]
+      ]
+    },
+    "Cameroon": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Cocoa",
+            "Gold"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Pumice and pumicite",
+          2
+        ]
+      ]
+    },
+    "Canada": {
+      "minerals": [
+        [
+          "Potash",
+          31
+        ],
+        [
+          "Gemstones",
+          19
+        ],
+        [
+          "Peat",
+          12
+        ],
+        [
+          "Gold",
+          6
+        ],
+        [
+          "Niobium (columbium)",
+          5
+        ],
+        [
+          "Salt",
+          5
+        ]
+      ],
+      "more": 11
+    },
+    "Central African Rep.": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Diamonds",
+            "Gold"
+          ]
+        ]
+      ],
+      "sanctions": [
+        "Central African Republic"
+      ]
+    },
+    "Chad": {
+      "labor": [
+        [
+          "Forced labor",
+          [
+            "Gold"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Cattle"
+          ]
+        ]
+      ]
+    },
+    "Chile": {
+      "minerals": [
+        [
+          "Iodine",
+          68
+        ],
+        [
+          "Rhenium",
+          37
+        ],
+        [
+          "Copper",
+          23
+        ],
+        [
+          "Lithium",
+          19
+        ],
+        [
+          "Molybdenum",
+          16
+        ],
+        [
+          "Silver",
+          5
+        ]
+      ],
+      "more": 4
+    },
+    "China": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Bricks",
+            "Cotton",
+            "Electronics",
+            "Fireworks",
+            "Textiles",
+            "Toys"
+          ]
+        ],
+        [
+          "Forced labor",
+          [
+            "Aluminum",
+            "Artificial Flowers",
+            "Caustic Soda",
+            "Christmas Decorations",
+            "Coal",
+            "Fish",
+            "Footwear",
+            "Garments",
+            "Gloves",
+            "Hair Products",
+            "Jujubes",
+            "Metallurgical Grade Silicon",
+            "Nails",
+            "Polysilicon",
+            "Polyvinyl Chloride",
+            "Squid",
+            "Thread/Yarn",
+            "Tomato Products"
+          ]
+        ],
+        [
+          "Made with inputs from forced labor",
+          [
+            "Auto Parts and Components (aluminum)",
+            "Photovoltaic Ingots",
+            "Photovoltaic Wafers",
+            "Solar Cells",
+            "Solar Modules"
+          ]
+        ],
+        [
+          "Made with inputs from child labor",
+          [
+            "Electrolytic Copper Products",
+            "Lithium-Ion Batteries"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Mercury",
+          95
+        ],
+        [
+          "Tungsten",
+          79
+        ],
+        [
+          "Graphite (natural)",
+          78
+        ],
+        [
+          "Vanadium",
+          75
+        ],
+        [
+          "Wollastonite",
+          70
+        ],
+        [
+          "Rare earths",
+          69
+        ]
+      ],
+      "more": 33,
+      "sanctions": [
+        "Chinese military companies",
+        "Hong Kong-related"
+      ]
+    },
+    "Colombia": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Coca (stimulant plant)"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Bricks (clay)",
+            "Coal",
+            "Coffee",
+            "Emeralds",
+            "Fruits (pome and stone)",
+            "Gold",
+            "Grapes",
+            "Pornography",
+            "Sugarcane"
+          ]
+        ]
+      ]
+    },
+    "Costa Rica": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Cattle",
+            "Coffee"
+          ]
+        ]
+      ]
+    },
+    "Cuba": {
+      "minerals": [
+        [
+          "Zeolites (natural)",
+          1
+        ],
+        [
+          "Cobalt",
+          0
+        ]
+      ],
+      "sanctions": [
+        "Cuba"
+      ]
+    },
+    "Czechia": {
+      "minerals": [
+        [
+          "Garnet (industrial)",
+          0
+        ]
+      ]
+    },
+    "Côte d'Ivoire": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Cocoa",
+            "Coffee"
+          ]
+        ],
+        [
+          "Made with inputs from child labor",
+          [
+            "Chocolate",
+            "Cocoa Butter",
+            "Cocoa Paste",
+            "Cocoa Powder"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Manganese",
+          2
+        ]
+      ]
+    },
+    "Dem. Rep. Congo": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Cobalt Ore (heterogenite)",
+            "Gold",
+            "Tantalum Ore (coltan)",
+            "Tin Ore (cassiterite)",
+            "Tungsten Ore (wolframite)"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Copper",
+            "Diamonds"
+          ]
+        ],
+        [
+          "Made with inputs from child labor",
+          [
+            "Copper Products"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Cobalt",
+          73
+        ],
+        [
+          "Tantalum",
+          52
+        ],
+        [
+          "Diamond (industrial)",
+          18
+        ],
+        [
+          "Copper",
+          14
+        ],
+        [
+          "Tin",
+          9
+        ],
+        [
+          "Gemstones",
+          3
+        ]
+      ],
+      "more": 1,
+      "sanctions": [
+        "Democratic Republic of the Congo-related"
+      ]
+    },
+    "Dominican Rep.": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Sugarcane"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Baked Goods",
+            "Coffee",
+            "Rice",
+            "Tomatoes"
+          ]
+        ],
+        [
+          "Made with inputs from forced labor",
+          [
+            "Bagasse",
+            "Furfural",
+            "Molasses",
+            "Raw Sugar",
+            "Refined Sugar",
+            "Rum"
+          ]
+        ]
+      ]
+    },
+    "Ecuador": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Bananas",
+            "Bovines",
+            "Bricks",
+            "Flowers",
+            "Gold",
+            "Hogs",
+            "Poultry",
+            "Rice"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Pumice and pumicite",
+          4
+        ]
+      ]
+    },
+    "Egypt": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Bricks",
+            "Cotton",
+            "Stones (limestone)"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Phosphate rock",
+          2
+        ],
+        [
+          "Salt",
+          0
+        ]
+      ]
+    },
+    "El Salvador": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Baked Goods",
+            "Cattle",
+            "Cereal Grains",
+            "Coffee",
+            "Fireworks",
+            "Shellfish",
+            "Sugarcane"
+          ]
+        ]
+      ]
+    },
+    "Estonia": {
+      "minerals": [
+        [
+          "Peat",
+          6
+        ]
+      ]
+    },
+    "Ethiopia": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Textiles (hand-woven)"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Cattle",
+            "Gold",
+            "Khat (stimulant plant)"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Pumice and pumicite",
+          3
+        ],
+        [
+          "Tantalum",
+          2
+        ]
+      ]
+    },
+    "Finland": {
+      "minerals": [
+        [
+          "Peat",
+          15
+        ],
+        [
+          "Chromium",
+          4
+        ],
+        [
+          "Talc and pyrophyllite",
+          3
+        ],
+        [
+          "Phosphate rock",
+          0
+        ]
+      ]
+    },
+    "France": {
+      "minerals": [
+        [
+          "Diatomite",
+          10
+        ],
+        [
+          "Sand and gravel (industrial)",
+          3
+        ],
+        [
+          "Salt",
+          2
+        ],
+        [
+          "Gypsum",
+          2
+        ],
+        [
+          "Pumice and pumicite",
+          1
+        ]
+      ]
+    },
+    "Gabon": {
+      "minerals": [
+        [
+          "Manganese",
+          25
+        ]
+      ]
+    },
+    "Georgia": {
+      "minerals": [
+        [
+          "Zeolites (natural)",
+          18
+        ]
+      ]
+    },
+    "Germany": {
+      "minerals": [
+        [
+          "Potash",
+          6
+        ],
+        [
+          "Salt",
+          6
+        ],
+        [
+          "Peat",
+          5
+        ],
+        [
+          "Gypsum",
+          3
+        ],
+        [
+          "Sand and gravel (industrial)",
+          2
+        ],
+        [
+          "Diatomite",
+          2
+        ]
+      ],
+      "more": 2
+    },
+    "Ghana": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Fish",
+            "Tilapia (fish)"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Bovines",
+            "Cocoa",
+            "Gold",
+            "Rice",
+            "Textiles"
+          ]
+        ],
+        [
+          "Made with inputs from child labor",
+          [
+            "Chocolate",
+            "Cocoa Butter",
+            "Cocoa Paste",
+            "Cocoa Powder"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Manganese",
+          10
+        ],
+        [
+          "Gold",
+          5
+        ],
+        [
+          "Gemstones",
+          0
+        ]
+      ]
+    },
+    "Greece": {
+      "minerals": [
+        [
+          "Pumice and pumicite",
+          5
+        ],
+        [
+          "Magnesium compounds",
+          0
+        ],
+        [
+          "Bauxite",
+          0
+        ]
+      ]
+    },
+    "Guatemala": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Broccoli",
+            "Coffee",
+            "Corn",
+            "Fireworks",
+            "Gravel (crushed stones)",
+            "Sugarcane"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Pumice and pumicite",
+          3
+        ],
+        [
+          "Antimony",
+          0
+        ]
+      ]
+    },
+    "Guinea": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Cashews",
+            "Cocoa",
+            "Coffee",
+            "Diamonds",
+            "Gold"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Bauxite",
+          34
+        ]
+      ]
+    },
+    "Honduras": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Coffee",
+            "Lobsters",
+            "Melons"
+          ]
+        ]
+      ]
+    },
+    "Hong Kong": {
+      "sanctions": [
+        "Hong Kong-related"
+      ]
+    },
+    "Hungary": {
+      "minerals": [
+        [
+          "Zeolites (natural)",
+          2
+        ]
+      ]
+    },
+    "India": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Bricks",
+            "Carpets",
+            "Cottonseed (hybrid)",
+            "Embellished Textiles",
+            "Garments",
+            "Rice",
+            "Sandstone",
+            "Stones",
+            "Sugarcane",
+            "Thread/Yarn"
+          ]
+        ],
+        [
+          "Forced labor",
+          [
+            "Shrimp",
+            "Tea"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Bidis (hand-rolled cigarettes)",
+            "Brassware",
+            "Cotton",
+            "Fireworks",
+            "Footwear",
+            "Gems",
+            "Glass Bangles",
+            "Incense (agarbatti)",
+            "Leather Goods/Accessories",
+            "Locks",
+            "Matches",
+            "Mica",
+            "Recovered Metals (electronic waste)",
+            "Silk Fabric",
+            "Silk Thread",
+            "Soccer Balls"
+          ]
+        ],
+        [
+          "Made with inputs from child and forced labor",
+          [
+            "Cooking Oil (palm-oil-blends)"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Barite",
+          34
+        ],
+        [
+          "Feldspar and nepheline syenite",
+          19
+        ],
+        [
+          "Wollastonite",
+          14
+        ],
+        [
+          "Salt",
+          11
+        ],
+        [
+          "Zinc",
+          7
+        ],
+        [
+          "Chromium",
+          6
+        ]
+      ],
+      "more": 13
+    },
+    "Indonesia": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Fish",
+            "Palm Fruit"
+          ]
+        ],
+        [
+          "Forced labor",
+          [
+            "Nickel"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Footwear (sandals)",
+            "Gold",
+            "Rubber",
+            "Tin",
+            "Tobacco"
+          ]
+        ],
+        [
+          "Made with inputs from child and forced labor",
+          [
+            "Crude Palm Kernel Oil",
+            "Crude Palm Oil",
+            "Oleochemicals",
+            "Refined Palm Kernel Oil",
+            "Refined Palm Oil"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Nickel",
+          67
+        ],
+        [
+          "Tin",
+          21
+        ],
+        [
+          "Cobalt",
+          14
+        ],
+        [
+          "Zeolites (natural)",
+          9
+        ],
+        [
+          "Zirconium",
+          4
+        ],
+        [
+          "Copper",
+          3
+        ]
+      ],
+      "more": 4
+    },
+    "Iran": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Bricks",
+            "Carpets"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Strontium",
+          56
+        ],
+        [
+          "Feldspar and nepheline syenite",
+          13
+        ],
+        [
+          "Gypsum",
+          10
+        ],
+        [
+          "Barite",
+          3
+        ],
+        [
+          "Iodine",
+          2
+        ],
+        [
+          "Lead",
+          2
+        ]
+      ],
+      "more": 5,
+      "sanctions": [
+        "Iran"
+      ]
+    },
+    "Iraq": {
+      "sanctions": [
+        "Iraq-related"
+      ]
+    },
+    "Israel": {
+      "minerals": [
+        [
+          "Potash",
+          4
+        ],
+        [
+          "Phosphate rock",
+          0
+        ]
+      ]
+    },
+    "Italy": {
+      "minerals": [
+        [
+          "Feldspar and nepheline syenite",
+          7
+        ],
+        [
+          "Sand and gravel (industrial)",
+          3
+        ],
+        [
+          "Salt",
+          0
+        ]
+      ]
+    },
+    "Jamaica": {
+      "minerals": [
+        [
+          "Pumice and pumicite",
+          1
+        ],
+        [
+          "Bauxite",
+          1
+        ]
+      ]
+    },
+    "Japan": {
+      "minerals": [
+        [
+          "Iodine",
+          26
+        ],
+        [
+          "Gypsum",
+          3
+        ],
+        [
+          "Talc and pyrophyllite",
+          2
+        ],
+        [
+          "Diatomite",
+          2
+        ]
+      ]
+    },
+    "Jordan": {
+      "minerals": [
+        [
+          "Pumice and pumicite",
+          6
+        ],
+        [
+          "Phosphate rock",
+          5
+        ],
+        [
+          "Potash",
+          4
+        ],
+        [
+          "Zeolites (natural)",
+          0
+        ]
+      ]
+    },
+    "Kazakhstan": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Cotton"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Asbestos",
+          26
+        ],
+        [
+          "Chromium",
+          14
+        ],
+        [
+          "Barite",
+          8
+        ],
+        [
+          "Gold",
+          4
+        ],
+        [
+          "Copper",
+          3
+        ],
+        [
+          "Tungsten",
+          3
+        ]
+      ],
+      "more": 7
+    },
+    "Kenya": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Cattle",
+            "Coffee",
+            "Fish",
+            "Gold",
+            "Khat/Miraa (stimulant plant)",
+            "Rice",
+            "Sand",
+            "Sisal",
+            "Stones",
+            "Sugarcane",
+            "Tea",
+            "Tobacco"
+          ]
+        ]
+      ]
+    },
+    "Kosovo": {
+      "sanctions": [
+        "Western Balkans (a regional program)"
+      ]
+    },
+    "Kyrgyzstan": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Cotton",
+            "Tobacco"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Mercury",
+          2
+        ],
+        [
+          "Antimony",
+          0
+        ]
+      ]
+    },
+    "Laos": {
+      "minerals": [
+        [
+          "Potash",
+          5
+        ],
+        [
+          "Barite",
+          3
+        ],
+        [
+          "Tin",
+          0
+        ],
+        [
+          "Antimony",
+          0
+        ]
+      ]
+    },
+    "Latvia": {
+      "minerals": [
+        [
+          "Peat",
+          12
+        ]
+      ]
+    },
+    "Lebanon": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Potatoes",
+            "Tobacco"
+          ]
+        ]
+      ],
+      "sanctions": [
+        "Lebanon-related"
+      ]
+    },
+    "Lesotho": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Cattle"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Gemstones",
+          1
+        ]
+      ]
+    },
+    "Liberia": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Diamonds",
+            "Rubber"
+          ]
+        ]
+      ]
+    },
+    "Libya": {
+      "sanctions": [
+        "Libya"
+      ]
+    },
+    "Lithuania": {
+      "minerals": [
+        [
+          "Peat",
+          3
+        ]
+      ]
+    },
+    "Macedonia": {
+      "sanctions": [
+        "Western Balkans (a regional program)"
+      ]
+    },
+    "Madagascar": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Mica",
+            "Sapphires",
+            "Stones",
+            "Vanilla"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Graphite (natural)",
+          4
+        ],
+        [
+          "Zirconium",
+          2
+        ],
+        [
+          "Cobalt",
+          1
+        ],
+        [
+          "Rare earths",
+          0
+        ],
+        [
+          "Beryllium",
+          0
+        ]
+      ]
+    },
+    "Malawi": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Tobacco"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Tea"
+          ]
+        ],
+        [
+          "Made with inputs from child and forced labor",
+          [
+            "Cigarettes (tobacco)"
+          ]
+        ]
+      ]
+    },
+    "Malaysia": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Palm Fruit"
+          ]
+        ],
+        [
+          "Forced labor",
+          [
+            "Electronics",
+            "Garments",
+            "Rubber Gloves"
+          ]
+        ],
+        [
+          "Made with inputs from child and forced labor",
+          [
+            "Biofuel",
+            "Cooking Oil (palm-oil-blends)",
+            "Crude Palm Kernel Oil",
+            "Crude Palm Oil",
+            "Oleochemicals",
+            "Refined Palm Kernel Oil",
+            "Refined Palm Oil"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Tin",
+          2
+        ],
+        [
+          "Sand and gravel (industrial)",
+          1
+        ],
+        [
+          "Rare earths",
+          0
+        ]
+      ]
+    },
+    "Mali": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Rice"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Cotton",
+            "Gold"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Lithium",
+          3
+        ]
+      ],
+      "sanctions": [
+        "Mali-related"
+      ]
+    },
+    "Mauritania": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Cattle",
+            "Goats"
+          ]
+        ]
+      ]
+    },
+    "Mauritius": {
+      "labor": [
+        [
+          "Forced labor",
+          [
+            "Garments"
+          ]
+        ]
+      ]
+    },
+    "Mexico": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Chile Peppers",
+            "Tomatoes"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Beans (green beans)",
+            "Cattle",
+            "Coffee",
+            "Cucumbers",
+            "Eggplants",
+            "Garments",
+            "Leather Goods/Accessories",
+            "Melons",
+            "Onions",
+            "Poppies",
+            "Pornography",
+            "Sugarcane",
+            "Tobacco"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Silver",
+          24
+        ],
+        [
+          "Fluorspar",
+          15
+        ],
+        [
+          "Wollastonite",
+          12
+        ],
+        [
+          "Molybdenum",
+          7
+        ],
+        [
+          "Zinc",
+          6
+        ],
+        [
+          "Lead",
+          4
+        ]
+      ],
+      "more": 11
+    },
+    "Mongolia": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Coal",
+            "Gold"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Fluorspar",
+          15
+        ],
+        [
+          "Molybdenum",
+          2
+        ]
+      ]
+    },
+    "Montenegro": {
+      "sanctions": [
+        "Western Balkans (a regional program)"
+      ]
+    },
+    "Morocco": {
+      "minerals": [
+        [
+          "Phosphate rock",
+          14
+        ],
+        [
+          "Barite",
+          11
+        ],
+        [
+          "Feldspar and nepheline syenite",
+          2
+        ],
+        [
+          "Mercury",
+          0
+        ]
+      ]
+    },
+    "Mozambique": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Tobacco"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Zirconium",
+          13
+        ],
+        [
+          "Graphite (natural)",
+          3
+        ],
+        [
+          "Beryllium",
+          0
+        ],
+        [
+          "Tantalum",
+          0
+        ]
+      ]
+    },
+    "Myanmar": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Bamboo",
+            "Beans (green, soy, yellow)",
+            "Bricks",
+            "Garments",
+            "Jade",
+            "Rice",
+            "Rubber",
+            "Rubies",
+            "Sugarcane",
+            "Teak"
+          ]
+        ],
+        [
+          "Forced labor",
+          [
+            "Fish",
+            "Palm Thatch",
+            "Sesame",
+            "Shrimp",
+            "Sunflowers"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Rare earths",
+          6
+        ],
+        [
+          "Tin",
+          4
+        ],
+        [
+          "Antimony",
+          4
+        ]
+      ],
+      "sanctions": [
+        "Burma-related"
+      ]
+    },
+    "Namibia": {
+      "minerals": [
+        [
+          "Gemstones",
+          3
+        ]
+      ]
+    },
+    "Nepal": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Bricks",
+            "Carpets",
+            "Embellished Textiles",
+            "Stones"
+          ]
+        ]
+      ]
+    },
+    "Netherlands": {
+      "labor": [
+        [
+          "Made with inputs from child labor",
+          [
+            "Chocolate",
+            "Cocoa Butter",
+            "Cocoa Paste",
+            "Cocoa Powder"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Sand and gravel (industrial)",
+          16
+        ],
+        [
+          "Salt",
+          2
+        ]
+      ]
+    },
+    "New Caledonia": {
+      "minerals": [
+        [
+          "Nickel",
+          4
+        ]
+      ]
+    },
+    "New Zealand": {
+      "minerals": [
+        [
+          "Diatomite",
+          2
+        ]
+      ]
+    },
+    "Nicaragua": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Bananas",
+            "Coffee",
+            "Gold",
+            "Gravel (crushed stones)",
+            "Shellfish",
+            "Stones (pumice)",
+            "Tobacco"
+          ]
+        ]
+      ],
+      "sanctions": [
+        "Nicaragua-related"
+      ]
+    },
+    "Niger": {
+      "labor": [
+        [
+          "Forced labor",
+          [
+            "Cattle"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Gold",
+            "Gypsum (mineral)",
+            "Salt",
+            "Trona (minerals)"
+          ]
+        ]
+      ]
+    },
+    "Nigeria": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Cocoa",
+            "Granite",
+            "Gravel (crushed stones)"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Gold",
+            "Manioc/Cassava",
+            "Sand"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Tantalum",
+          16
+        ],
+        [
+          "Beryllium",
+          9
+        ],
+        [
+          "Tin",
+          1
+        ],
+        [
+          "Rare earths",
+          0
+        ]
+      ]
+    },
+    "North Korea": {
+      "labor": [
+        [
+          "Forced labor",
+          [
+            "Bricks",
+            "Cement",
+            "Coal",
+            "Gold",
+            "Iron",
+            "Textiles",
+            "Timber"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Tungsten",
+          2
+        ],
+        [
+          "Graphite (natural)",
+          0
+        ],
+        [
+          "Molybdenum",
+          0
+        ]
+      ],
+      "sanctions": [
+        "North Korea"
+      ]
+    },
+    "Norway": {
+      "minerals": [
+        [
+          "Mercury",
+          0
+        ],
+        [
+          "Graphite (natural)",
+          0
+        ]
+      ]
+    },
+    "Oman": {
+      "minerals": [
+        [
+          "Gypsum",
+          9
+        ]
+      ]
+    },
+    "Pakistan": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Bricks",
+            "Carpets",
+            "Coal"
+          ]
+        ],
+        [
+          "Forced labor",
+          [
+            "Cotton",
+            "Sugarcane",
+            "Wheat"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Baked Goods",
+            "Bovines",
+            "Dairy Products",
+            "Electronics",
+            "Furniture",
+            "Garments",
+            "Glass Bangles",
+            "Leather",
+            "Rice",
+            "Surgical Instruments",
+            "Textiles"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Barite",
+          1
+        ],
+        [
+          "Salt",
+          1
+        ],
+        [
+          "Fluorspar",
+          0
+        ],
+        [
+          "Garnet (industrial)",
+          0
+        ],
+        [
+          "Antimony",
+          0
+        ]
+      ]
+    },
+    "Panama": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Coffee",
+            "Melons"
+          ]
+        ]
+      ]
+    },
+    "Papua New Guinea": {
+      "minerals": [
+        [
+          "Cobalt",
+          0
+        ]
+      ]
+    },
+    "Paraguay": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Cattle"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Beans",
+            "Bricks",
+            "Cabbages",
+            "Carrots",
+            "Corn",
+            "Fish",
+            "Goats",
+            "Hogs",
+            "Lettuce",
+            "Manioc/Cassava",
+            "Melons",
+            "Onions",
+            "Peanuts",
+            "Peppers",
+            "Pornography",
+            "Poultry",
+            "Sesame",
+            "Sheep",
+            "Stones (limestone)",
+            "Sugarcane",
+            "Sweet Potatoes",
+            "Tomatoes",
+            "Yerba Mate (stimulant plant)"
+          ]
+        ]
+      ]
+    },
+    "Peru": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Gold"
+          ]
+        ],
+        [
+          "Forced labor",
+          [
+            "Brazil Nuts/Chestnuts",
+            "Timber"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Bricks",
+            "Coca (stimulant plant)",
+            "Fireworks",
+            "Fish"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Molybdenum",
+          15
+        ],
+        [
+          "Silver",
+          14
+        ],
+        [
+          "Copper",
+          12
+        ],
+        [
+          "Zinc",
+          12
+        ],
+        [
+          "Tin",
+          11
+        ],
+        [
+          "Lead",
+          6
+        ]
+      ],
+      "more": 3
+    },
+    "Philippines": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Bananas",
+            "Coconuts",
+            "Corn",
+            "Fashion Accessories",
+            "Fish",
+            "Gold",
+            "Hogs",
+            "Pornography",
+            "Pyrotechnics",
+            "Rice",
+            "Rubber",
+            "Sugarcane",
+            "Tobacco"
+          ]
+        ],
+        [
+          "Made with inputs from child labor",
+          [
+            "Coconut Oil",
+            "Copra Meal"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Nickel",
+          7
+        ],
+        [
+          "Cobalt",
+          1
+        ],
+        [
+          "Zeolites (natural)",
+          0
+        ]
+      ]
+    },
+    "Poland": {
+      "minerals": [
+        [
+          "Rhenium",
+          12
+        ],
+        [
+          "Peat",
+          5
+        ],
+        [
+          "Silver",
+          5
+        ],
+        [
+          "Copper",
+          2
+        ],
+        [
+          "Salt",
+          2
+        ],
+        [
+          "Sand and gravel (industrial)",
+          1
+        ]
+      ]
+    },
+    "Portugal": {
+      "minerals": [
+        [
+          "Tungsten",
+          0
+        ],
+        [
+          "Lithium",
+          0
+        ]
+      ]
+    },
+    "Russia": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Pornography"
+          ]
+        ],
+        [
+          "Forced labor",
+          [
+            "Bricks",
+            "Timber"
+          ]
+        ],
+        [
+          "Made with inputs from child and forced labor",
+          [
+            "Cigarettes (tobacco)"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Diamond (industrial)",
+          42
+        ],
+        [
+          "Asbestos",
+          32
+        ],
+        [
+          "Gemstones",
+          30
+        ],
+        [
+          "Antimony",
+          29
+        ],
+        [
+          "Potash",
+          20
+        ],
+        [
+          "Vanadium",
+          19
+        ]
+      ],
+      "more": 27,
+      "sanctions": [
+        "Russian harmful foreign activities",
+        "Ukraine-/Russia-related"
+      ]
+    },
+    "Rwanda": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Tea"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Tantalum",
+          16
+        ],
+        [
+          "Tin",
+          2
+        ],
+        [
+          "Tungsten",
+          2
+        ],
+        [
+          "Beryllium",
+          0
+        ],
+        [
+          "Niobium (columbium)",
+          0
+        ]
+      ]
+    },
+    "S. Sudan": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Cattle"
+          ]
+        ]
+      ],
+      "sanctions": [
+        "South Sudan-related"
+      ]
+    },
+    "Saudi Arabia": {
+      "minerals": [
+        [
+          "Pumice and pumicite",
+          5
+        ],
+        [
+          "Phosphate rock",
+          4
+        ],
+        [
+          "Gypsum",
+          2
+        ],
+        [
+          "Feldspar and nepheline syenite",
+          2
+        ],
+        [
+          "Bauxite",
+          1
+        ],
+        [
+          "Salt",
+          0
+        ]
+      ],
+      "more": 1
+    },
+    "Senegal": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Gold"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Zirconium",
+          6
+        ],
+        [
+          "Phosphate rock",
+          1
+        ]
+      ]
+    },
+    "Serbia": {
+      "sanctions": [
+        "Western Balkans (a regional program)"
+      ]
+    },
+    "Sierra Leone": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Diamonds"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Cocoa",
+            "Coffee",
+            "Granite",
+            "Palm Fruit"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Zirconium",
+          2
+        ],
+        [
+          "Gemstones",
+          0
+        ]
+      ]
+    },
+    "Slovakia": {
+      "minerals": [
+        [
+          "Zeolites (natural)",
+          22
+        ],
+        [
+          "Magnesium compounds",
+          2
+        ]
+      ]
+    },
+    "Somalia": {
+      "sanctions": [
+        "Somalia"
+      ]
+    },
+    "South Africa": {
+      "minerals": [
+        [
+          "Chromium",
+          45
+        ],
+        [
+          "Manganese",
+          38
+        ],
+        [
+          "Vermiculite",
+          35
+        ],
+        [
+          "Zirconium",
+          22
+        ],
+        [
+          "Diamond (industrial)",
+          8
+        ],
+        [
+          "Vanadium",
+          5
+        ]
+      ],
+      "more": 5
+    },
+    "South Korea": {
+      "labor": [
+        [
+          "Made with inputs from child labor",
+          [
+            "Indium"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Zeolites (natural)",
+          12
+        ],
+        [
+          "Diatomite",
+          5
+        ],
+        [
+          "Talc and pyrophyllite",
+          4
+        ],
+        [
+          "Rhenium",
+          4
+        ],
+        [
+          "Feldspar and nepheline syenite",
+          3
+        ],
+        [
+          "Molybdenum",
+          0
+        ]
+      ],
+      "more": 1
+    },
+    "Spain": {
+      "minerals": [
+        [
+          "Strontium",
+          22
+        ],
+        [
+          "Gypsum",
+          7
+        ],
+        [
+          "Magnesium compounds",
+          3
+        ],
+        [
+          "Diatomite",
+          2
+        ],
+        [
+          "Pumice and pumicite",
+          2
+        ],
+        [
+          "Salt",
+          1
+        ]
+      ],
+      "more": 4
+    },
+    "Sri Lanka": {
+      "minerals": [
+        [
+          "Graphite (natural)",
+          0
+        ]
+      ]
+    },
+    "Sudan": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Gold"
+          ]
+        ]
+      ],
+      "sanctions": [
+        "Sudan and Darfur"
+      ]
+    },
+    "Suriname": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Gold"
+          ]
+        ]
+      ]
+    },
+    "Sweden": {
+      "minerals": [
+        [
+          "Peat",
+          11
+        ],
+        [
+          "Zinc",
+          2
+        ],
+        [
+          "Lead",
+          2
+        ],
+        [
+          "Silver",
+          2
+        ]
+      ]
+    },
+    "Syria": {
+      "minerals": [
+        [
+          "Phosphate rock",
+          0
+        ]
+      ],
+      "sanctions": [
+        "Promoting Accountability for Assad and Regional Stabilization"
+      ]
+    },
+    "Taiwan": {
+      "labor": [
+        [
+          "Forced labor",
+          [
+            "Fish"
+          ]
+        ]
+      ]
+    },
+    "Tajikistan": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Cotton"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Antimony",
+          20
+        ],
+        [
+          "Mercury",
+          2
+        ],
+        [
+          "Lead",
+          0
+        ],
+        [
+          "Fluorspar",
+          0
+        ]
+      ]
+    },
+    "Tanzania": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Cattle",
+            "Cloves",
+            "Coffee",
+            "Gold",
+            "Nile Perch (fish)",
+            "Rice",
+            "Sisal",
+            "Stones",
+            "Tanzanite (gems)",
+            "Tea",
+            "Tobacco"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Graphite (natural)",
+          4
+        ],
+        [
+          "Pumice and pumicite",
+          2
+        ],
+        [
+          "Gemstones",
+          0
+        ]
+      ]
+    },
+    "Thailand": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Garments"
+          ]
+        ],
+        [
+          "Forced labor",
+          [
+            "Fish",
+            "Shrimp"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Pornography",
+            "Sugarcane"
+          ]
+        ],
+        [
+          "Made with inputs from forced labor",
+          [
+            "Animal Feed",
+            "Fish Oil",
+            "Fishmeal"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Feldspar and nepheline syenite",
+          6
+        ],
+        [
+          "Gypsum",
+          5
+        ],
+        [
+          "Rare earths",
+          1
+        ],
+        [
+          "Fluorspar",
+          0
+        ]
+      ]
+    },
+    "Togo": {
+      "minerals": [
+        [
+          "Phosphate rock",
+          0
+        ]
+      ]
+    },
+    "Tunisia": {
+      "minerals": [
+        [
+          "Phosphate rock",
+          1
+        ]
+      ]
+    },
+    "Turkey": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Citrus Fruits",
+            "Cotton",
+            "Cumin",
+            "Footwear",
+            "Furniture",
+            "Garments",
+            "Hazelnuts",
+            "Peanuts",
+            "Pulses (legumes)",
+            "Sugar Beets"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Pumice and pumicite",
+          48
+        ],
+        [
+          "Chromium",
+          18
+        ],
+        [
+          "Feldspar and nepheline syenite",
+          17
+        ],
+        [
+          "Magnesium compounds",
+          8
+        ],
+        [
+          "Gypsum",
+          6
+        ],
+        [
+          "Diatomite",
+          6
+        ]
+      ],
+      "more": 12
+    },
+    "Turkmenistan": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Cotton"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Iodine",
+          2
+        ]
+      ]
+    },
+    "Uganda": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Bricks",
+            "Cattle",
+            "Charcoal",
+            "Coffee",
+            "Fish",
+            "Gold",
+            "Rice",
+            "Sand",
+            "Stones",
+            "Sugarcane",
+            "Tea",
+            "Tobacco",
+            "Vanilla"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Vermiculite",
+          4
+        ],
+        [
+          "Pumice and pumicite",
+          4
+        ]
+      ]
+    },
+    "Ukraine": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Amber",
+            "Coal",
+            "Pornography"
+          ]
+        ],
+        [
+          "Made with inputs from child and forced labor",
+          [
+            "Cigarettes (tobacco)"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Peat",
+          3
+        ],
+        [
+          "Graphite (natural)",
+          0
+        ]
+      ],
+      "sanctions": [
+        "Ukraine-/Russia-related, including the Crimea region"
+      ]
+    },
+    "United Kingdom": {
+      "minerals": [
+        [
+          "Sand and gravel (industrial)",
+          1
+        ],
+        [
+          "Salt",
+          0
+        ]
+      ]
+    },
+    "United States of America": {
+      "minerals": [
+        [
+          "Beryllium",
+          53
+        ],
+        [
+          "Diatomite",
+          29
+        ],
+        [
+          "Sand and gravel (industrial)",
+          28
+        ],
+        [
+          "Vermiculite",
+          22
+        ],
+        [
+          "Molybdenum",
+          15
+        ],
+        [
+          "Salt",
+          15
+        ]
+      ],
+      "more": 18
+    },
+    "Uzbekistan": {
+      "labor": [
+        [
+          "Forced labor",
+          [
+            "Silk Cocoons"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Rhenium",
+          9
+        ],
+        [
+          "Gold",
+          4
+        ],
+        [
+          "Gypsum",
+          2
+        ],
+        [
+          "Molybdenum",
+          0
+        ],
+        [
+          "Phosphate rock",
+          0
+        ],
+        [
+          "Vermiculite",
+          0
+        ]
+      ]
+    },
+    "Venezuela": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Gold"
+          ]
+        ]
+      ],
+      "sanctions": [
+        "Venezuela-related"
+      ]
+    },
+    "Vietnam": {
+      "labor": [
+        [
+          "Child and forced labor",
+          [
+            "Garments"
+          ]
+        ],
+        [
+          "Child labor",
+          [
+            "Bricks",
+            "Cashews",
+            "Coffee",
+            "Fish",
+            "Footwear",
+            "Furniture",
+            "Leather",
+            "Pepper",
+            "Rice",
+            "Rubber",
+            "Sugarcane",
+            "Tea",
+            "Textiles",
+            "Timber",
+            "Tobacco"
+          ]
+        ],
+        [
+          "Made with inputs from forced labor",
+          [
+            "Garments Cotton"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Tin",
+          4
+        ],
+        [
+          "Tungsten",
+          4
+        ],
+        [
+          "Fluorspar",
+          2
+        ],
+        [
+          "Phosphate rock",
+          1
+        ],
+        [
+          "Bauxite",
+          0
+        ],
+        [
+          "Antimony",
+          0
+        ]
+      ],
+      "more": 2
+    },
+    "Yemen": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Fish"
+          ]
+        ]
+      ],
+      "sanctions": [
+        "Yemen-related"
+      ]
+    },
+    "Zambia": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Cattle",
+            "Copper Ore",
+            "Cotton",
+            "Gems",
+            "Manganese",
+            "Stones",
+            "Tobacco"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Copper",
+          4
+        ]
+      ]
+    },
+    "Zimbabwe": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Gold",
+            "Lithium",
+            "Sugarcane",
+            "Tobacco"
+          ]
+        ]
+      ],
+      "minerals": [
+        [
+          "Diamond (industrial)",
+          13
+        ],
+        [
+          "Lithium",
+          10
+        ],
+        [
+          "Vermiculite",
+          7
+        ],
+        [
+          "Chromium",
+          4
+        ],
+        [
+          "Gemstones",
+          0
+        ]
+      ]
+    },
+    "eSwatini": {
+      "labor": [
+        [
+          "Child labor",
+          [
+            "Bovines"
+          ]
+        ]
+      ]
+    }
+  }
+}
