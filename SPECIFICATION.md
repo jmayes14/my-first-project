@@ -129,6 +129,11 @@ Given the methodology page, then a visitor can read where information comes from
 how links and ethics checks are rated, how Sayari is used, and how to report a
 mistake.
 
+**FR-23: Source dates (US-5)**
+Given any source, then the page shows when it was published and when this project
+found it. Sources from 2023 or earlier are marked older, and a page with no date
+says so.
+
 ## Screens
 - **Hero:** title, purpose, and research date.
 - **Stage map:** filters, five stage cards, and the evidence panel.
