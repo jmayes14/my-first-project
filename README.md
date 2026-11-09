@@ -60,6 +60,16 @@ The site is one file in `docs/`, published with GitHub Pages at
 D3 and topojson-client from public CDNs, and the map outlines are embedded in
 the page.
 
+## Class project: fusion lithium
+
+[docs/fusion/index.html](./docs/fusion/index.html) is a separate page for the
+class assignment "Mapping the Human Cost of Fusion Energy Materials." It traces
+lithium for fusion breeder blankets through six steps, from extraction to after
+use, with a globe, a table of human rights risks, and a policy brief. It loads
+coastlines from the `world-atlas` package on jsDelivr. The research record is
+[research/fusion-lithium-2026-11.json](./research/fusion-lithium-2026-11.json).
+Once merged, it is published at <https://jmayes14.github.io/my-first-project/fusion/>.
+
 ## Earlier project
 
 This repository previously held a vape supply-chain map. It is saved under the
