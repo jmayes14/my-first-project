@@ -1,0 +1,151 @@
+{
+  "scenario": "Chinese optical transceivers and data center equipment",
+  "researched": "2026-11-16",
+  "caveat": "Demo scenario. Signals are sourced; the transceiver ban is reported, not published. Parts marked with placeholders use demo values to be replaced with student research (Sayari and real part numbers). Nothing here is a legal or compliance finding.",
+  "signals": [
+    {
+      "id": "fcc2650",
+      "title": "FCC component rule (FCC 26-50)",
+      "status": "in-force",
+      "date": "2026-10-13",
+      "summary": "The FCC can deny new equipment authorization to a device containing a logic-bearing hardware component from a Covered List producer, including Western-branded switches and servers.",
+      "confidence": "Final rule. Applies to new authorizations only. Does not cover software or firmware. Production-location entries (such as foreign-made routers) do not trigger it unless the producer is listed.",
+      "sources": ["fr-2650", "commlaw-2650"]
+    },
+    {
+      "id": "xcvr",
+      "title": "Reported FCC ban on new Chinese transceiver models",
+      "status": "reported-draft",
+      "date": "2026-11-10",
+      "summary": "The FCC is reported to be drafting a ban on new models of Chinese optical transceivers, possibly starting with the 3.2T generation, with a possible exemption for modules whose bill-of-materials value is at least 65% U.S.-sourced.",
+      "confidence": "No public FCC text. Start generation, timing, and the 65% threshold come from Reuters and analyst reports and are treated as assumptions. InnoLight, Eoptolink, Dongshan Precision, and TFC are not on the Covered List.",
+      "sources": ["fierce-xcvr", "dc-reuters", "k404-xcvr", "roc-xcvr"]
+    },
+    {
+      "id": "s5548",
+      "title": "S. 5548, Securing National Security Systems from Chinese Optical Transceivers Act",
+      "status": "proposed-bill",
+      "date": "2026-09-24",
+      "summary": "Would bar federal procurement of transceivers from InnoLight, Eoptolink, and designated adversary-linked makers, and of products with their firmware, software, or component parts, for national security systems.",
+      "confidence": "Introduced and referred to committee. Takes effect five years after enactment. Agencies may still buy for systems that are not critical.",
+      "sources": ["bill-5548", "mccormick-5548"]
+    },
+    {
+      "id": "h1260",
+      "title": "Zhongji Innolight added to the 1260H list",
+      "status": "listing",
+      "date": "2026-06-08",
+      "summary": "The Department of War added Zhongji Innolight to its list of Chinese military companies.",
+      "confidence": "The listing limits direct Department of War contracts with listed companies. It does not ban products government-wide.",
+      "sources": ["wilmer-1260h", "hk-1260h"]
+    },
+    {
+      "id": "routers",
+      "title": "Foreign-made consumer routers on the Covered List",
+      "status": "in-force",
+      "date": "2026-03-23",
+      "summary": "New models of foreign-produced consumer-grade routers cannot be authorized unless the Department of War or Homeland Security grants a conditional approval.",
+      "confidence": "In force. Several approvals end between October 2027 and February 2028.",
+      "sources": ["fcc-routers", "toms-netgear", "lr-starlink"]
+    },
+    {
+      "id": "inverters",
+      "title": "Foreign-made power inverters on the Covered List",
+      "status": "in-force",
+      "date": "2026-07-28",
+      "summary": "New models of foreign-produced power inverters cannot be authorized unless the Department of War or Homeland Security grants a conditional approval.",
+      "confidence": "In force. Definitions were narrowed on August 20, 2026. Whether data center UPS equipment is in scope should be checked against the definition.",
+      "sources": ["fcc-inverters", "cooley-inverters"]
+    }
+  ],
+  "parts": [
+    {
+      "id": "x800-inno", "name": "800G OSFP transceiver, model already authorized", "category": "transceiver", "generation": "800G",
+      "maker": "Zhongji Innolight", "chinaLinked": true, "namedInBill": true, "on1260H": true, "newModel": false, "firstYear": 2026,
+      "coveredComponent": "no", "namedFirmware": "yes", "usBomShare": null,
+      "placeholders": ["newModel", "coveredComponent"], "sources": ["bill-5548", "wilmer-1260h"],
+      "note": "Typical of optics in AI clusters today."
+    },
+    {
+      "id": "x16-eopto", "name": "1.6T transceiver, model already authorized", "category": "transceiver", "generation": "1.6T",
+      "maker": "Eoptolink", "chinaLinked": true, "namedInBill": true, "on1260H": false, "newModel": false, "firstYear": 2026,
+      "coveredComponent": "no", "namedFirmware": "yes", "usBomShare": null,
+      "placeholders": ["newModel", "coveredComponent"], "sources": ["bill-5548"],
+      "note": ""
+    },
+    {
+      "id": "x32-inno", "name": "3.2T transceiver, new model", "category": "transceiver", "generation": "3.2T",
+      "maker": "Zhongji Innolight", "chinaLinked": true, "namedInBill": true, "on1260H": true, "newModel": true, "firstYear": 2028,
+      "coveredComponent": "no", "namedFirmware": "yes", "usBomShare": null,
+      "placeholders": ["firstYear", "usBomShare"], "sources": ["k404-xcvr", "bill-5548"],
+      "note": "3.2T is expected to ramp around 2028 to 2029."
+    },
+    {
+      "id": "x32-cn-us", "name": "3.2T transceiver, Chinese assembly with U.S. DSP and lasers", "category": "transceiver", "generation": "3.2T",
+      "maker": "Chinese assembler (not named; to research)", "chinaLinked": true, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2028,
+      "coveredComponent": "no", "namedFirmware": "unknown", "usBomShare": 0.68,
+      "placeholders": ["maker", "usBomShare", "namedFirmware"], "sources": ["roc-xcvr"],
+      "note": "Analysts suggest a U.S. DSP plus U.S. lasers could approach the 65% threshold."
+    },
+    {
+      "id": "x32-us", "name": "3.2T transceiver, U.S. maker", "category": "transceiver", "generation": "3.2T",
+      "maker": "U.S. maker (to research)", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2028,
+      "coveredComponent": "no", "namedFirmware": "no", "usBomShare": 0.85,
+      "placeholders": ["maker", "usBomShare"], "sources": ["techtimes-indium"],
+      "note": "Western lasers may still depend on Chinese indium, which no signal here covers."
+    },
+    {
+      "id": "sw-new", "name": "Leaf switch, Western brand, new model", "category": "switch",
+      "maker": "Western brand (to research)", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2027,
+      "coveredComponent": "unknown", "namedFirmware": "unknown", "usBomShare": null,
+      "placeholders": ["maker", "coveredComponent"], "sources": ["fr-2650"],
+      "note": "The component rule reaches Western-branded devices through the chips inside them."
+    },
+    {
+      "id": "srv-new", "name": "GPU server, Western brand, new model", "category": "server",
+      "maker": "Western brand (to research)", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2027,
+      "coveredComponent": "no", "namedFirmware": "no", "usBomShare": null,
+      "placeholders": ["maker", "coveredComponent"], "sources": ["fr-2650"],
+      "note": ""
+    },
+    {
+      "id": "inv-new", "name": "Inverter for on-site solar and battery storage, foreign-made, new model", "category": "inverter",
+      "maker": "Foreign maker (to research)", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2027,
+      "coveredComponent": "no", "foreignProduced": true, "approvalUntil": null,
+      "placeholders": ["maker"], "sources": ["fcc-inverters", "cooley-inverters"],
+      "note": "Connects to the battery chains elsewhere on this site."
+    },
+    {
+      "id": "rt-netgear", "name": "Consumer-grade router at a branch or edge site (Netgear)", "category": "router",
+      "maker": "Netgear", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2026,
+      "coveredComponent": "no", "foreignProduced": true, "approvalUntil": "2027-10-01",
+      "placeholders": [], "sources": ["toms-netgear"],
+      "note": "Conditional approval reported to run April 14, 2026 to October 1, 2027."
+    },
+    {
+      "id": "rt-starlink", "name": "Satellite backup router (Starlink)", "category": "router",
+      "maker": "SpaceX", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2026,
+      "coveredComponent": "no", "foreignProduced": true, "approvalUntil": "2028-02-01",
+      "placeholders": [], "sources": ["lr-starlink"],
+      "note": "Reported conditional approval through February 1, 2028."
+    }
+  ],
+  "sources": [
+    { "id": "fr-2650", "kind": "primary", "publisher": "Federal Register", "date": "2026-09-11", "title": "FCC 26-50, Third Report and Order, ET Docket 21-232 (91 FR 57798)", "url": "https://www.govinfo.gov/content/pkg/FR-2026-09-11/html/2026-18535.htm" },
+    { "id": "commlaw-2650", "kind": "secondary", "publisher": "CommLaw Group", "date": "2026-10", "title": "FCC Covered List rules are now effective", "url": "https://commlawgroup.com/2026/fcc-covered-list-rules-are-now-effective-expanding-equipment-authorization-and-online-marketplace-obligations/" },
+    { "id": "fierce-xcvr", "kind": "secondary", "publisher": "Fierce Network (citing Reuters, Aug. 4, 2026)", "date": "2026-09-08", "title": "Proposed U.S. ban on Chinese optical transceivers threatens AI data center boom", "url": "https://www.fierce-network.com/broadband/proposed-us-ban-chinese-optical-transceivers-threatens-ai-data-center-boom" },
+    { "id": "dc-reuters", "kind": "secondary", "publisher": "Daily Caller (citing Reuters, Nov. 10, 2026)", "date": "2026-11-10", "title": "Microsoft reportedly urges administration not to ban Chinese data center parts", "url": "https://dailycaller.com/2026/11/10/microsoft-trump-chinese-optical-transceivers-fcc-ban-ai-data-centers-dave-mccormick-ruben-gallego/" },
+    { "id": "k404-xcvr", "kind": "secondary", "publisher": "404K Research", "date": "2026", "title": "FCC optical transceiver restrictions may start at 3.2T, under 65% U.S. content rule", "url": "https://404kresearch.substack.com/p/fcc-optical-transceiver-restrictions" },
+    { "id": "roc-xcvr", "kind": "secondary", "publisher": "ROC Telecom", "date": "2026", "title": "FCC Chinese optical module rules: what changed Oct 13", "url": "https://roctelecom.com/insights/fcc-optical-module-rules-update/" },
+    { "id": "techtimes-indium", "kind": "secondary", "publisher": "TechTimes", "date": "2026-08-05", "title": "FCC transceiver ban would cut 60% of AI data center supply; Western replacements need Chinese indium", "url": "https://www.techtimes.com/articles/323104/20260805/fcc-transceiver-ban-would-cut-60-ai-data-center-supply-western-replacements-need-chinese-indium.htm" },
+    { "id": "bill-5548", "kind": "primary", "publisher": "U.S. Congress (govinfo)", "date": "2026-09-24", "title": "S. 5548, Securing National Security Systems from Chinese Optical Transceivers Act of 2026", "url": "https://www.govinfo.gov/content/pkg/BILLS-119s5548is/html/BILLS-119s5548is.htm" },
+    { "id": "mccormick-5548", "kind": "primary", "publisher": "Office of Sen. McCormick", "date": "2026-09-24", "title": "Senators introduce bill to keep Chinese transceivers out of U.S. national security systems", "url": "https://www.mccormick.senate.gov/news/press-releases/senators-mccormick-gallego-cornyn-fetterman-introduce-bill-to-keep-chinese-transceivers-out-of-u-s-national-security-systems/" },
+    { "id": "wilmer-1260h", "kind": "secondary", "publisher": "WilmerHale", "date": "2026-06-11", "title": "Pentagon adds 65 new entities to the 1260H list", "url": "https://www.wilmerhale.com/en/insights/client-alerts/20260611-pentagon-adds-65-new-entities-to-the-1260h-list-of-chinese-military-companies" },
+    { "id": "hk-1260h", "kind": "secondary", "publisher": "Holland & Knight", "date": "2026-07-28", "title": "Department of War updates Section 1260H list", "url": "https://www.hklaw.com/en/insights/publications/2026/07/department-of-war-updates-section-1260h" },
+    { "id": "fcc-routers", "kind": "primary", "publisher": "FCC", "date": "2026-03-23", "title": "Fact sheet: FCC updates Covered List to include foreign-made consumer routers", "url": "https://docs.fcc.gov/public/attachments/DOC-420034A1.pdf" },
+    { "id": "toms-netgear", "kind": "secondary", "publisher": "Tom's Hardware", "date": "2026-04", "title": "Netgear secures conditional approval through October 2027", "url": "https://www.tomshardware.com/networking/routers/netgear-secures-conditional-approval-from-the-fcc-following-router-ban-company-can-continue-importing-foreign-made-routers-through-october-2027" },
+    { "id": "lr-starlink", "kind": "secondary", "publisher": "Light Reading", "date": "2026", "title": "FCC exempts new Starlink devices from router ban", "url": "https://www.lightreading.com/broadband/fcc-exempts-new-starlink-devices-from-router-ban" },
+    { "id": "fcc-inverters", "kind": "primary", "publisher": "FCC", "date": "2026-07-28", "title": "Public Notice DA 26-786: foreign-produced power inverters and advanced robotic devices added to the Covered List", "url": "https://docs.fcc.gov/public/attachments/DA-26-786A1.pdf" },
+    { "id": "cooley-inverters", "kind": "secondary", "publisher": "Cooley", "date": "2026-07-31", "title": "Foreign-produced power inverters and advanced robotic devices added to FCC Covered List", "url": "https://www.cooley.com/news/insight/2026/2026-07-31-foreign-produced-power-inverters-and-advanced-robotic-devices-added-to-fcc-covered-list" }
+  ]
+}

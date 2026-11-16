@@ -63,6 +63,9 @@ inventor. Unknown links have no line and appear in the panel below the map.
 - [Prototype specification](./SPECIFICATION.md)
 - [Implementation plan](./PLAN.md)
 - [Backlog](./BACKLOG.md)
+- [Proposed regulation simulator: concept](./features/proposed-regulation/CONCEPT-IDEA.md)
+- [Proposed regulation simulator: specifications](./features/proposed-regulation/SPECIFICATIONS.md)
+- [Proposed regulation scenario data](./research/proposed-regulation-scenario-2026-11.json)
 - [Published site source](./docs/index.html)
 - [Methodology page](./docs/methodology.html)
 

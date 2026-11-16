@@ -850,6 +850,64 @@
     #search { box-shadow: none; }
     .mapbtns { top: 62px; right: 8px; }
   }
+
+  /* Proposed regulation simulator */
+  .reg { margin-top: 1.5rem; }
+  .reg-intel { border: 1px solid var(--line); border-left: 4px solid var(--orange); border-radius: 1rem; background: var(--unknown-bg); padding: 1rem 1.1rem; margin-bottom: 1.2rem; }
+  .reg-intel b { display: block; margin-bottom: 0.25rem; }
+  .reg-intel p { margin: 0; color: var(--ink); font-size: 0.93rem; }
+  .reg-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.8rem 1rem; margin-bottom: 1.1rem; }
+  .reg-field { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.88rem; }
+  .reg-field > span:first-child { font-weight: 700; }
+  .reg-field select, .reg-field input[type="range"] { font: inherit; min-height: 2.4rem; }
+  .reg-field select { border: 1px solid var(--line); border-radius: 0.6rem; background: var(--panel); padding: 0.35rem 0.5rem; color: var(--ink); }
+  .reg-field output { font-weight: 800; color: var(--lime); }
+  .reg-tag { display: inline-block; margin-left: 0.35rem; padding: 0.05rem 0.45rem; border-radius: 999px; background: #fdf0d8; color: #7a4f00; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; vertical-align: middle; }
+  .reg-tag.ph { background: #ece6f4; color: #5b3a7d; }
+  .reg-signals { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1.2rem; padding: 0; list-style: none; }
+  .reg-signals label { display: flex; align-items: center; gap: 0.45rem; min-height: 2.6rem; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); padding: 0.4rem 0.9rem; cursor: pointer; font-size: 0.88rem; }
+  .reg-signals input { accent-color: var(--lime); width: 1.05rem; height: 1.05rem; }
+  .reg-st { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+  .reg-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.6rem; margin-bottom: 1.2rem; }
+  .reg-count { border: 1px solid var(--line); border-radius: 0.9rem; background: var(--panel); padding: 0.75rem 0.9rem; }
+  .reg-count strong { display: block; font-size: 1.6rem; line-height: 1.1; }
+  .reg-count span { color: var(--muted); font-size: 0.85rem; }
+  .reg-count.barred { border-top: 4px solid #b23a3a; } .reg-count.approval { border-top: 4px solid #c0622b; }
+  .reg-count.watch { border-top: 4px solid #c99a1a; } .reg-count.clear { border-top: 4px solid #216653; }
+  .reg h3 { margin: 1.4rem 0 0.6rem; font-size: 1.05rem; }
+  .reg-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 0.9rem; background: var(--panel); }
+  .reg-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+  .reg-table th, .reg-table td { padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .reg-table thead th { background: var(--panel-raised); font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .reg-table tbody tr:last-child td { border-bottom: 0; }
+  .reg-table ul { margin: 0; padding-left: 1rem; }
+  .reg-table small { color: var(--muted); }
+  .reg-pill { display: inline-block; white-space: nowrap; padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.76rem; font-weight: 800; }
+  .reg-pill.barred, .reg-cell.barred { background: #b23a3a; color: #fff; }
+  .reg-pill.approval, .reg-cell.approval { background: #c0622b; color: #fff; }
+  .reg-pill.watch, .reg-cell.watch { background: #f3d77a; color: #3d2e00; }
+  .reg-pill.clear, .reg-cell.clear { background: #d6ebe0; color: #174c3f; }
+  .reg-cell.na { background: transparent; color: var(--muted); }
+  .reg-grid td.reg-cell { text-align: center; font-size: 0.72rem; font-weight: 800; min-width: 3.4rem; }
+  .reg-grid th[scope="row"] { font-weight: 600; min-width: 12rem; }
+  .reg-grid .now { outline: 3px solid var(--ink); outline-offset: -3px; }
+  .reg-cons { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+  .reg-cons li { border: 1px solid var(--line); border-left: 4px solid var(--lime); border-radius: 0.8rem; background: var(--panel); padding: 0.7rem 0.9rem; font-size: 0.9rem; }
+  .reg-cons li b { display: block; }
+  .reg-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0.7rem; }
+  .reg-card { border: 1px solid var(--line); border-radius: 0.9rem; background: var(--panel); padding: 0.9rem; font-size: 0.86rem; }
+  .reg-card.off { opacity: 0.55; }
+  .reg-card h4 { margin: 0.2rem 0 0.4rem; font-size: 0.95rem; }
+  .reg-card p { margin: 0 0 0.45rem; color: var(--muted); }
+  .reg-card ul { margin: 0; padding-left: 1rem; }
+  .reg-load { margin-top: 1.4rem; border: 1px dashed var(--line); border-radius: 0.9rem; padding: 0.8rem 1rem; background: var(--panel); }
+  .reg-load summary { cursor: pointer; font-weight: 700; min-height: 2rem; }
+  .reg-load textarea { width: 100%; min-height: 12rem; margin: 0.6rem 0; border: 1px solid var(--line); border-radius: 0.6rem; padding: 0.6rem; font: 0.8rem/1.4 var(--mono); }
+  .reg-load .btns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .reg-msg { margin: 0.6rem 0 0; font-size: 0.88rem; }
+  .reg-msg.err { color: #b23a3a; }
+  .reg-foot { margin: 1rem 0 0; color: var(--muted); font-size: 0.85rem; }
+  @media (max-width: 760px) { .reg-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>
 </head>
 <body>
@@ -857,7 +915,7 @@
   <div class="sitenav-inner">
     <a class="brand" href="#top">Trace the <span>Source</span></a>
     <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu">Menu</button>
-    <ul class="menu" id="site-menu"><li><a href="#how">How it works</a></li><li><a href="#stages">Supply chain stages</a></li><li><a href="#find">Find a supplier</a></li><li><a href="#origin">Where it comes from</a></li><li><a href="#sources">Sources</a></li><li><a href="methodology.html">Methodology</a></li></ul>
+    <ul class="menu" id="site-menu"><li><a href="#how">How it works</a></li><li><a href="#stages">Supply chain stages</a></li><li><a href="#find">Find a supplier</a></li><li><a href="#origin">Where it comes from</a></li><li><a href="#regulation">Proposed regulation</a></li><li><a href="#sources">Sources</a></li><li><a href="methodology.html">Methodology</a></li></ul>
   </div>
 </nav>
 
@@ -981,6 +1039,65 @@
   </div>
 
   <section class="trace" id="trace" aria-live="polite"></section>
+  </section>
+
+
+  <section class="map-shell reg" id="regulation" aria-labelledby="reg-title">
+    <div class="map-heading">
+      <div>
+        <p class="eyebrow">Scenario simulator · data centers</p>
+        <h2 id="reg-title">Proposed regulation</h2>
+      </div>
+      <p>Inject a piece of intelligence about a possible rule, set what is still unknown, and see which parts of a data center it would reach and when.</p>
+    </div>
+    <div class="reg-intel">
+      <b>New intelligence: Chinese optical transceivers are the next target</b>
+      <p id="reg-intel-text"></p>
+    </div>
+
+    <ul class="reg-signals" id="reg-signals" aria-label="Turn regulatory signals on or off"></ul>
+
+    <div class="reg-controls">
+      <label class="reg-field" for="reg-year"><span>Year: <output id="reg-year-out" for="reg-year">2028</output></span>
+        <input type="range" id="reg-year" min="2026" max="2032" step="1" value="2028"></label>
+      <label class="reg-field" for="reg-use"><span>Where it will be used</span>
+        <select id="reg-use"><option value="commercial">Commercial data center</option><option value="federal">Federal national security system</option></select></label>
+      <label class="reg-field" for="reg-start"><span>Transceiver ban starts <span class="reg-tag">assumption</span></span>
+        <select id="reg-start"><option>2027</option><option selected>2028</option><option>2029</option><option>2030</option></select></label>
+      <label class="reg-field" for="reg-gen"><span>First generation covered <span class="reg-tag">assumption</span></span>
+        <select id="reg-gen"><option value="3.2T" selected>3.2T and newer</option><option value="1.6T">1.6T and newer</option><option value="800G">All generations</option></select></label>
+      <div class="reg-field"><span><label for="reg-exempt"><input type="checkbox" id="reg-exempt" checked> U.S.-content exemption</label>: <output id="reg-thresh-out" for="reg-thresh">65%</output> <span class="reg-tag">assumption</span></span>
+        <input type="range" id="reg-thresh" min="50" max="80" step="5" value="65" aria-label="U.S. share of bill-of-materials value needed for the exemption"></div>
+      <label class="reg-field" for="reg-enact"><span>S. 5548 enacted <span class="reg-tag">assumption</span></span>
+        <select id="reg-enact"><option value="">Not enacted</option><option>2027</option><option>2028</option><option>2029</option><option>2030</option></select></label>
+    </div>
+
+    <div aria-live="polite">
+      <div class="reg-summary" id="reg-summary"></div>
+      <h3>Status over time</h3>
+      <div class="reg-scroll"><table class="reg-table reg-grid" id="reg-grid"></table></div>
+      <h3 id="reg-parts-title">Parts in <span id="reg-year-label">2028</span></h3>
+      <div class="reg-scroll"><table class="reg-table" id="reg-parts"></table></div>
+      <h3>Design and deployment considerations</h3>
+      <ul class="reg-cons" id="reg-cons"></ul>
+    </div>
+
+    <h3>The signals behind this scenario</h3>
+    <div class="reg-cards" id="reg-cards"></div>
+
+    <details class="reg-load">
+      <summary>Load your parts list (from your Sayari research)</summary>
+      <p class="reg-foot">Paste a JSON array of parts in the format in <code>features/proposed-regulation/SPECIFICATIONS.md</code>. Required: <code>id</code>, <code>name</code>, <code>category</code>. It stays in this browser and is not shared.</p>
+      <textarea id="reg-json" spellcheck="false" aria-label="Parts list as JSON"></textarea>
+      <div class="btns">
+        <button class="filter" type="button" id="reg-load-btn">Run with this list</button>
+        <button class="filter" type="button" id="reg-copy-btn">Show the demo list as a template</button>
+        <button class="filter" type="button" id="reg-reset-btn">Back to the demo list</button>
+      </div>
+      <p class="reg-msg" id="reg-msg" role="status"></p>
+    </details>
+
+    <p class="reg-foot">A demo, not legal advice. The transceiver ban is reported, not published, so its settings are assumptions. "No signal applies" means none of these rules reach the part. It does not mean the part is safe. Values tagged <span class="reg-tag ph">placeholder</span> are demo values awaiting research. <span id="reg-researched"></span></p>
   </section>
 
   <section class="lower" id="sources" aria-label="Research notes">
@@ -2140,6 +2257,177 @@ if (!calm && depthLayers.length) {
   const set = open => { menu.classList.toggle('open', open); toggle.setAttribute('aria-expanded', String(open)); };
   toggle.addEventListener('click', () => set(!menu.classList.contains('open')));
   menu.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
+})();
+</script>
+<script type="application/json" id="reg-data">{"scenario": "Chinese optical transceivers and data center equipment", "researched": "2026-11-16", "caveat": "Demo scenario. Signals are sourced; the transceiver ban is reported, not published. Parts marked with placeholders use demo values to be replaced with student research (Sayari and real part numbers). Nothing here is a legal or compliance finding.", "signals": [{"id": "fcc2650", "title": "FCC component rule (FCC 26-50)", "status": "in-force", "date": "2026-10-13", "summary": "The FCC can deny new equipment authorization to a device containing a logic-bearing hardware component from a Covered List producer, including Western-branded switches and servers.", "confidence": "Final rule. Applies to new authorizations only. Does not cover software or firmware. Production-location entries (such as foreign-made routers) do not trigger it unless the producer is listed.", "sources": ["fr-2650", "commlaw-2650"]}, {"id": "xcvr", "title": "Reported FCC ban on new Chinese transceiver models", "status": "reported-draft", "date": "2026-11-10", "summary": "The FCC is reported to be drafting a ban on new models of Chinese optical transceivers, possibly starting with the 3.2T generation, with a possible exemption for modules whose bill-of-materials value is at least 65% U.S.-sourced.", "confidence": "No public FCC text. Start generation, timing, and the 65% threshold come from Reuters and analyst reports and are treated as assumptions. InnoLight, Eoptolink, Dongshan Precision, and TFC are not on the Covered List.", "sources": ["fierce-xcvr", "dc-reuters", "k404-xcvr", "roc-xcvr"]}, {"id": "s5548", "title": "S. 5548, Securing National Security Systems from Chinese Optical Transceivers Act", "status": "proposed-bill", "date": "2026-09-24", "summary": "Would bar federal procurement of transceivers from InnoLight, Eoptolink, and designated adversary-linked makers, and of products with their firmware, software, or component parts, for national security systems.", "confidence": "Introduced and referred to committee. Takes effect five years after enactment. Agencies may still buy for systems that are not critical.", "sources": ["bill-5548", "mccormick-5548"]}, {"id": "h1260", "title": "Zhongji Innolight added to the 1260H list", "status": "listing", "date": "2026-06-08", "summary": "The Department of War added Zhongji Innolight to its list of Chinese military companies.", "confidence": "The listing limits direct Department of War contracts with listed companies. It does not ban products government-wide.", "sources": ["wilmer-1260h", "hk-1260h"]}, {"id": "routers", "title": "Foreign-made consumer routers on the Covered List", "status": "in-force", "date": "2026-03-23", "summary": "New models of foreign-produced consumer-grade routers cannot be authorized unless the Department of War or Homeland Security grants a conditional approval.", "confidence": "In force. Several approvals end between October 2027 and February 2028.", "sources": ["fcc-routers", "toms-netgear", "lr-starlink"]}, {"id": "inverters", "title": "Foreign-made power inverters on the Covered List", "status": "in-force", "date": "2026-07-28", "summary": "New models of foreign-produced power inverters cannot be authorized unless the Department of War or Homeland Security grants a conditional approval.", "confidence": "In force. Definitions were narrowed on August 20, 2026. Whether data center UPS equipment is in scope should be checked against the definition.", "sources": ["fcc-inverters", "cooley-inverters"]}], "parts": [{"id": "x800-inno", "name": "800G OSFP transceiver, model already authorized", "category": "transceiver", "generation": "800G", "maker": "Zhongji Innolight", "chinaLinked": true, "namedInBill": true, "on1260H": true, "newModel": false, "firstYear": 2026, "coveredComponent": "no", "namedFirmware": "yes", "usBomShare": null, "placeholders": ["newModel", "coveredComponent"], "sources": ["bill-5548", "wilmer-1260h"], "note": "Typical of optics in AI clusters today."}, {"id": "x16-eopto", "name": "1.6T transceiver, model already authorized", "category": "transceiver", "generation": "1.6T", "maker": "Eoptolink", "chinaLinked": true, "namedInBill": true, "on1260H": false, "newModel": false, "firstYear": 2026, "coveredComponent": "no", "namedFirmware": "yes", "usBomShare": null, "placeholders": ["newModel", "coveredComponent"], "sources": ["bill-5548"], "note": ""}, {"id": "x32-inno", "name": "3.2T transceiver, new model", "category": "transceiver", "generation": "3.2T", "maker": "Zhongji Innolight", "chinaLinked": true, "namedInBill": true, "on1260H": true, "newModel": true, "firstYear": 2028, "coveredComponent": "no", "namedFirmware": "yes", "usBomShare": null, "placeholders": ["firstYear", "usBomShare"], "sources": ["k404-xcvr", "bill-5548"], "note": "3.2T is expected to ramp around 2028 to 2029."}, {"id": "x32-cn-us", "name": "3.2T transceiver, Chinese assembly with U.S. DSP and lasers", "category": "transceiver", "generation": "3.2T", "maker": "Chinese assembler (not named; to research)", "chinaLinked": true, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2028, "coveredComponent": "no", "namedFirmware": "unknown", "usBomShare": 0.68, "placeholders": ["maker", "usBomShare", "namedFirmware"], "sources": ["roc-xcvr"], "note": "Analysts suggest a U.S. DSP plus U.S. lasers could approach the 65% threshold."}, {"id": "x32-us", "name": "3.2T transceiver, U.S. maker", "category": "transceiver", "generation": "3.2T", "maker": "U.S. maker (to research)", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2028, "coveredComponent": "no", "namedFirmware": "no", "usBomShare": 0.85, "placeholders": ["maker", "usBomShare"], "sources": ["techtimes-indium"], "note": "Western lasers may still depend on Chinese indium, which no signal here covers."}, {"id": "sw-new", "name": "Leaf switch, Western brand, new model", "category": "switch", "maker": "Western brand (to research)", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2027, "coveredComponent": "unknown", "namedFirmware": "unknown", "usBomShare": null, "placeholders": ["maker", "coveredComponent"], "sources": ["fr-2650"], "note": "The component rule reaches Western-branded devices through the chips inside them."}, {"id": "srv-new", "name": "GPU server, Western brand, new model", "category": "server", "maker": "Western brand (to research)", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2027, "coveredComponent": "no", "namedFirmware": "no", "usBomShare": null, "placeholders": ["maker", "coveredComponent"], "sources": ["fr-2650"], "note": ""}, {"id": "inv-new", "name": "Inverter for on-site solar and battery storage, foreign-made, new model", "category": "inverter", "maker": "Foreign maker (to research)", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2027, "coveredComponent": "no", "foreignProduced": true, "approvalUntil": null, "placeholders": ["maker"], "sources": ["fcc-inverters", "cooley-inverters"], "note": "Connects to the battery chains elsewhere on this site."}, {"id": "rt-netgear", "name": "Consumer-grade router at a branch or edge site (Netgear)", "category": "router", "maker": "Netgear", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2026, "coveredComponent": "no", "foreignProduced": true, "approvalUntil": "2027-10-01", "placeholders": [], "sources": ["toms-netgear"], "note": "Conditional approval reported to run April 14, 2026 to October 1, 2027."}, {"id": "rt-starlink", "name": "Satellite backup router (Starlink)", "category": "router", "maker": "SpaceX", "chinaLinked": false, "namedInBill": false, "on1260H": false, "newModel": true, "firstYear": 2026, "coveredComponent": "no", "foreignProduced": true, "approvalUntil": "2028-02-01", "placeholders": [], "sources": ["lr-starlink"], "note": "Reported conditional approval through February 1, 2028."}], "sources": [{"id": "fr-2650", "kind": "primary", "publisher": "Federal Register", "date": "2026-09-11", "title": "FCC 26-50, Third Report and Order, ET Docket 21-232 (91 FR 57798)", "url": "https://www.govinfo.gov/content/pkg/FR-2026-09-11/html/2026-18535.htm"}, {"id": "commlaw-2650", "kind": "secondary", "publisher": "CommLaw Group", "date": "2026-10", "title": "FCC Covered List rules are now effective", "url": "https://commlawgroup.com/2026/fcc-covered-list-rules-are-now-effective-expanding-equipment-authorization-and-online-marketplace-obligations/"}, {"id": "fierce-xcvr", "kind": "secondary", "publisher": "Fierce Network (citing Reuters, Aug. 4, 2026)", "date": "2026-09-08", "title": "Proposed U.S. ban on Chinese optical transceivers threatens AI data center boom", "url": "https://www.fierce-network.com/broadband/proposed-us-ban-chinese-optical-transceivers-threatens-ai-data-center-boom"}, {"id": "dc-reuters", "kind": "secondary", "publisher": "Daily Caller (citing Reuters, Nov. 10, 2026)", "date": "2026-11-10", "title": "Microsoft reportedly urges administration not to ban Chinese data center parts", "url": "https://dailycaller.com/2026/11/10/microsoft-trump-chinese-optical-transceivers-fcc-ban-ai-data-centers-dave-mccormick-ruben-gallego/"}, {"id": "k404-xcvr", "kind": "secondary", "publisher": "404K Research", "date": "2026", "title": "FCC optical transceiver restrictions may start at 3.2T, under 65% U.S. content rule", "url": "https://404kresearch.substack.com/p/fcc-optical-transceiver-restrictions"}, {"id": "roc-xcvr", "kind": "secondary", "publisher": "ROC Telecom", "date": "2026", "title": "FCC Chinese optical module rules: what changed Oct 13", "url": "https://roctelecom.com/insights/fcc-optical-module-rules-update/"}, {"id": "techtimes-indium", "kind": "secondary", "publisher": "TechTimes", "date": "2026-08-05", "title": "FCC transceiver ban would cut 60% of AI data center supply; Western replacements need Chinese indium", "url": "https://www.techtimes.com/articles/323104/20260805/fcc-transceiver-ban-would-cut-60-ai-data-center-supply-western-replacements-need-chinese-indium.htm"}, {"id": "bill-5548", "kind": "primary", "publisher": "U.S. Congress (govinfo)", "date": "2026-09-24", "title": "S. 5548, Securing National Security Systems from Chinese Optical Transceivers Act of 2026", "url": "https://www.govinfo.gov/content/pkg/BILLS-119s5548is/html/BILLS-119s5548is.htm"}, {"id": "mccormick-5548", "kind": "primary", "publisher": "Office of Sen. McCormick", "date": "2026-09-24", "title": "Senators introduce bill to keep Chinese transceivers out of U.S. national security systems", "url": "https://www.mccormick.senate.gov/news/press-releases/senators-mccormick-gallego-cornyn-fetterman-introduce-bill-to-keep-chinese-transceivers-out-of-u-s-national-security-systems/"}, {"id": "wilmer-1260h", "kind": "secondary", "publisher": "WilmerHale", "date": "2026-06-11", "title": "Pentagon adds 65 new entities to the 1260H list", "url": "https://www.wilmerhale.com/en/insights/client-alerts/20260611-pentagon-adds-65-new-entities-to-the-1260h-list-of-chinese-military-companies"}, {"id": "hk-1260h", "kind": "secondary", "publisher": "Holland & Knight", "date": "2026-07-28", "title": "Department of War updates Section 1260H list", "url": "https://www.hklaw.com/en/insights/publications/2026/07/department-of-war-updates-section-1260h"}, {"id": "fcc-routers", "kind": "primary", "publisher": "FCC", "date": "2026-03-23", "title": "Fact sheet: FCC updates Covered List to include foreign-made consumer routers", "url": "https://docs.fcc.gov/public/attachments/DOC-420034A1.pdf"}, {"id": "toms-netgear", "kind": "secondary", "publisher": "Tom's Hardware", "date": "2026-04", "title": "Netgear secures conditional approval through October 2027", "url": "https://www.tomshardware.com/networking/routers/netgear-secures-conditional-approval-from-the-fcc-following-router-ban-company-can-continue-importing-foreign-made-routers-through-october-2027"}, {"id": "lr-starlink", "kind": "secondary", "publisher": "Light Reading", "date": "2026", "title": "FCC exempts new Starlink devices from router ban", "url": "https://www.lightreading.com/broadband/fcc-exempts-new-starlink-devices-from-router-ban"}, {"id": "fcc-inverters", "kind": "primary", "publisher": "FCC", "date": "2026-07-28", "title": "Public Notice DA 26-786: foreign-produced power inverters and advanced robotic devices added to the Covered List", "url": "https://docs.fcc.gov/public/attachments/DA-26-786A1.pdf"}, {"id": "cooley-inverters", "kind": "secondary", "publisher": "Cooley", "date": "2026-07-31", "title": "Foreign-produced power inverters and advanced robotic devices added to FCC Covered List", "url": "https://www.cooley.com/news/insight/2026/2026-07-31-foreign-produced-power-inverters-and-advanced-robotic-devices-added-to-fcc-covered-list"}]}</script>
+<script>
+// Proposed regulation simulator. Reads #reg-data and never touches the globe's state.
+(() => {
+  const DATA = JSON.parse(document.getElementById('reg-data').textContent);
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const SRC = Object.fromEntries(DATA.sources.map(s => [s.id, s]));
+  const SIG = Object.fromEntries(DATA.signals.map(s => [s.id, s]));
+  const YEARS = [2026, 2027, 2028, 2029, 2030, 2031, 2032];
+  const GEN = { '800G': 1, '1.6T': 2, '3.2T': 3 };
+  const SEV = { clear: 0, watch: 1, approval: 2, barred: 3 };
+  const LABEL = { barred: 'Barred', approval: 'Needs approval', watch: 'Watch', clear: 'No signal applies' };
+  const SHORT = { barred: 'Barred', approval: 'Approval', watch: 'Watch', clear: 'Clear' };
+  const STATUS = { 'in-force': 'In force', 'proposed-bill': 'Proposed bill', 'reported-draft': 'Reported draft', 'listing': 'Listing' };
+  const COMPONENT_RULE_YEAR = 2026; // FCC 26-50 effective October 13, 2026
+
+  const demoParts = DATA.parts;
+  let parts = demoParts;
+  const state = { year: 2028, use: 'commercial', start: 2028, gen: '3.2T', exempt: true, thresh: 0.65, enact: null, on: new Set(DATA.signals.map(s => s.id)) };
+
+  const yearOf = d => d ? +String(d).slice(0, 4) : null;
+  const pct = n => Math.round(n * 100) + '%';
+  const ph = (p, f) => (p.placeholders || []).includes(f) ? ' <span class="reg-tag ph">placeholder</span>' : '';
+
+  // Each rule returns [{ sev, sig, text }] for one part in one year.
+  function evaluate(p, y) {
+    const out = [];
+    const add = (sev, sig, text) => out.push({ sev, sig, text });
+    if (p.firstYear && y < p.firstYear) return { sev: null, reasons: [] };
+
+    if (state.on.has('fcc2650') && p.newModel && y >= COMPONENT_RULE_YEAR) {
+      if (p.coveredComponent === 'yes') add('barred', 'fcc2650', 'New authorization can be denied: contains a logic-bearing component from a Covered List producer.');
+      else if (p.coveredComponent === 'unknown') add('watch', 'fcc2650', 'Component origin unknown. Check logic-bearing parts against the Covered List before a new authorization.');
+    }
+
+    if (state.on.has('xcvr') && p.category === 'transceiver' && p.chinaLinked && p.newModel && (GEN[p.generation] || 0) >= GEN[state.gen]) {
+      const base = 'Reported draft, not rule text.';
+      if (y < state.start) add('watch', 'xcvr', `Would be covered from ${state.start} under the assumed start year. ${base}`);
+      else if (!state.exempt) add('barred', 'xcvr', `New Chinese ${p.generation} model; no exemption assumed. ${base}`);
+      else if (p.usBomShare == null) add('barred', 'xcvr', `U.S. share of bill-of-materials value unknown, so the ${pct(state.thresh)} exemption cannot be shown. ${base}`);
+      else if (p.usBomShare >= state.thresh) add('watch', 'xcvr', `Exempt only if the ${pct(p.usBomShare)} U.S. share holds up against the ${pct(state.thresh)} threshold. ${base}`);
+      else add('barred', 'xcvr', `U.S. share ${pct(p.usBomShare)} is below the ${pct(state.thresh)} threshold. ${base}`);
+    }
+
+    if (state.on.has('s5548') && state.use === 'federal' && state.enact) {
+      const eff = state.enact + 5;
+      const hit = p.namedInBill || p.namedFirmware === 'yes';
+      if (hit && y >= state.enact) add(y >= eff ? 'barred' : 'watch', 's5548', y >= eff
+        ? `Federal procurement for national security systems barred from ${eff} (enacted ${state.enact} + 5 years). Includes firmware and component parts.`
+        : `In the S. 5548 transition period; procurement bar starts ${eff}.`);
+      else if (!hit && p.namedFirmware === 'unknown' && ['transceiver', 'switch'].includes(p.category) && y >= state.enact)
+        add('watch', 's5548', 'Unknown whether it uses firmware, software, or parts from a maker named in S. 5548.');
+    } else if (state.on.has('s5548') && state.use === 'federal' && !state.enact && (p.namedInBill || p.namedFirmware === 'yes')) {
+      add('watch', 's5548', 'Named in S. 5548. Not enacted in this scenario; set an enactment year to test it.');
+    }
+
+    if (state.on.has('h1260') && state.use === 'federal' && p.on1260H)
+      add('watch', 'h1260', 'Maker is on the 1260H list; the Department of War may not contract directly with it. Not a product ban by itself.');
+
+    const sigFor = { router: 'routers', inverter: 'inverters' }[p.category];
+    if (sigFor && state.on.has(sigFor) && p.foreignProduced && p.newModel) {
+      const until = p.approvalUntil;
+      if (!until) add('approval', sigFor, 'New foreign-produced model needs a Department of War or Homeland Security conditional approval.');
+      else if (y > yearOf(until) || (y === yearOf(until))) add('approval', sigFor, `Conditional approval ends ${until}; new models after that need a renewed approval.`);
+      else add('watch', sigFor, `Covered by a conditional approval until ${until}.`);
+    }
+
+    const sev = out.reduce((m, r) => SEV[r.sev] > SEV[m] ? r.sev : m, 'clear');
+    return { sev, reasons: out };
+  }
+
+  const CONSIDERATIONS = [
+    { when: r => r.some(x => x.p.category === 'transceiver' && x.p.generation === '3.2T' && x.e.reasons.some(z => z.sig === 'xcvr' && z.sev === 'barred')),
+      title: 'Qualify a second 3.2T optics source', text: 'At least one planned 3.2T module would be barred. Qualify a non-Chinese or high-U.S.-content module before the 3.2T build-out, and leave lead time for testing.' },
+    { when: r => r.some(x => x.p.category === 'transceiver' && !x.p.newModel && x.p.chinaLinked) && state.on.has('xcvr'),
+      title: 'Already-authorized optics are less exposed', text: 'The reported draft and FCC 26-50 apply to new models. Designs built on 800G and 1.6T modules already authorized face less risk, but refresh and spares plans should not assume new Chinese models will be available.' },
+    { when: r => r.some(x => x.e.reasons.some(z => z.sig === 'xcvr' && /Exempt only/.test(z.text))),
+      title: 'Track where the DSP and lasers come from', text: 'Under a U.S.-content exemption, the source of the DSP and laser matters more than where the module is assembled. Ask suppliers for a bill-of-materials breakdown.' },
+    { when: r => r.some(x => x.p.coveredComponent === 'unknown'),
+      title: 'Ask for component disclosure on new switches and servers', text: 'FCC 26-50 reaches Western-branded equipment through the chips inside it. Require suppliers to state logic-bearing component makers for new models.' },
+    { when: () => state.use === 'federal' && state.on.has('s5548'),
+      title: 'Keep federal and commercial parts lists separate', text: 'S. 5548 covers firmware and component parts, not only finished transceivers. A site serving both federal and commercial halls may need two approved lists.' },
+    { when: r => r.some(x => x.p.category === 'transceiver') && state.on.has('s5548'),
+      title: 'Avoid optics lock-in', text: 'S. 5548 says compliance cannot rely on vendor authentication features that block other makers\' transceivers. Switches that accept only one brand of optics make substitution harder.' },
+    { when: r => r.some(x => x.e.reasons.some(z => /ends/.test(z.text))),
+      title: 'Plan around approval end dates', text: 'Router conditional approvals end between October 2027 and February 2028. Line up edge and branch refreshes with those dates.' },
+    { when: r => r.some(x => x.p.category === 'inverter' && x.e.sev === 'approval'),
+      title: 'Check on-site power equipment', text: 'New foreign-made inverters for solar and battery storage need a conditional approval. Check whether a UPS falls inside the August 20 definitions, and compare with the battery chains on this site.' },
+    { when: r => r.some(x => x.p.id === 'x32-us' || /U\.S\. maker/.test(x.p.maker || '')),
+      title: 'Domestic optics still have upstream exposure', text: 'U.S.-made lasers may depend on Chinese indium, which none of these rules address. Trace it with the materials view on this site.' },
+  ];
+
+  function renderSignals() {
+    $('reg-signals').innerHTML = DATA.signals.map(s => `<li><label><input type="checkbox" data-sig="${s.id}" ${state.on.has(s.id) ? 'checked' : ''}>${esc(s.title.split(' (')[0])} <span class="reg-st">${STATUS[s.status]}</span></label></li>`).join('');
+    $('reg-cards').innerHTML = DATA.signals.map(s => `<article class="reg-card ${state.on.has(s.id) ? '' : 'off'}">
+      <span class="reg-st">${STATUS[s.status]} · ${esc(s.date)}</span>
+      <h4>${esc(s.title)}</h4><p>${esc(s.summary)}</p><p><b>What is confirmed:</b> ${esc(s.confidence)}</p>
+      <ul>${s.sources.map(id => SRC[id]).filter(Boolean).map(src => `<li><a href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.publisher)}</a> · ${esc(src.date)}${src.kind === 'primary' ? ' · <b>primary</b>' : ''}</li>`).join('')}</ul></article>`).join('');
+  }
+
+  function render() {
+    $('reg-year-out').textContent = state.year;
+    $('reg-year-label').textContent = state.year;
+    $('reg-thresh-out').textContent = pct(state.thresh);
+    $('reg-thresh').disabled = !state.exempt;
+    renderSignals();
+
+    const rows = parts.map(p => ({ p, e: evaluate(p, state.year) }));
+    const active = rows.filter(r => r.e.sev);
+    const counts = { barred: 0, approval: 0, watch: 0, clear: 0 };
+    active.forEach(r => counts[r.e.sev]++);
+    $('reg-summary').innerHTML = Object.keys(counts).map(k => `<div class="reg-count ${k}"><strong>${counts[k]}</strong><span>${LABEL[k]}</span></div>`).join('');
+
+    $('reg-grid').innerHTML = `<thead><tr><th scope="col">Part</th>${YEARS.map(y => `<th scope="col">${y}</th>`).join('')}</tr></thead><tbody>${parts.map(p => `<tr><th scope="row">${esc(p.name)}</th>${YEARS.map(y => {
+      const e = evaluate(p, y), cls = e.sev || 'na';
+      return `<td class="reg-cell ${cls} ${y === state.year ? 'now' : ''}" title="${esc(e.sev ? LABEL[e.sev] : 'Not yet in the design')}">${e.sev ? SHORT[e.sev] : '–'}</td>`;
+    }).join('')}</tr>`).join('')}</tbody>`;
+
+    $('reg-parts').innerHTML = `<thead><tr><th scope="col">Part</th><th scope="col">Maker</th><th scope="col">Status</th><th scope="col">Why</th><th scope="col">Sources</th></tr></thead><tbody>${rows.map(({ p, e }) => `<tr>
+      <td>${esc(p.name)}${p.generation ? `<br><small>${esc(p.generation)}${p.usBomShare != null ? ` · U.S. share ${pct(p.usBomShare)}${ph(p, 'usBomShare')}` : ''}</small>` : ''}${p.note ? `<br><small>${esc(p.note)}</small>` : ''}</td>
+      <td>${esc(p.maker || 'Not stated')}${ph(p, 'maker')}</td>
+      <td>${e.sev ? `<span class="reg-pill ${e.sev}">${LABEL[e.sev]}</span>` : `<small>Enters the design in ${esc(p.firstYear)}</small>`}</td>
+      <td>${e.reasons.length ? `<ul>${e.reasons.map(r => `<li><b>${esc(SIG[r.sig]?.title.split(' (')[0] || r.sig)}:</b> ${esc(r.text)}</li>`).join('')}</ul>` : '<small>None of the active signals reach this part.</small>'}${['coveredComponent', 'namedFirmware', 'newModel', 'firstYear'].some(f => ph(p, f)) ? '<br><span class="reg-tag ph">placeholder inputs</span>' : ''}</td>
+      <td>${(p.sources || []).map(id => SRC[id]).filter(Boolean).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.publisher)}</a>`).join('<br>') || '<small>None given</small>'}</td></tr>`).join('')}</tbody>`;
+
+    const cons = CONSIDERATIONS.filter(c => c.when(active));
+    $('reg-cons').innerHTML = cons.length ? cons.map(c => `<li><b>${esc(c.title)}</b>${esc(c.text)}</li>`).join('') : '<li>No considerations triggered for this year and these settings.</li>';
+  }
+
+  // Controls
+  $('reg-intel-text').textContent = SIG.xcvr.summary + ' ' + SIG.xcvr.confidence;
+  $('reg-researched').textContent = `Researched ${DATA.researched}.`;
+  $('reg-year').oninput = e => { state.year = +e.target.value; render(); };
+  $('reg-use').onchange = e => { state.use = e.target.value; render(); };
+  $('reg-start').onchange = e => { state.start = +e.target.value; render(); };
+  $('reg-gen').onchange = e => { state.gen = e.target.value; render(); };
+  $('reg-exempt').onchange = e => { state.exempt = e.target.checked; render(); };
+  $('reg-thresh').oninput = e => { state.thresh = +e.target.value / 100; render(); };
+  $('reg-enact').onchange = e => { state.enact = e.target.value ? +e.target.value : null; render(); };
+  $('reg-signals').addEventListener('change', e => {
+    const id = e.target.dataset.sig; if (!id) return;
+    e.target.checked ? state.on.add(id) : state.on.delete(id);
+    render();
+    const again = document.querySelector(`#reg-signals input[data-sig="${id}"]`); if (again) again.focus();
+  });
+
+  // Loading a student parts list
+  const msg = (t, err) => { $('reg-msg').textContent = t; $('reg-msg').className = 'reg-msg' + (err ? ' err' : ''); };
+  const CATS = ['transceiver', 'switch', 'server', 'inverter', 'router'];
+  $('reg-copy-btn').onclick = () => { $('reg-json').value = JSON.stringify(demoParts, null, 2); msg('Demo list copied into the box. Edit it, then choose Run with this list.'); };
+  $('reg-reset-btn').onclick = () => { parts = demoParts; try { localStorage.removeItem('reg-parts'); } catch (e) {} render(); msg('Showing the demo list.'); };
+  $('reg-load-btn').onclick = () => {
+    let list;
+    try { list = JSON.parse($('reg-json').value); } catch (e) { return msg('That is not valid JSON: ' + e.message, true); }
+    if (!Array.isArray(list) || !list.length) return msg('Paste a JSON array with at least one part.', true);
+    const problems = [];
+    list.forEach((p, i) => {
+      ['id', 'name', 'category'].forEach(f => { if (!p || p[f] == null || p[f] === '') problems.push(`Part ${i + 1}: missing ${f}`); });
+      if (p && p.category && !CATS.includes(p.category)) problems.push(`Part ${i + 1}: category must be one of ${CATS.join(', ')}`);
+    });
+    if (problems.length) return msg(problems.slice(0, 6).join('. ') + '. Nothing was replaced.', true);
+    parts = list.map(p => ({ placeholders: [], sources: [], ...p }));
+    try { localStorage.setItem('reg-parts', JSON.stringify(parts)); } catch (e) {}
+    render(); msg(`Running with your ${parts.length} parts. Sources must use ids from the scenario's source list to show as links.`);
+  };
+  try { const saved = JSON.parse(localStorage.getItem('reg-parts') || 'null'); if (Array.isArray(saved) && saved.length) { parts = saved; msg('Showing the parts list you loaded earlier.'); } } catch (e) {}
+
+  render();
 })();
 </script>
 </body>
